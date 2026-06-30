@@ -462,7 +462,10 @@ svg.has-photo .duo{opacity:.55}
 .sc-handle{font-weight:600;font-size:15px;display:flex;align-items:center;gap:7px}
 .sc-handle svg{width:15px;height:15px;fill:currentColor;flex:0 0 auto}
 .sc-stats{margin-top:4px;font-size:12px;color:var(--ink-muted)}
-.sc-follow{font-size:12px;font-weight:600;letter-spacing:.04em;padding:10px 18px;border-radius:var(--pill);background:var(--magenta);color:#fff;text-decoration:none;transition:transform .25s;white-space:nowrap}
+.sc-follow{display:inline-flex;align-items:center;gap:6px;font-size:12px;font-weight:600;letter-spacing:.04em;padding:10px 20px;border-radius:var(--pill);background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;text-decoration:none;transition:transform .25s,box-shadow .25s;white-space:nowrap}
+.sc-follow svg{width:14px;height:14px;fill:currentColor}
+.sc-follow:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,0,157,.45)}
+.sm-follow{align-self:flex-start;margin-top:2px}
 .sc-follow:hover{transform:scale(.95)}
 .ig-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:2px}
 .ig-cell{position:relative;aspect-ratio:4/5;overflow:hidden;display:block}
@@ -694,8 +697,9 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
           <div class="sc-handle">@purplebyhry <svg viewBox="0 0 24 24" aria-hidden="true"><path d="M12 2.2c3.2 0 3.6 0 4.9.07 1.2.06 1.8.25 2.2.42.6.22 1 .48 1.4.9.42.42.68.8.9 1.4.17.4.36 1 .42 2.2.06 1.3.07 1.7.07 4.9s0 3.6-.07 4.9c-.06 1.2-.25 1.8-.42 2.2a3.8 3.8 0 0 1-.9 1.4 3.8 3.8 0 0 1-1.4.9c-.4.17-1 .36-2.2.42-1.3.06-1.7.07-4.9.07s-3.6 0-4.9-.07c-1.2-.06-1.8-.25-2.2-.42a3.8 3.8 0 0 1-1.4-.9 3.8 3.8 0 0 1-.9-1.4c-.17-.4-.36-1-.42-2.2C2.2 15.6 2.2 15.2 2.2 12s0-3.6.07-4.9c.06-1.2.25-1.8.42-2.2.22-.6.48-1 .9-1.4.42-.42.8-.68 1.4-.9.4-.17 1-.36 2.2-.42C8.4 2.2 8.8 2.2 12 2.2Zm0 1.8c-3.1 0-3.5 0-4.7.07-.9.04-1.4.2-1.7.3-.43.17-.74.37-1.06.69-.32.32-.52.63-.69 1.06-.1.3-.26.8-.3 1.7C4 8.5 4 8.9 4 12s0 3.5.07 4.7c.04.9.2 1.4.3 1.7.17.43.37.74.69 1.06.32.32.63.52 1.06.69.3.1.8.26 1.7.3 1.2.07 1.6.07 4.7.07s3.5 0 4.7-.07c.9-.04 1.4-.2 1.7-.3.43-.17.74-.37 1.06-.69.32-.32.52-.63.69-1.06.1-.3.26-.8.3-1.7.07-1.2.07-1.6.07-4.7s0-3.5-.07-4.7c-.04-.9-.2-1.4-.3-1.7a2.86 2.86 0 0 0-.69-1.06 2.86 2.86 0 0 0-1.06-.69c-.3-.1-.8-.26-1.7-.3C15.5 4 15.1 4 12 4Zm0 3.06A4.94 4.94 0 1 1 7.06 12 4.94 4.94 0 0 1 12 7.06Zm0 1.8A3.14 3.14 0 1 0 15.14 12 3.14 3.14 0 0 0 12 8.86Zm5.13-.42a1.15 1.15 0 1 1-1.15-1.15 1.15 1.15 0 0 1 1.15 1.15Z"/></svg></div>
           <div class="sc-stats">Anthurium atelier · Saigon</div>
         </div>
-        <a class="sc-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow</a>
+        <a class="sc-follow" id="igFollow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow</a>
       </div>
+      <div class="sm-stats" style="padding:16px 20px 0"><div><b id="igPosts">—</b><span>Posts</span></div><div><b id="igFollowers">—</b><span>Followers</span></div><div><b id="igFollowing">—</b><span>Following</span></div></div>
       <div class="ig-grid">
         <a class="ig-cell" href="https://www.instagram.com/p/DWStuPVEb33/" target="_blank" rel="noopener"><img src="images/carla-g1.jpg" alt="Instagram post"><span class="ig-play">▶</span><span class="ig-cap">Watch the flowers grow</span></a>
         <a class="ig-cell" href="https://www.instagram.com/p/DYXQiUBT2iB/" target="_blank" rel="noopener"><img src="images/crystal-g1.jpg" alt="Instagram post"><span class="ig-play">▶</span><span class="ig-cap">Velvet in the fog</span></a>
@@ -710,21 +714,22 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
           <div class="sm-ava"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M16.5 3c.3 2.1 1.5 3.6 3.5 3.85v2.4c-1.2.07-2.4-.22-3.5-.82v6.07c0 3.2-2.55 5.5-5.55 5.5A5.45 5.45 0 0 1 5.5 14.6a5.43 5.43 0 0 1 6.3-5.36v2.53a2.9 2.9 0 0 0-.9-.14 2.9 2.9 0 1 0 2.9 2.9V3h2.7Z"/></svg></div>
           <div><div class="sm-name">@purplebyhry</div><div class="sm-sub">TikTok</div></div>
         </div>
-        <div class="sm-stats"><div><b>1,005</b><span>Following</span></div><div><b>2,730</b><span>Followers</span></div><div><b>25.2K</b><span>Likes</span></div></div>
+        <div class="sm-stats"><div><b id="ttFollowing">—</b><span>Following</span></div><div><b id="ttFollowers">—</b><span>Followers</span></div><div><b id="ttLikes">—</b><span>Likes</span></div></div>
         <p class="sm-bio">#Anthurium Amateur Collector · 🇻🇳 Saigon · 🌡 22–25°C · 💧 70–80%</p>
-        <a class="btn btn-ghost magnetic" href="https://www.tiktok.com/@purplebyhry" target="_blank" rel="noopener">Open TikTok ↗</a>
+        <a class="sc-follow sm-follow magnetic" id="ttFollow" href="https://www.tiktok.com/@purplebyhry" target="_blank" rel="noopener">Follow</a>
       </article>
       <article class="sc-mini reveal d2">
         <div class="sm-top">
           <div class="sm-ava"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M22 12a10 10 0 1 0-11.56 9.88v-6.99H7.9V12h2.54V9.8c0-2.5 1.49-3.89 3.77-3.89 1.09 0 2.24.2 2.24.2v2.46h-1.26c-1.24 0-1.63.77-1.63 1.56V12h2.78l-.44 2.89h-2.34v6.99A10 10 0 0 0 22 12Z"/></svg></div>
           <div><div class="sm-name">Purple by Harry</div><div class="sm-sub">Facebook</div></div>
         </div>
+        <div class="sm-stats"><div><b id="fbFollowers">—</b><span>Followers</span></div><div><b id="fbLikes">—</b><span>Likes</span></div></div>
         <p class="sm-bio">Daily drops, grow notes and the Saigon Purple community — straight from the atelier.</p>
-        <a class="btn btn-ghost magnetic" href="https://www.facebook.com/" target="_blank" rel="noopener">Open Facebook ↗</a>
+        <a class="sc-follow sm-follow magnetic" id="fbFollow" href="https://www.facebook.com/" target="_blank" rel="noopener">Follow</a>
       </article>
     </div>
   </div>
-  <div class="sc-note">Instagram posts open @purplebyhry on tap; TikTok &amp; Facebook show profile headers. Send your Facebook page link and I'll wire it in.</div>
+  <div class="sc-note">Tap any card to follow. Follower counts are managed in the editor — update them anytime.</div>
 </section>
 
 <!-- ============ THE COLLECTION (stacked folder deck) ============ -->
@@ -1138,6 +1143,10 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 
 <script id="cms">
 (function(){
+  // Inline editor is for LOCAL preview only — never shown on the live site.
+  // (Live content is edited safely via the CMS, which requires your GitHub login.)
+  var h=location.hostname;
+  if(!(h==='localhost'||h==='127.0.0.1'||h===''||location.protocol==='file:')) return;
   var SEL='nav .wordmark,nav .links a,.hx-eyebrow,.hx-title .solid,.hx-title .grad,.hx-sub,.hx-hud,.deck-intro .mono-label,.deck-intro h2,.dc-kicker,.dc-name,.dc-latin,.dc-desc,.dc-tabname,.dc-go,.dc-specs .k,.dc-specs .v,.dc-spec-rail,.mf-quote,.mf-meta span,.hx-stat .hx-k,.ab-copy .mono-label,.ab-copy h2,.ab-copy p,.ab-stats .v,.ab-stats .k,.about figcaption,.sc-head2 .mono-label,.sc-head2 h3,.sc-handle,.sc-stats,.sm-name,.sm-sub,.sm-stats,.sm-bio,.sc-note,.ig-cap,.gtitle h3,.gtitle p,.outro .mono-label,.outro h2,.hero-foot .t2,footer .wordmark,footer .by,footer .cols .k,footer .cols a,footer .fine span';
   var els=[].slice.call(document.querySelectorAll(SEL));
   els.forEach(function(el,i){el.setAttribute('data-ek',i);});
@@ -1249,6 +1258,15 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
         card.querySelectorAll('.dc-mini').forEach(function(m,i){if(arr[i]){m.setAttribute('data-src',arr[i]);setSrc(m.querySelector('img'),arr[i]);}});
       });
     }
+  }).catch(function(){});
+  // social follower counts + links (editable in CMS)
+  fetch('content/social.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(s){
+    if(!s)return;
+    function txt(id,v){var e=document.getElementById(id);if(e&&v!=null&&v!=='')e.textContent=v;}
+    function lnk(id,v){var e=document.getElementById(id);if(e&&v)e.href=v;}
+    if(s.instagram){var ig=s.instagram;txt('igPosts',ig.posts);txt('igFollowers',ig.followers);txt('igFollowing',ig.following);lnk('igFollow',ig.url);}
+    if(s.tiktok){var tt=s.tiktok;txt('ttFollowing',tt.following);txt('ttFollowers',tt.followers);txt('ttLikes',tt.likes);lnk('ttFollow',tt.url);}
+    if(s.facebook){var fb=s.facebook;txt('fbFollowers',fb.followers);txt('fbLikes',fb.likes);lnk('fbFollow',fb.url);}
   }).catch(function(){});
 })();
 </script>
