@@ -7,13 +7,31 @@
     "cats": "images/about-cats.jpg"
   },
   "instagram": [
-    "images/carla-g1.jpg",
-    "images/crystal-g1.jpg",
-    "images/stripey-g1.jpg"
+    "images/IMG_4129.jpeg",
+    "images/IMG_8849.jpeg",
+    "images/IMG_9713.jpeg"
   ],
   "varieties": {
-    "carla": ["images/Carlablackiae1.jpg","images/Carlablackiae2.jpg","images/Carlablackiae3.jpg","images/Carlablackiae4.jpg","images/Carlablackiae5.jpg"],
-    "stripey": ["images/Stripey1.jpg","images/Stripey2.jpg","images/Stripey3.jpg","images/Stripey4.jpg","images/Stripey5.jpg"],
-    "crystal": ["images/RedCrystallinum1.jpg","images/RedCrystallinum2.jpg","images/RedCrystallinum3.jpg","images/RedCrystallinum4.jpg","images/RedCrystallinum5.jpg"]
+    "carla": [
+      "images/Carlablackiae1.jpg",
+      "images/Carlablackiae2.jpg",
+      "images/Carlablackiae3.jpg",
+      "images/Carlablackiae4.jpg",
+      "images/Carlablackiae5.jpg"
+    ],
+    "stripey": [
+      "images/Stripey1.jpg",
+      "images/Stripey2.jpg",
+      "images/Stripey3.jpg",
+      "images/Stripey4.jpg",
+      "images/Stripey5.jpg"
+    ],
+    "crystal": [
+      "images/RedCrystallinum1.jpg",
+      "images/RedCrystallinum2.jpg",
+      "images/RedCrystallinum3.jpg",
+      "images/RedCrystallinum4.jpg",
+      "images/RedCrystallinum5.jpg"
+    ]
   }
 }
