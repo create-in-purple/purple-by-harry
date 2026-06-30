@@ -12,19 +12,27 @@
     "images/IMG_9713.jpeg"
   ],
   "varieties": {
+    "carla": [
+      "images/FullSizeRender-1.jpeg",
+      "images/IMG_8842.jpeg",
+      "images/IMG_0018.jpeg",
+      "images/IMG_7869.jpeg",
+      "images/IMG_9311.jpeg",
+      "images/IMG_0155.jpeg"
+    ],
     "stripey": [
-      "images/Stripey1.jpg",
-      "images/Stripey2.jpg",
-      "images/Stripey3.jpg",
-      "images/Stripey4.jpg",
-      "images/Stripey5.jpg"
+      "images/IMG_9657.jpeg",
+      "images/IMG_9712.jpeg",
+      "images/IMG_9660.jpeg",
+      "images/IMG_0160.jpeg",
+      "images/IMG_8543.jpeg"
     ],
     "crystal": [
-      "images/RedCrystallinum1.jpg",
-      "images/RedCrystallinum2.jpg",
-      "images/RedCrystallinum3.jpg",
-      "images/RedCrystallinum4.jpg",
-      "images/RedCrystallinum5.jpg"
+      "images/IMG_9826.jpeg",
+      "images/IMG_9626.jpeg",
+      "images/IMG_0009.jpeg",
+      "images/IMG_0015-1.jpeg",
+      "images/IMG_8289.jpeg"
     ]
   }
 }
