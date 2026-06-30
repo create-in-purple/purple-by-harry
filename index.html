@@ -888,10 +888,10 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     setTimeout(()=>{document.body.classList.add('loaded');heroIn();},0);
   } else {
     let p=0;const t0=Date.now();
-    const li=setInterval(()=>{p=Math.min(100,p+Math.random()*7+3);lbar.style.width=p+'%';lpct.textContent=Math.round(p);
-      if(p>=100&&Date.now()-t0>2300){clearInterval(li);finishLoad();}},140);
+    const li=setInterval(()=>{p=Math.min(100,p+Math.random()*16+9);lbar.style.width=p+'%';lpct.textContent=Math.round(p);
+      if(p>=100&&Date.now()-t0>750){clearInterval(li);finishLoad();}},90);
     // safety: never hang
-    setTimeout(()=>{if(!document.body.classList.contains('loaded'))finishLoad();},3000);
+    setTimeout(()=>{if(!document.body.classList.contains('loaded'))finishLoad();},2000);
   }
 
   /* ---------- SPLIT HEADINGS INTO CHARS ---------- */
@@ -1226,6 +1226,30 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     });
     gw.addEventListener('mouseleave',resetLast);
   }
+})();
+</script>
+<script>
+/* hydrate homepage images from content/site.json (CMS-managed; falls back to hard-coded) */
+(function(){
+  function setSrc(el,src){ if(el&&src){ el.src=src; el.removeAttribute('srcset'); } }
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d)return;
+    document.querySelectorAll('.lk-img,.footer-logo').forEach(function(im){setSrc(im,d.logo);});
+    document.querySelectorAll('.nav-logo img').forEach(function(im){setSrc(im,d.logoMark);});
+    if(d.about){
+      setSrc(document.querySelector('.ab-portrait img'),d.about.portrait);
+      var rooms=document.querySelectorAll('.ab-rooms .ab-room img');
+      setSrc(rooms[0],d.about.room);setSrc(rooms[1],d.about.cats);
+    }
+    if(d.instagram){var cells=document.querySelectorAll('.ig-grid .ig-cell img');d.instagram.forEach(function(s,i){setSrc(cells[i],s);});}
+    if(d.varieties){
+      ['carla','stripey','crystal'].forEach(function(id){
+        var arr=d.varieties[id];if(!arr)return;var card=document.getElementById(id);if(!card)return;
+        setSrc(card.querySelector('.dc-feat-img'),arr[0]);
+        card.querySelectorAll('.dc-mini').forEach(function(m,i){if(arr[i]){m.setAttribute('data-src',arr[i]);setSrc(m.querySelector('img'),arr[i]);}});
+      });
+    }
+  }).catch(function(){});
 })();
 </script>
 <script src="assets/loader.js"></script>

@@ -1,0 +1,40 @@
+{
+  "intro": "Everything we’ve learned raising rare anthurium in Saigon — the exact envelope, the medium, and the small daily habits that turn a fussy aroid into velvet perfection.",
+  "sections": [
+    {
+      "id": "envelope",
+      "title": "The Purple Envelope",
+      "body": "Rare anthurium reward **stability** over everything. We hold the room inside a tight window and let the plant settle into it.\n\n- **Temperature:** steady 24–26°C, day and night. Avoid swings and cold drafts.\n- **Humidity:** 70–85% RH. Pair high humidity with gentle airflow so leaves never sit wet.\n- **Light:** bright, indirect — about 100–150 µmol PAR, ~12-hour photoperiod. No harsh direct sun.\n- **Airflow:** a constant soft breeze prevents fungal issues and strengthens petioles.\n\nChasing fast growth is the #1 mistake. Slow and stable gives you the quilted velvet and silver veins collectors chase."
+    },
+    {
+      "id": "medium",
+      "title": "Medium & Potting",
+      "body": "Anthurium roots want **air**. They rot in dense, wet soil.\n\n- Use a chunky, airy aroid mix: bark, perlite/pumice, and horticultural charcoal. Many growers add a little sphagnum for moisture balance.\n- Choose pots with strong drainage. Clear nursery pots help you watch roots and moisture.\n- **Semi-hydro (LECA/Pon)** is an excellent, low-rot option once a plant is established — keep a shallow reservoir and a consistent nutrient solution.\n- Re-pot when roots fill the pot or the mix breaks down (usually every 12–18 months)."
+    },
+    {
+      "id": "watering",
+      "title": "Watering",
+      "body": "Aim for **evenly moist, never soggy**.\n\n- Let the top of the mix dry slightly between waterings; never let the plant sit in standing water.\n- Use room-temperature, low-mineral water (rain/RO/filtered) when possible — velvet leaves dislike hard water spots.\n- In high humidity, plants drink slower; water by feel and weight, not by calendar."
+    },
+    {
+      "id": "feeding",
+      "title": "Feeding",
+      "body": "Feed **little and often**.\n\n- A balanced fertilizer at roughly ¼–½ strength, every 1–2 weeks during active growth.\n- Flush the medium with plain water monthly to prevent salt build-up.\n- Ease off in cooler, lower-light periods."
+    },
+    {
+      "id": "acclimation",
+      "title": "Acclimating a New Arrival",
+      "body": "Plants shipped internationally arrive stressed and often bare-root. Go slow.\n\n1. Unbox immediately, rinse roots, and rehydrate in clean water for 20–30 minutes.\n2. Pot into your airy mix (or sphagnum to recover roots).\n3. First 2 weeks: **higher humidity, lower light**, no fertilizer. A clear humidity tent or prop box helps.\n4. Quarantine away from your collection for ~2 weeks and watch for pests.\n5. Expect the first new leaf to be small — that’s normal. Stability brings the next ones up to size."
+    },
+    {
+      "id": "pests",
+      "title": "Pests & Troubleshooting",
+      "body": "Inspect weekly — early action is everything.\n\n- **Thrips:** silvery streaks, deformed new growth. Isolate, rinse, treat repeatedly.\n- **Spider mites:** fine webbing, stippling — thrive in dry air; raise humidity and treat.\n- **Root rot:** mushy, dark roots from staying wet. Trim to healthy tissue, re-pot airy, ease watering.\n- **Crispy edges:** humidity too low or salts too high — raise RH, flush the medium.\n- **Yellowing:** usually overwatering or old leaves; check roots first."
+    },
+    {
+      "id": "varieties",
+      "title": "Notes by Specimen",
+      "body": "**Carlablackiae** — near-black velvet, slow and proud. Maximum stability; protect the velvet from water spots.\n\n**Stripey (variegata)** — variegated, unstable by nature; give a touch more light to hold pattern, but never direct sun on pale sectors.\n\n**Red Crystallinum (red form)** — blushes blood-red on new growth, hardening to green with silver veins. Loves humidity and steady warmth."
+    }
+  ]
+}
