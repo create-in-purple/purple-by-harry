@@ -110,7 +110,7 @@ footer a:hover{color:var(--magenta)}
     grid.innerHTML='';
     posts.forEach(function(p){
       var c=document.createElement('article');c.className='post';
-      c.innerHTML='<div class="ph"><img src="'+(p.cover||'images/about-room.jpg')+'" alt="" loading="lazy"></div>'+
+      c.innerHTML='<div class="ph"><img src="'+(function(c){return c.charAt(0)==='/'?c.slice(1):c;})(p.cover||'images/about-room.jpg')+'" alt="" loading="lazy"></div>'+
         '<div class="body"><div class="d">'+fmt(p.date)+'</div><div class="t">'+p.title+'</div>'+
         '<div class="ex">'+(p.excerpt||'')+'</div><div class="more pink">Read →</div></div>';
       c.onclick=function(){open(p);};
@@ -120,7 +120,7 @@ footer a:hover{color:var(--magenta)}
     grid.querySelectorAll('.post').forEach(function(c){io.observe(c);});
   }
   function open(p){
-    rd.innerHTML='<div class="rd-cover"><img src="'+(p.cover||'images/about-room.jpg')+'" alt=""></div>'+
+    rd.innerHTML='<div class="rd-cover"><img src="'+(function(c){return c.charAt(0)==='/'?c.slice(1):c;})(p.cover||'images/about-room.jpg')+'" alt=""></div>'+
       '<div class="rd-body"><div class="d">'+fmt(p.date)+'</div><h1>'+p.title+'</h1><div class="rt">'+md(p.body)+'</div></div>';
     reader.classList.add('open');document.body.style.overflow='hidden';location.hash='post='+p.slug;
   }

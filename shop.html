@@ -217,7 +217,7 @@ footer a:hover{color:var(--magenta)}
       var c=document.createElement('article');c.className='card'+(soldOut?' sold':'');
       var tags='<span class="tag cat">'+p.cat+'</span>'+(p.tags||[]).map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
       var note=(!soldOut&&p.stock!=null&&p.stock<=3)?'<div class="lat" style="color:var(--magenta)">Only '+p.stock+' left</div>':'';
-      c.innerHTML='<div class="ph"><div class="tags">'+tags+'</div><img src="'+p.img+'" alt="'+p.name+'" loading="lazy"></div>'+
+      c.innerHTML='<div class="ph"><div class="tags">'+tags+'</div><img src="'+(p.img&&p.img.charAt(0)==='/'?p.img.slice(1):p.img)+'" alt="'+p.name+'" loading="lazy"></div>'+
         '<div class="body"><div class="nm">'+p.name+'</div><div class="lat">'+(p.lat||'')+'</div>'+note+
         '<div class="row"><div class="price">'+money(p.price)+unit+'</div>'+
         '<button class="add" data-id="'+p.id+'">'+(soldOut?'Sold out':'Add to cart')+'</button></div></div>';
@@ -242,7 +242,7 @@ footer a:hover{color:var(--magenta)}
     if(!ids.length){cartItems.innerHTML='<div class="cart-empty">Your cart is empty.<br>Add a specimen to begin.</div>';}
     else{
       cartItems.innerHTML=ids.map(function(id){var p=prod(id);if(!p)return '';var q=cart[id];
-        return '<div class="ci"><img src="'+p.img+'" alt=""><div class="info"><div class="nm">'+p.name+'</div><div class="p">'+money(p.price)+' · '+p.cat+'</div>'+
+        return '<div class="ci"><img src="'+(p.img&&p.img.charAt(0)==='/'?p.img.slice(1):p.img)+'" alt=""><div class="info"><div class="nm">'+p.name+'</div><div class="p">'+money(p.price)+' · '+p.cat+'</div>'+
           '<div class="qty"><button data-m="'+id+'">−</button><span>'+q+'</span><button data-p="'+id+'">+</button></div>'+
           '<button class="rm" data-r="'+id+'">Remove</button></div></div>';
       }).join('');
