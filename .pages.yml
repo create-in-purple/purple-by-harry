@@ -1,0 +1,93 @@
+media:
+  input: images
+  output: images
+
+content:
+  - name: home
+    label: Home & Brand images
+    type: file
+    path: content/site.json
+    fields:
+      - { name: logo, label: "Logo (dark background, transparent PNG)", type: image }
+      - { name: logoMark, label: "Nav logo (horizontal)", type: image }
+      - name: about
+        label: About photos
+        type: object
+        fields:
+          - { name: portrait, label: Portrait of Harry, type: image }
+          - { name: room, label: Grow room, type: image }
+          - { name: cats, label: Harry & cats, type: image }
+      - { name: instagram, label: "Instagram showcase (3 squares)", type: image, list: true }
+      - name: varieties
+        label: Collection — variety photos (first = main)
+        type: object
+        fields:
+          - { name: carla, label: Carlablackiae, type: image, list: true }
+          - { name: stripey, label: Stripey, type: image, list: true }
+          - { name: crystal, label: Red Crystallinum, type: image, list: true }
+
+  - name: shop
+    label: Shop — products
+    type: file
+    path: content/products.json
+    fields:
+      - { name: currency, label: Currency symbol, type: string }
+      - name: items
+        label: Products
+        type: object
+        list: true
+        fields:
+          - { name: id, label: Unique ID, type: string }
+          - { name: name, label: Name, type: string }
+          - { name: lat, label: Subtitle / Latin, type: string }
+          - { name: cat, label: Category, type: select, options: { values: ["Pure Species","Exact Plant Selections","Cutting and Offset","Seeds","Hybrids"] } }
+          - { name: tags, label: Tags, type: string, list: true }
+          - { name: price, label: Price, type: number }
+          - { name: stock, label: "Stock (0 = sold out)", type: number }
+          - { name: img, label: Photo, type: image }
+
+  - name: vault
+    label: The Vault (gallery)
+    type: file
+    path: content/vault.json
+    fields:
+      - { name: max, label: Max photos shown, type: number }
+      - name: images
+        label: Photos
+        type: object
+        list: true
+        fields:
+          - { name: img, label: Photo, type: image }
+          - { name: size, label: Size (featured), type: select, options: { values: ["normal","tall","wide"] } }
+
+  - name: journal
+    label: Journal (blog)
+    type: file
+    path: content/posts.json
+    fields:
+      - name: posts
+        label: Posts
+        type: object
+        list: true
+        fields:
+          - { name: title, label: Title, type: string }
+          - { name: slug, label: Slug, type: string }
+          - { name: date, label: Date, type: date }
+          - { name: cover, label: Cover photo, type: image }
+          - { name: excerpt, label: Excerpt, type: text }
+          - { name: body, label: Body, type: rich-text }
+
+  - name: guide
+    label: Grower's Guide
+    type: file
+    path: content/guide.json
+    fields:
+      - { name: intro, label: Intro line, type: text }
+      - name: sections
+        label: Sections
+        type: object
+        list: true
+        fields:
+          - { name: id, label: Anchor id, type: string }
+          - { name: title, label: Title, type: string }
+          - { name: body, label: Body, type: rich-text }
