@@ -376,38 +376,48 @@ svg.has-photo .duo{opacity:.55}
 .gwall figure::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.4));opacity:0;transition:opacity .4s}
 .gwall figure:hover::after{opacity:1}
 @media(max-width:600px){.gwall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
-/* The Specimens — expanding panels (all 3 always visible) */
+/* The Specimens — expanding focus gallery (hover opens a filmstrip slider; others collapse) */
 .stage{max-width:1200px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
-.spec-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:18px}
-.spec-card{position:relative;display:flex;flex-direction:column;background:#0c0c0c;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;transition:transform .55s cubic-bezier(.16,1,.3,1),border-color .55s,box-shadow .55s}
-.spec-card:hover{transform:translateY(-8px);border-color:rgba(255,0,157,.55);box-shadow:0 30px 70px rgba(122,43,255,.22)}
-.spec-media{position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,#2a0b3f,#7a2bff);cursor:zoom-in}
-.spec-slides{position:absolute;inset:0}
-.spec-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;opacity:0;transform:scale(1.07);transition:opacity 1.1s ease}
-.spec-slides img.on{opacity:1;animation:specKB 7s ease forwards}
-@keyframes specKB{from{transform:scale(1.07)}to{transform:scale(1)}}
-.spec-media::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.05) 35%,rgba(5,5,5,.6));pointer-events:none;z-index:1}
-.spec-idx{position:absolute;top:14px;left:16px;z-index:3;font-size:11px;font-weight:700;letter-spacing:.22em;color:#fff;background:rgba(255,0,157,.92);padding:5px 11px;border-radius:100px}
-.spec-count{position:absolute;top:14px;right:16px;z-index:3;font-size:11px;font-weight:600;letter-spacing:.1em;color:#fff;background:rgba(5,5,5,.5);backdrop-filter:blur(6px);padding:5px 10px;border-radius:100px}
-.spec-dots{position:absolute;left:0;right:0;bottom:12px;z-index:3;display:flex;justify-content:center;gap:6px}
-.spec-dots i{width:6px;height:6px;border-radius:50%;background:rgba(255,255,255,.4);cursor:pointer;transition:width .3s,background .3s}
-.spec-dots i.on{width:20px;border-radius:3px;background:var(--magenta)}
-.spec-hint{position:absolute;left:16px;bottom:34px;z-index:3;font-size:10px;letter-spacing:.18em;text-transform:uppercase;color:rgba(255,255,255,.7);opacity:0;transition:opacity .4s}
-.spec-card:hover .spec-hint{opacity:1}
-.spec-info{padding:22px 22px 26px;display:flex;flex-direction:column;flex:1}
-.spec-kicker{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--magenta)}
-.spec-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(24px,2.4vw,34px);line-height:.9;margin:8px 0 4px}
-.spec-name .grad{background:linear-gradient(120deg,#ff3db0,#ff8ad4 46%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.spec-latin{font-family:"Fraunces",serif;font-style:italic;color:#cfc7cd;font-size:14px}
-.spec-desc{color:#d8d3d6;font-size:13.5px;line-height:1.62;margin:12px 0 16px}
-.spec-specs{display:flex;gap:18px;flex-wrap:wrap;margin-bottom:18px}
-.spec-specs .k{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted)}
-.spec-specs .v{font-family:"Anton";font-size:15px;margin-top:3px}
-.spec-specs .v.pink{color:var(--magenta)}
-.spec-cta{margin-top:auto;align-self:flex-start;font:inherit;font-weight:600;font-size:13px;letter-spacing:.04em;background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;padding:11px 20px;border-radius:100px;text-decoration:none;transition:transform .2s}
-.spec-cta:hover{transform:translateY(-2px)}
-@media(max-width:860px){.spec-grid{grid-template-columns:1fr;max-width:440px;margin:0 auto}}
-@media(prefers-reduced-motion:reduce){.spec-card,.spec-media img{transition:none}}
+.spec-stage{display:flex;gap:12px;height:clamp(470px,64vh,640px)}
+.sc{position:relative;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#0c0c0c;box-shadow:0 20px 60px rgba(0,0,0,.45);transition:flex-grow .65s cubic-bezier(.16,1,.3,1);will-change:flex-grow}
+.sc.active{flex-grow:3.6}
+.sc::after{content:"";position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none;z-index:6;transition:box-shadow .5s}
+.sc.active::after{box-shadow:inset 0 0 0 1px rgba(255,0,157,.6),0 0 70px rgba(255,0,157,.12)}
+.sc-slides{position:absolute;inset:0;z-index:0}
+.sc-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;opacity:0;transform:scale(1.05);transition:opacity .8s ease,transform 7s ease}
+.sc-slides img.on{opacity:1;transform:scale(1)}
+.sc-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.15),rgba(5,5,5,.35) 40%,rgba(5,5,5,.92));transition:background .5s}
+.sc.active .sc-veil{background:linear-gradient(180deg,rgba(5,5,5,.05),rgba(5,5,5,.3) 45%,rgba(5,5,5,.95))}
+.sc-spine{position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:20px;transition:opacity .4s}
+.sc-spine .sc-idx{font-size:11px;font-weight:700;letter-spacing:.22em;color:var(--magenta)}
+.sc-spine .sc-vname{font-family:"Anton";text-transform:uppercase;font-size:clamp(20px,2vw,30px);line-height:.95;color:#fff;margin-top:6px}
+.sc.active .sc-spine{opacity:0;pointer-events:none}
+.sc-topbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,2vw,34px);opacity:0;transition:opacity .4s .2s}
+.sc.active .sc-topbar{opacity:1}
+.sc-kicker{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(255,0,157,.85);padding:5px 11px;border-radius:100px}
+.sc-count{font-size:11px;font-weight:600;letter-spacing:.1em;color:#fff;background:rgba(5,5,5,.5);backdrop-filter:blur(6px);padding:5px 10px;border-radius:100px}
+.sc-panel{position:absolute;inset:0;z-index:4;display:flex;flex-direction:column;justify-content:flex-end;padding:clamp(20px,2vw,34px);opacity:0;transform:translateY(16px);transition:opacity .5s .15s,transform .5s .15s;pointer-events:none}
+.sc.active .sc-panel{opacity:1;transform:none;pointer-events:auto}
+.sc-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(30px,3.6vw,56px);line-height:.86;margin:0 0 4px}
+.sc-name .grad{background:linear-gradient(120deg,#ff3db0,#ff8ad4 46%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.sc-latin{font-family:"Fraunces",serif;font-style:italic;color:#cfc7cd;font-size:clamp(14px,1.4vw,17px)}
+.sc-desc{color:#e4dfe2;font-size:13.5px;line-height:1.62;margin:12px 0 14px;max-width:440px}
+.sc-specs{display:flex;gap:20px;flex-wrap:wrap;margin-bottom:16px}
+.sc-specs .k{font-size:9px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted)}
+.sc-specs .v{font-family:"Anton";font-size:15px;margin-top:3px}
+.sc-specs .v.pink{color:var(--magenta)}
+.sc-strip{display:flex;align-items:center;gap:10px;margin-bottom:16px}
+.sc-arrow{flex:0 0 auto;width:34px;height:34px;border-radius:50%;border:1px solid rgba(255,255,255,.25);background:rgba(5,5,5,.4);backdrop-filter:blur(6px);color:#fff;font-size:17px;line-height:1;cursor:pointer;display:flex;align-items:center;justify-content:center;transition:background .25s,border-color .25s,transform .2s}
+.sc-arrow:hover{background:var(--magenta);border-color:var(--magenta);transform:scale(1.08)}
+.sc-thumbs{display:flex;gap:8px;overflow:hidden;flex:1;scroll-behavior:smooth}
+.sc-thumb{flex:0 0 auto;width:52px;height:52px;border-radius:10px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#111;opacity:.5;box-shadow:0 0 0 1px rgba(255,255,255,.1);transition:opacity .3s,transform .3s,box-shadow .3s}
+.sc-thumb:hover{opacity:.9;transform:translateY(-2px)}
+.sc-thumb.on{opacity:1;box-shadow:0 0 0 2px var(--magenta)}
+.sc-thumb img{width:100%;height:100%;object-fit:cover;display:block}
+.sc-cta{align-self:flex-start;font:inherit;font-weight:600;font-size:13px;letter-spacing:.04em;background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;padding:11px 22px;border-radius:100px;text-decoration:none;transition:transform .2s}
+.sc-cta:hover{transform:translateY(-2px)}
+@media(max-width:860px){.spec-stage{flex-direction:column;height:auto}.sc{flex:none;height:clamp(430px,72vh,560px)}.sc.active{flex:none}.sc-spine{opacity:0}.sc-panel{opacity:1;transform:none;pointer-events:auto}.sc-topbar{opacity:1}}
+@media(prefers-reduced-motion:reduce){.sc,.sc-slides img{transition:none}}
 /* Vault — continuous marquee */
 .vault-mq{overflow:hidden;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px);-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 .vmq-row{display:flex;overflow:hidden}
@@ -784,53 +794,47 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 <!-- ============ THE SPECIMENS (interactive focus stage) ============ -->
 <section class="deck" id="varieties" data-hud-num="✦" data-hud-name="The Specimens">
   <div class="deck-intro reveal"><div class="mono-label">The Collection · 03 Specimens</div><h2 class="display">THE <span class="pink">SPECIMENS</span></h2></div>
-  <div class="spec-grid" id="specGrid" style="display:grid;grid-template-columns:repeat(3,1fr);gap:18px">
-    <article class="spec-card" data-key="carla" style="position:relative;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:#0c0c0c">
-      <div class="spec-media" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,#2a0b3f,#7a2bff)">
-        <div class="spec-slides"></div>
-        <span class="spec-idx">N°01 · THE GRAIL</span>
-        <span class="spec-count"><span class="cur">1</span>/<span class="tot">—</span></span>
-        <span class="spec-hint">Hover to explore</span>
-        <div class="spec-dots"></div>
-      </div>
-      <div class="spec-info" style="padding:22px">
-        <h3 class="spec-name">Carla<span class="grad">blackiae</span></h3>
-        <div class="spec-latin">Anthurium carlablackiae</div>
-        <p class="spec-desc">Near-black velvet, quilted and bullate — overlapping cordate lobes fold into a near-perfect heart. The grail collectors chase for a decade.</p>
-        <div class="spec-specs"><div><div class="k">Texture</div><div class="v">Velvet · Bullate</div></div><div><div class="k">Form</div><div class="v">Cordate</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★★</div></div></div>
-        <a class="spec-cta" href="shop.html">Explore ↗</a>
+  <div class="spec-stage" id="specStage" style="display:flex;gap:12px;height:clamp(470px,64vh,640px)">
+    <article class="sc active" data-key="carla" style="position:relative;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#2a0b3f,#7a2bff)">
+      <div class="sc-slides" style="position:absolute;inset:0;z-index:0"></div>
+      <div class="sc-veil" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.1),rgba(5,5,5,.35) 42%,rgba(5,5,5,.93))"></div>
+      <div class="sc-spine" style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:20px"><span class="sc-idx">N°01</span><span class="sc-vname">Carlablackiae</span></div>
+      <div class="sc-topbar"><span class="sc-kicker">N°01 · The Grail</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">—</span></span></div>
+      <div class="sc-panel">
+        <h3 class="sc-name">Carla<span class="grad">blackiae</span></h3>
+        <div class="sc-latin">Anthurium carlablackiae</div>
+        <p class="sc-desc">Near-black velvet, quilted and bullate — overlapping cordate lobes fold into a near-perfect heart. The grail collectors chase for a decade.</p>
+        <div class="sc-specs"><div><div class="k">Texture</div><div class="v">Velvet · Bullate</div></div><div><div class="k">Form</div><div class="v">Cordate</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★★</div></div></div>
+        <div class="sc-strip"><button type="button" class="sc-arrow sc-prev" aria-label="Ảnh trước">‹</button><div class="sc-thumbs"></div><button type="button" class="sc-arrow sc-next" aria-label="Ảnh sau">›</button></div>
+        <a class="sc-cta" href="shop.html">Explore ↗</a>
       </div>
     </article>
-    <article class="spec-card" data-key="stripey" style="position:relative;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:#0c0c0c">
-      <div class="spec-media" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,#0b3f2a,#ff009d)">
-        <div class="spec-slides"></div>
-        <span class="spec-idx">N°02 · THE OUTLIER</span>
-        <span class="spec-count"><span class="cur">1</span>/<span class="tot">—</span></span>
-        <span class="spec-hint">Hover to explore</span>
-        <div class="spec-dots"></div>
-      </div>
-      <div class="spec-info" style="padding:22px">
-        <h3 class="spec-name">Stri<span class="grad">pey</span></h3>
-        <div class="spec-latin">Anthurium 'Stripey' variegata</div>
-        <p class="spec-desc">An unstable canvas of cream and chartreuse striped through deep purple — no two leaves ever repeat, painted differently with every unfurl.</p>
-        <div class="spec-specs"><div><div class="k">Pattern</div><div class="v">Sectoral stripe</div></div><div><div class="k">Form</div><div class="v">Sagittate</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★☆</div></div></div>
-        <a class="spec-cta" href="shop.html">Explore ↗</a>
+    <article class="sc" data-key="stripey" style="position:relative;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#0b3f2a,#ff009d)">
+      <div class="sc-slides" style="position:absolute;inset:0;z-index:0"></div>
+      <div class="sc-veil" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.1),rgba(5,5,5,.35) 42%,rgba(5,5,5,.93))"></div>
+      <div class="sc-spine" style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:20px"><span class="sc-idx">N°02</span><span class="sc-vname">Stripey</span></div>
+      <div class="sc-topbar"><span class="sc-kicker">N°02 · The Outlier</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">—</span></span></div>
+      <div class="sc-panel">
+        <h3 class="sc-name">Stri<span class="grad">pey</span></h3>
+        <div class="sc-latin">Anthurium 'Stripey' variegata</div>
+        <p class="sc-desc">An unstable canvas of cream and chartreuse striped through deep purple — no two leaves ever repeat, painted differently with every unfurl.</p>
+        <div class="sc-specs"><div><div class="k">Pattern</div><div class="v">Sectoral stripe</div></div><div><div class="k">Form</div><div class="v">Sagittate</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★☆</div></div></div>
+        <div class="sc-strip"><button type="button" class="sc-arrow sc-prev" aria-label="Ảnh trước">‹</button><div class="sc-thumbs"></div><button type="button" class="sc-arrow sc-next" aria-label="Ảnh sau">›</button></div>
+        <a class="sc-cta" href="shop.html">Explore ↗</a>
       </div>
     </article>
-    <article class="spec-card" data-key="crystal" style="position:relative;display:flex;flex-direction:column;border:1px solid rgba(255,255,255,.08);border-radius:20px;overflow:hidden;background:#0c0c0c">
-      <div class="spec-media" style="position:relative;aspect-ratio:4/5;overflow:hidden;background:linear-gradient(135deg,#3f0b1e,#7a2bff)">
-        <div class="spec-slides"></div>
-        <span class="spec-idx">N°03 · THE JEWEL</span>
-        <span class="spec-count"><span class="cur">1</span>/<span class="tot">—</span></span>
-        <span class="spec-hint">Hover to explore</span>
-        <div class="spec-dots"></div>
-      </div>
-      <div class="spec-info" style="padding:22px">
-        <h3 class="spec-name">Red <span class="grad">Crystallinum</span></h3>
-        <div class="spec-latin">Anthurium crystallinum · red form</div>
-        <p class="spec-desc">Emerging blood-red, hardening to forest green — laced with veins of pure crystalline silver. Geometry and gemstone in a single heart-shaped leaf.</p>
-        <div class="spec-specs"><div><div class="k">Vein</div><div class="v">Crystalline silver</div></div><div><div class="k">New growth</div><div class="v">Blood red</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★☆</div></div></div>
-        <a class="spec-cta" href="shop.html">Explore ↗</a>
+    <article class="sc" data-key="crystal" style="position:relative;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;background:linear-gradient(135deg,#3f0b1e,#7a2bff)">
+      <div class="sc-slides" style="position:absolute;inset:0;z-index:0"></div>
+      <div class="sc-veil" style="position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.1),rgba(5,5,5,.35) 42%,rgba(5,5,5,.93))"></div>
+      <div class="sc-spine" style="position:absolute;inset:0;z-index:3;display:flex;flex-direction:column;justify-content:flex-end;padding:20px"><span class="sc-idx">N°03</span><span class="sc-vname">Red Crystallinum</span></div>
+      <div class="sc-topbar"><span class="sc-kicker">N°03 · The Jewel</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">—</span></span></div>
+      <div class="sc-panel">
+        <h3 class="sc-name">Red <span class="grad">Crystallinum</span></h3>
+        <div class="sc-latin">Anthurium crystallinum · red form</div>
+        <p class="sc-desc">Emerging blood-red, hardening to forest green — laced with veins of pure crystalline silver. Geometry and gemstone in a single heart-shaped leaf.</p>
+        <div class="sc-specs"><div><div class="k">Vein</div><div class="v">Crystalline silver</div></div><div><div class="k">New growth</div><div class="v">Blood red</div></div><div><div class="k">Rarity</div><div class="v pink">★★★★☆</div></div></div>
+        <div class="sc-strip"><button type="button" class="sc-arrow sc-prev" aria-label="Ảnh trước">‹</button><div class="sc-thumbs"></div><button type="button" class="sc-arrow sc-next" aria-label="Ảnh sau">›</button></div>
+        <a class="sc-cta" href="shop.html">Explore ↗</a>
       </div>
     </article>
   </div>
@@ -1385,43 +1389,54 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 })();
 </script>
 <script>
-/* ===== The Specimens — multi-image showcase; each card sliders through its variety's photos (from site.json). Broken images are skipped; never blank. ===== */
+/* ===== The Specimens — expanding focus gallery. Hover a card to open its filmstrip slider (‹ › + clickable thumbs); others collapse. Autoplay runs only on the open card; broken images skip. ===== */
 (function(){
-  var grid=document.getElementById('specGrid');if(!grid)return;
+  var stage=document.getElementById('specStage');if(!stage)return;
   var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
   function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
-  function setup(card,imgs){
-    var slides=card.querySelector('.spec-slides'),dots=card.querySelector('.spec-dots');
-    var curEl=card.querySelector('.cur'),totEl=card.querySelector('.tot');
-    var name=(card.querySelector('.spec-name')||{}).textContent||'Saigon Purple';
-    imgs=(imgs||[]).slice(0,8);
-    var items=[],idx=0,timer=null,hovering=false;
+  var cards=[].slice.call(stage.querySelectorAll('.sc')),ctrl=[];
+  cards.forEach(function(card){
+    var slidesEl=card.querySelector('.sc-slides'),thumbsEl=card.querySelector('.sc-thumbs');
+    var curEl=card.querySelector('.sc-cur'),totEl=card.querySelector('.sc-tot');
+    var name=(card.querySelector('.sc-name')||{}).textContent||'Saigon Purple';
+    var items=[],idx=0,timer=null;
     function live(){return items.filter(function(it){return it.ok;});}
-    function refresh(){var L=live();if(totEl)totEl.textContent=L.length||'—';if(dots)dots.style.display=L.length>1?'flex':'none';}
-    function show(n){var L=live();if(!L.length){if(curEl)curEl.textContent='0';return;}n=((n%L.length)+L.length)%L.length;items.forEach(function(it){it.img.classList.remove('on');it.dot.classList.remove('on');});L[n].img.classList.add('on');L[n].dot.classList.add('on');idx=n;if(curEl)curEl.textContent=n+1;}
-    function stop(){if(timer){clearInterval(timer);timer=null;}}
-    function start(){stop();var L=live();if(reduce||L.length<2)return;timer=setInterval(function(){if(!document.hidden)show(idx+1);},hovering?1600:4000);}
-    imgs.forEach(function(src){
-      var im=document.createElement('img');im.src=rel(src);im.loading='lazy';im.alt=name;
-      var d=document.createElement('i');
-      var it={img:im,dot:d,ok:true};
-      im.addEventListener('error',function(){it.ok=false;im.style.display='none';d.style.display='none';refresh();var L=live();if(L.length&&!L.some(function(x){return x.img.classList.contains('on');}))show(0);});
-      d.addEventListener('click',function(e){e.stopPropagation();var L=live(),p=L.indexOf(it);if(p>=0){show(p);start();}});
-      slides.appendChild(im);dots.appendChild(d);items.push(it);
-    });
-    card.addEventListener('mouseenter',function(){hovering=true;start();});
-    card.addEventListener('mouseleave',function(){hovering=false;start();});
-    refresh();show(0);start();
-  }
-  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    var v=(d&&d.varieties)||{};
-    [].forEach.call(grid.querySelectorAll('.spec-card'),function(card){setup(card,v[card.getAttribute('data-key')]);});
-  }).catch(function(){[].forEach.call(grid.querySelectorAll('.spec-card'),function(card){setup(card,[]);});});
-  grid.addEventListener('click',function(e){
-    var im=e.target.closest&&e.target.closest('.spec-slides img');if(!im||!im.classList.contains('on'))return;
+    function refresh(){var L=live();if(totEl)totEl.textContent=L.length||'—';}
+    function show(n){var L=live();if(!L.length){if(curEl)curEl.textContent='0';return;}n=((n%L.length)+L.length)%L.length;items.forEach(function(it){it.img.classList.remove('on');it.thumb.classList.remove('on');});L[n].img.classList.add('on');L[n].thumb.classList.add('on');idx=n;if(curEl)curEl.textContent=n+1;try{L[n].thumb.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}}
+    function stopA(){if(timer){clearInterval(timer);timer=null;}}
+    function startA(){stopA();if(reduce)return;var L=live();if(L.length<2)return;timer=setInterval(function(){if(!document.hidden)show(idx+1);},4200);}
+    function build(list){
+      (list||[]).slice(0,8).forEach(function(src){
+        var im=document.createElement('img');im.src=rel(src);im.loading='lazy';im.alt=name;
+        var tb=document.createElement('button');tb.type='button';tb.className='sc-thumb';
+        var ti=document.createElement('img');ti.src=rel(src);ti.loading='lazy';ti.alt='';tb.appendChild(ti);
+        var it={img:im,thumb:tb,ok:true};
+        im.addEventListener('error',function(){it.ok=false;im.style.display='none';tb.style.display='none';refresh();var L=live();if(L.length&&!L.some(function(x){return x.img.classList.contains('on');}))show(0);});
+        tb.addEventListener('click',function(e){e.stopPropagation();var L=live(),p=L.indexOf(it);if(p>=0){show(p);startA();}});
+        slidesEl.appendChild(im);thumbsEl.appendChild(tb);items.push(it);
+      });
+      refresh();show(0);
+    }
+    var pv=card.querySelector('.sc-prev'),nx=card.querySelector('.sc-next');
+    if(pv)pv.addEventListener('click',function(e){e.stopPropagation();show(idx-1);startA();});
+    if(nx)nx.addEventListener('click',function(e){e.stopPropagation();show(idx+1);startA();});
+    ctrl.push({card:card,build:build,startA:startA,stopA:stopA});
+  });
+  var active=-1;
+  function activate(i){if(i===active)return;cards.forEach(function(c,k){c.classList.toggle('active',k===i);});ctrl.forEach(function(c,k){k===i?c.startA():c.stopA();});active=i;}
+  activate(0);
+  if(fine){cards.forEach(function(card,i){card.addEventListener('mouseenter',function(){activate(i);});});stage.addEventListener('mouseleave',function(){activate(0);});}
+  stage.addEventListener('click',function(e){
+    var im=e.target.closest&&e.target.closest('.sc-slides img');if(!im||!im.classList.contains('on'))return;
     var lb=document.getElementById('lightbox'),l=document.getElementById('lbImg'),c=document.getElementById('lbCap');
     if(lb&&l){l.src=im.currentSrc||im.src;if(c)c.textContent=im.alt||'Saigon Purple';lb.classList.add('open');lb.setAttribute('aria-hidden','false');}
   });
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    var v=(d&&d.varieties)||{};
+    ctrl.forEach(function(c){c.build(v[c.card.getAttribute('data-key')]);});
+    ctrl.forEach(function(c,k){if(k===active)c.startA();});
+  }).catch(function(){ctrl.forEach(function(c){c.build([]);});});
 })();
 </script>
 <script src="assets/loader.js"></script>
