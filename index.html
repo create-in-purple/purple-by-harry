@@ -89,7 +89,7 @@ nav{position:fixed;top:0;left:0;right:0;height:60px;z-index:100;display:flex;ali
 nav .wordmark{font-family:"Anton";font-size:19px;letter-spacing:.01em;text-transform:uppercase}
 nav .nav-logo{display:inline-flex;align-items:center}
 nav .nav-logo img{height:clamp(24px,3.4vw,30px);width:auto;display:block}
-nav .links{display:flex;gap:26px}
+nav .links{display:flex;gap:26px;align-items:center}
 nav .links a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;opacity:.85;transition:opacity .3s,transform .2s,box-shadow .3s}
 nav .links a.nav-follow{opacity:1;font-weight:600;color:#fff;background:linear-gradient(120deg,var(--magenta),var(--violet));padding:8px 17px;border-radius:100px}
 nav .links a.nav-follow:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,0,157,.45)}
@@ -376,6 +376,35 @@ svg.has-photo .duo{opacity:.55}
 .gwall figure::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.4));opacity:0;transition:opacity .4s}
 .gwall figure:hover::after{opacity:1}
 @media(max-width:600px){.gwall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
+/* The Specimens — expanding panels (all 3 always visible) */
+.stage{max-width:1200px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
+.panels{display:flex;gap:12px;height:clamp(420px,60vh,600px)}
+@media(max-width:760px){.panels{flex-direction:column;height:auto}}
+.panel{position:relative;flex:1 1 0;min-width:0;border-radius:18px;overflow:hidden;cursor:pointer;background:#0d0d0d;box-shadow:0 24px 60px rgba(0,0,0,.45);transition:flex-grow .65s cubic-bezier(.16,1,.3,1);will-change:flex-grow}
+.panel.active{flex-grow:4.2}
+@media(max-width:760px){.panel{height:220px}.panel.active{height:clamp(380px,66vh,540px)}}
+.pn-img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;transition:transform 1.1s cubic-bezier(.16,1,.3,1)}
+.panel:not(.active) .pn-img{transform:scale(1.06)}
+.pn-veil{position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.12),rgba(5,5,5,.55) 55%,rgba(5,5,5,.9));transition:background .6s}
+.panel.active .pn-veil{background:linear-gradient(90deg,rgba(5,5,5,.85),rgba(5,5,5,.5) 45%,rgba(5,5,5,.12))}
+.pn-tag{position:absolute;left:0;bottom:0;z-index:2;padding:18px;display:flex;align-items:center;gap:12px;width:100%;transition:opacity .3s}
+.pn-idx{font-size:11px;font-weight:700;letter-spacing:.2em;color:var(--magenta)}
+.pn-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(17px,1.9vw,25px);line-height:.95;color:#fff;white-space:nowrap}
+.panel.active .pn-tag{opacity:0;pointer-events:none}
+.pn-body{position:absolute;left:0;bottom:0;z-index:3;padding:clamp(20px,2.4vw,36px);max-width:560px;opacity:0;transform:translateY(14px);transition:opacity .5s .12s,transform .5s .12s;pointer-events:none}
+.panel.active .pn-body{opacity:1;transform:none;pointer-events:auto}
+.pn-kicker{font-size:11px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:var(--magenta)}
+.pn-title{font-family:"Anton";text-transform:uppercase;font-size:clamp(30px,4.4vw,64px);line-height:.86;margin:8px 0}
+.pn-title .grad{background:linear-gradient(120deg,#ff3db0,#ff8ad4 46%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.pn-latin{font-family:"Fraunces",serif;font-style:italic;color:#cfc7cd;font-size:clamp(14px,1.5vw,18px)}
+.pn-desc{color:#e4dfe2;font-size:clamp(13px,1.4vw,15px);line-height:1.65;margin:12px 0 16px;max-width:440px}
+.pn-specs{display:flex;gap:22px;flex-wrap:wrap;margin-bottom:18px}
+.pn-specs .k{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted)}
+.pn-specs .v{font-family:"Anton";font-size:16px;margin-top:4px}
+.pn-specs .v.pink{color:var(--magenta)}
+.pn-cta{display:inline-block;font:inherit;font-weight:600;font-size:13px;letter-spacing:.04em;background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;padding:12px 20px;border-radius:100px;text-decoration:none;transition:transform .2s}
+.pn-cta:hover{transform:translateY(-2px)}
+@media(prefers-reduced-motion:reduce){.panel,.pn-img,.pn-veil{transition:none}}
 /* Vault — continuous marquee */
 .vault-mq{overflow:hidden;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px);-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 .vmq-row{display:flex;overflow:hidden}
@@ -749,11 +778,13 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
   <div class="sc-note">Follow the atelier — new unfurls, restocks &amp; grow notes, daily.</div>
 </section>
 
-<!-- ============ THE COLLECTION (stacked folder deck) ============ -->
-<section class="deck" id="varieties">
+<!-- ============ THE SPECIMENS (interactive focus stage) ============ -->
+<section class="deck" id="varieties" data-hud-num="✦" data-hud-name="The Specimens">
   <div class="deck-intro reveal"><div class="mono-label">The Collection · 03 Specimens</div><h2 class="display">THE <span class="pink">SPECIMENS</span></h2></div>
+  <div class="stage" id="stage"><div class="panels" id="panels"></div></div>
+</section>
 
-  <article class="deck-card" style="--i:0;--accent:#ff009d" id="carla" data-hud-num="01" data-hud-name="Carlablackiae">
+<template id="oldDeckHidden"><article class="deck-card" style="--i:0;--accent:#ff009d" data-hud-num="01" data-hud-name="Carlablackiae">
     <div class="dc-glow"></div>
     <a class="dc-tab" href="#carla"><span class="dc-idx">N°01</span><span class="dc-tabname">Carlablackiae</span><span class="dc-go">The Grail ↗</span></a>
     <div class="dc-left">
@@ -762,7 +793,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       <div class="dc-latin">Anthurium carlablackiae</div>
       <div class="dc-rule"></div>
       <p class="dc-desc">Near-black velvet, quilted and bullate — overlapping cordate lobes fold into a near-perfect heart. The grail collectors chase for a decade.</p>
-      <a class="btn btn-primary magnetic" href="#join">Explore ↗</a>
+      <a class="btn btn-primary magnetic" href="shop.html">Explore ↗</a>
       <div class="dc-specs">
         <div><span class="k">Texture</span><span class="v">Velvet · Bullate</span></div>
         <div><span class="k">Form</span><span class="v">Cordate</span></div>
@@ -793,7 +824,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       <div class="dc-latin">Anthurium ‘Stripey’ variegata</div>
       <div class="dc-rule"></div>
       <p class="dc-desc">An unstable canvas of cream and chartreuse striped through deep purple — no two leaves ever repeat, painted differently with every unfurl.</p>
-      <a class="btn btn-primary magnetic" href="#join">Explore ↗</a>
+      <a class="btn btn-primary magnetic" href="shop.html">Explore ↗</a>
       <div class="dc-specs">
         <div><span class="k">Pattern</span><span class="v">Sectoral stripe</span></div>
         <div><span class="k">Form</span><span class="v">Sagittate</span></div>
@@ -824,7 +855,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       <div class="dc-latin">Anthurium crystallinum · red form</div>
       <div class="dc-rule"></div>
       <p class="dc-desc">Emerging blood-red, hardening to forest green — laced with veins of pure crystalline silver. Geometry and gemstone in a single heart-shaped leaf.</p>
-      <a class="btn btn-primary magnetic" href="#join">Explore ↗</a>
+      <a class="btn btn-primary magnetic" href="shop.html">Explore ↗</a>
       <div class="dc-specs">
         <div><span class="k">Vein</span><span class="v">Crystalline silver</span></div>
         <div><span class="k">New growth</span><span class="v">Blood red</span></div>
@@ -845,7 +876,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       </div>
     </div>
   </article>
-</section>
+</template>
 
 <!-- ============ DENSITY GALLERY ============ -->
 <section class="gallery" id="gallery" data-hud-num="✦" data-hud-name="The Vault">
@@ -858,7 +889,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
   <div class="mf-aurora"><span class="blob mb1"></span><span class="blob mb2"></span></div>
   <div class="mono-label reveal" style="letter-spacing:.3em">A LIVING WORK OF ART</div>
   <h2 class="display reveal d1">OWN A<br><span class="outline" id="fillword">LIVING JEWEL</span></h2>
-  <div class="cta reveal d2"><a class="btn btn-primary magnetic" href="#carla">Enter the gallery</a><a class="btn btn-ghost magnetic" href="mailto:harry@saigonpurple.com">Join the waitlist</a></div>
+  <p class="reveal d2" style="margin-top:24px;color:var(--ink-muted);max-width:540px;font-size:clamp(14px,1.4vw,16px);line-height:1.7">Hand-selected, climate-controlled — grown like living jewellery in the heart of Saigon. A veinclusive purple selection.</p>
 </section>
 
 <footer>
@@ -1109,7 +1140,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
     function collect(){
       var seen={},out=[];
-      document.querySelectorAll('.dc-mini img,.dc-feat-img,.ig-cell img,.ab-portrait img,.ab-rooms .ab-room img').forEach(function(im){
+      document.querySelectorAll('.ig-cell img,.ab-portrait img,.ab-rooms .ab-room img,.st-img,.st-thumbs img').forEach(function(im){
         var s=rel(im.getAttribute('src')||im.currentSrc||'');
         if(s&&!seen[s]){seen[s]=1;out.push(s);}
       });
@@ -1123,13 +1154,21 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       imgs=shuffle(imgs.slice());
       var mid=Math.ceil(imgs.length/2),a=imgs.slice(0,mid),b=imgs.slice(mid);if(!b.length)b=a.slice();
       mq.innerHTML=row(a,false)+row(b,true);
-      mq.querySelectorAll('.vmq-item img').forEach(function(im){im.addEventListener('click',function(){openLb(im.currentSrc||im.src,'Saigon Purple · The Vault');});});
+      mq.querySelectorAll('.vmq-item img').forEach(function(im){im.addEventListener('click',function(){var lb=document.getElementById('lightbox'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap');if(lb&&li){li.src=im.currentSrc||im.src;if(lc)lc.textContent='Saigon Purple · The Vault';lb.classList.add('open');lb.setAttribute('aria-hidden','false');}});});
     }
-    // Default: auto from used images (random). Customise later by adding a pinned list to content/vault.json.
+    // Default: auto from images used across the site (random). Pin a custom list in content/vault.json to override.
     build(collect());
-    fetch('content/vault.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-      if(d&&d.images&&d.images.length){var pinned=d.images.map(function(x){return rel(x.img);}).filter(Boolean);if(pinned.length)build(pinned);}
-    }).catch(function(){});
+    setTimeout(function(){
+      fetch('content/vault.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(vd){
+        if(vd&&vd.images&&vd.images.length){build(vd.images.map(function(x){return rel(x.img);}).filter(Boolean));return;}
+        fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(sd){
+          var p=collect();
+          if(sd){if(sd.varieties){['carla','stripey','crystal'].forEach(function(k){(sd.varieties[k]||[]).forEach(function(s){p.push(rel(s));});});}if(sd.instagram){sd.instagram.forEach(function(s){p.push(rel(s));});}}
+          var seen={},u=[];p.forEach(function(s){if(s&&!seen[s]){seen[s]=1;u.push(s);}});
+          if(u.length)build(u);
+        }).catch(function(){});
+      }).catch(function(){});
+    },400);
   })();
 
   /* ---------- COLLECTION VIEWER (legacy, no-op if absent) ---------- */
@@ -1147,7 +1186,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     function activate(i){
       if(i===cur)return;cur=i;const v=VARS[i];
       [...sw.children].forEach((b,k)=>b.classList.toggle('active',k===i));
-      info.innerHTML='<div class="latin">'+v.latin+'</div><p>'+v.desc+'</p><div class="cv-specs">'+v.specs.map(s=>'<div><div class="k">'+s[0]+'</div><div class="v'+(s[2]?' pink':'')+'">'+s[1]+'</div></div>').join('')+'</div><a class="btn btn-primary magnetic" href="#join">Explore ↗</a>';
+      info.innerHTML='<div class="latin">'+v.latin+'</div><p>'+v.desc+'</p><div class="cv-specs">'+v.specs.map(s=>'<div><div class="k">'+s[0]+'</div><div class="v'+(s[2]?' pink':'')+'">'+s[1]+'</div></div>').join('')+'</div><a class="btn btn-primary magnetic" href="shop.html">Explore ↗</a>';
       thumbsEl.innerHTML=v.imgs.map((g,k)=>'<button type="button" class="cv-thumb'+(k===0?' active':'')+'" data-src="images/'+g+'.jpg"><img src="images/'+g+'.jpg" alt="'+v.n+'" loading="lazy"></button>').join('');
       thumbsEl.querySelectorAll('.cv-thumb').forEach(t=>t.addEventListener('click',()=>{thumbsEl.querySelectorAll('.cv-thumb').forEach(x=>x.classList.remove('active'));t.classList.add('active');setFeatured(t.dataset.src,v.n);}));
       if(rail)rail.textContent='Specimen N°'+v.idx+' · '+v.n;
@@ -1410,6 +1449,61 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       minis.forEach(function(m,k){m.classList.toggle('active',k===i);});
     },4600);
   });
+})();
+</script>
+<script>
+/* ===== The Specimens — interactive focus stage ===== */
+(function(){
+  var stage=document.getElementById('stage');if(!stage)return;
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
+  var VARS=[
+    {id:'carla',idx:'N°01',tag:'The Grail',tab:'Carlablackiae',name:'Carla<span class="grad">blackiae</span>',latin:'Anthurium carlablackiae',
+     desc:'Near-black velvet, quilted and bullate — overlapping cordate lobes fold into a near-perfect heart. The grail collectors chase for a decade.',
+     specs:[['Texture','Velvet · Bullate'],['Form','Cordate'],['Rarity','★★★★★',1]],
+     imgs:['images/FullSizeRender-1.jpeg','images/IMG_8842.jpeg','images/IMG_0018.jpeg','images/IMG_7869.jpeg','images/IMG_9311.jpeg']},
+    {id:'stripey',idx:'N°02',tag:'The Outlier',tab:'Stripey',name:'Stri<span class="grad">pey</span>',latin:"Anthurium 'Stripey' variegata",
+     desc:'An unstable canvas of cream and chartreuse striped through deep purple — no two leaves ever repeat, painted differently with every unfurl.',
+     specs:[['Pattern','Sectoral stripe'],['Form','Sagittate'],['Rarity','★★★★☆',1]],
+     imgs:['images/IMG_9657.jpeg','images/IMG_9712.jpeg','images/IMG_9660.jpeg','images/IMG_0160.jpeg','images/IMG_8543.jpeg']},
+    {id:'crystal',idx:'N°03',tag:'The Jewel',tab:'Red Crystallinum',name:'Red <span class="grad">Crystallinum</span>',latin:'Anthurium crystallinum · red form',
+     desc:'Emerging blood-red, hardening to forest green — laced with veins of pure crystalline silver. Geometry and gemstone in a single heart-shaped leaf.',
+     specs:[['Vein','Crystalline silver'],['New growth','Blood red'],['Rarity','★★★★☆',1]],
+     imgs:['images/IMG_9826.jpeg','images/IMG_9626.jpeg','images/IMG_0009.jpeg','images/IMG_0015-1.jpeg','images/IMG_8289.jpeg']}
+  ];
+  var panelsEl=document.getElementById('panels');if(!panelsEl)return;
+  var cur=0,paused=false;
+  function render(){
+    panelsEl.innerHTML=VARS.map(function(v,i){
+      return '<article class="panel'+(i===cur?' active':'')+'" data-i="'+i+'">'+
+        '<img class="pn-img" src="'+v.imgs[0]+'" alt="'+v.tab+'">'+
+        '<div class="pn-veil"></div>'+
+        '<div class="pn-tag"><span class="pn-idx">'+v.idx+'</span><span class="pn-name">'+v.tab+'</span></div>'+
+        '<div class="pn-body"><div class="pn-kicker">'+v.idx+' — '+v.tag+'</div><h3 class="pn-title">'+v.name+'</h3><div class="pn-latin">'+v.latin+'</div><p class="pn-desc">'+v.desc+'</p><div class="pn-specs">'+v.specs.map(function(s){return '<div><div class="k">'+s[0]+'</div><div class="v'+(s[2]?' pink':'')+'">'+s[1]+'</div></div>';}).join('')+'</div><a class="pn-cta" href="shop.html">Explore ↗</a></div>'+
+        '</article>';
+    }).join('');
+    [].forEach.call(panelsEl.children,function(p,i){
+      var im=p.querySelector('.pn-img');
+      if(fine)p.addEventListener('mouseenter',function(){activate(i);});
+      p.addEventListener('click',function(e){
+        if(e.target.closest&&e.target.closest('.pn-cta'))return;
+        if(cur===i){var lb=document.getElementById('lightbox'),l=document.getElementById('lbImg'),c=document.getElementById('lbCap');if(lb&&l){l.src=im.currentSrc||im.src;if(c)c.textContent=VARS[i].tab;lb.classList.add('open');lb.setAttribute('aria-hidden','false');}}
+        else activate(i);
+      });
+    });
+  }
+  function activate(i){if(i<0||i===cur)return;cur=i;[].forEach.call(panelsEl.children,function(p,k){p.classList.toggle('active',k===i);});}
+  render();
+  stage.addEventListener('mouseenter',function(){paused=true;});
+  stage.addEventListener('mouseleave',function(){paused=false;});
+  if(!reduce)setInterval(function(){if(paused||document.hidden)return;activate((cur+1)%VARS.length);},5200);
+  // keep CMS-editable: pull variety photos from content/site.json if present
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d||!d.varieties)return;var ch=false;
+    VARS.forEach(function(v){var a=d.varieties[v.id];if(a&&a.length){v.imgs=a.map(rel);ch=true;}});
+    if(ch)render();
+  }).catch(function(){});
 })();
 </script>
 <script src="assets/loader.js"></script>
