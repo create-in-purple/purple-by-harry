@@ -90,7 +90,9 @@ nav .wordmark{font-family:"Anton";font-size:19px;letter-spacing:.01em;text-trans
 nav .nav-logo{display:inline-flex;align-items:center}
 nav .nav-logo img{height:clamp(24px,3.4vw,30px);width:auto;display:block}
 nav .links{display:flex;gap:26px}
-nav .links a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;opacity:.85;transition:opacity .3s}
+nav .links a{text-decoration:none;font-size:13px;font-weight:500;letter-spacing:.04em;opacity:.85;transition:opacity .3s,transform .2s,box-shadow .3s}
+nav .links a.nav-follow{opacity:1;font-weight:600;color:#fff;background:linear-gradient(120deg,var(--magenta),var(--violet));padding:8px 17px;border-radius:100px}
+nav .links a.nav-follow:hover{transform:translateY(-1px);box-shadow:0 8px 22px rgba(255,0,157,.45)}
 nav .links a:hover{opacity:1}
 @media(max-width:720px){nav .links{display:none}}
 .progress{position:fixed;top:0;left:0;height:2px;background:var(--magenta);width:0;z-index:200;transform-origin:left}
@@ -440,7 +442,7 @@ svg.has-photo .duo{opacity:.55}
 .outro>.mono-label,.outro>h2,.outro>.cta{position:relative;z-index:1}
 
 /* ---------- ABOUT PURPLE ---------- */
-.about{padding:clamp(80px,12vh,160px) clamp(20px,4vw,48px);border-top:1px solid var(--hairline);position:relative;overflow:hidden}
+.about{padding:clamp(52px,8vh,104px) clamp(20px,4vw,48px);border-top:1px solid var(--hairline);position:relative;overflow:hidden}
 .about .ab-glow{position:absolute;right:-10%;top:10%;width:46vw;height:46vw;border-radius:50%;filter:blur(120px);opacity:.32;background:radial-gradient(circle,#7a2bff,transparent 65%);pointer-events:none}
 .ab-grid{display:grid;grid-template-columns:.92fr 1.08fr;gap:clamp(30px,5vw,72px);align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
 @media(max-width:860px){.ab-grid{grid-template-columns:1fr}}
@@ -458,12 +460,12 @@ svg.has-photo .duo{opacity:.55}
 .ab-stats .v{font-family:"Anton";font-size:26px;letter-spacing:.02em}
 .ab-stats .v.pink{color:var(--magenta)}
 .ab-stats .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted);margin-top:5px}
-.ab-rooms{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;max-width:1200px;margin:clamp(28px,5vw,52px) auto 0;position:relative;z-index:1}
+.ab-rooms{display:grid;grid-template-columns:1.5fr 1fr;gap:16px;max-width:1200px;margin:clamp(18px,3vw,30px) auto 0;position:relative;z-index:1}
 @media(max-width:860px){.ab-rooms{grid-template-columns:1fr}}
 .ab-room{position:relative;border-radius:16px;overflow:hidden;aspect-ratio:16/11;background:var(--surface-1);box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06)}
 
 /* ---------- SOCIAL SHOWCASE ---------- */
-.sc-head2{max-width:1200px;margin:clamp(40px,6vw,72px) auto 22px;position:relative;z-index:1}
+.sc-head2{max-width:1200px;margin:clamp(24px,3.5vw,40px) auto 18px;position:relative;z-index:1;border-top:1px solid var(--hairline);padding-top:clamp(24px,3.5vw,40px)}
 .sc-head2 .mono-label{margin-bottom:10px}
 .sc-head2 h3{font-family:"Anton";text-transform:uppercase;font-size:clamp(26px,4vw,52px);line-height:.95}
 .sc-head2 h3 .pink{color:var(--magenta)}
@@ -623,7 +625,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 <nav>
   <a class="nav-logo magnetic" href="#top" aria-label="Purple by Harry"><img src="images/logo-mark.png" alt="Purple by Harry"></a>
   <div class="links">
-    <a href="#carla">Carlablackiae</a><a href="#stripey">Stripey</a><a href="#crystal">Red Crystallinum</a><a href="#about">About</a><a href="shop.html">Shop</a><a href="blog.html">Journal</a><a href="guide.html">Guide</a><a href="#join">Join</a>
+    <a href="#about">About</a><a href="shop.html">Shop</a><a href="blog.html">Journal</a><a href="guide.html">Guide</a><a class="nav-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow me</a>
   </div>
   <div class="wordmark" style="font-size:13px;letter-spacing:.05em">BY HARRY</div>
 </nav>
@@ -744,7 +746,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       </article>
     </div>
   </div>
-  <div class="sc-note">Tap any card to follow. Follower counts are managed in the editor — update them anytime.</div>
+  <div class="sc-note">Follow the atelier — new unfurls, restocks &amp; grow notes, daily.</div>
 </section>
 
 <!-- ============ THE COLLECTION (stacked folder deck) ============ -->
@@ -1376,14 +1378,38 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
   /* C — cinematic scroll parallax (only if GSAP present) */
   if(window.gsap&&window.ScrollTrigger&&!reduce){
     try{
-      gsap.utils.toArray(['.deck-intro','.gtitle','.outro .mono-label','.mf-meta']).forEach(function(el){
-        gsap.fromTo(el,{yPercent:10},{yPercent:-10,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:0.6}});
+      gsap.utils.toArray(['.deck-intro','.gtitle']).forEach(function(el){
+        gsap.fromTo(el,{yPercent:7},{yPercent:-7,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:0.6}});
       });
       gsap.utils.toArray('.pp-vein').forEach(function(el){
         gsap.fromTo(el,{xPercent:-3},{xPercent:3,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}});
       });
     }catch(e){}
   }
+})();
+</script>
+<script>
+/* ===== Living images: Ken Burns on About + auto-cycling featured in variety decks ===== */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var css="@keyframes ppKB{0%{transform:scale(1.02) translate(0,0)}50%{transform:scale(1.1) translate(-1.5%,-1%)}100%{transform:scale(1.02) translate(0,0)}}"+
+    ".ab-portrait,.ab-rooms .ab-room{overflow:hidden}"+
+    (reduce?"":".ab-portrait img{animation:ppKB 24s ease-in-out infinite}.ab-rooms .ab-room:nth-of-type(1) img{animation:ppKB 28s ease-in-out infinite}.ab-rooms .ab-room:nth-of-type(2) img{animation:ppKB 32s ease-in-out infinite}");
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  if(reduce)return;
+  document.querySelectorAll('.dc-show').forEach(function(show){
+    var feat=show.querySelector('.dc-feat-img');var minis=[].slice.call(show.querySelectorAll('.dc-mini'));
+    if(!feat||minis.length<2)return;
+    var i=0,paused=false;
+    show.addEventListener('mouseenter',function(){paused=true;});
+    show.addEventListener('mouseleave',function(){paused=false;});
+    setInterval(function(){
+      if(paused||document.hidden)return;
+      i=(i+1)%minis.length;var src=minis[i].getAttribute('data-src');if(!src)return;
+      var im=new Image();im.onload=function(){feat.style.transition='opacity .55s';feat.style.opacity='0';setTimeout(function(){feat.src=src;feat.style.opacity='1';},260);};im.src=src;
+      minis.forEach(function(m,k){m.classList.toggle('active',k===i);});
+    },4600);
+  });
 })();
 </script>
 <script src="assets/loader.js"></script>
