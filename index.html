@@ -1405,7 +1405,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     function refresh(){var L=live();if(totEl)totEl.textContent=L.length||'—';}
     function show(n){var L=live();if(!L.length){if(curEl)curEl.textContent='0';return;}n=((n%L.length)+L.length)%L.length;items.forEach(function(it){it.img.classList.remove('on');it.thumb.classList.remove('on');});L[n].img.classList.add('on');L[n].thumb.classList.add('on');idx=n;if(curEl)curEl.textContent=n+1;try{L[n].thumb.scrollIntoView({inline:'center',block:'nearest'});}catch(e){}}
     function stopA(){if(timer){clearInterval(timer);timer=null;}}
-    function startA(){stopA();if(reduce)return;var L=live();if(L.length<2)return;timer=setInterval(function(){if(!document.hidden)show(idx+1);},4200);}
+    function startA(){stopA();if(reduce)return;var L=live();if(L.length<2)return;timer=setInterval(function(){if(!document.hidden)show(idx+1);},3400);}
     function build(list){
       (list||[]).slice(0,8).forEach(function(src){
         var im=document.createElement('img');im.src=rel(src);im.loading='lazy';im.alt=name;
@@ -1424,9 +1424,10 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     ctrl.push({card:card,build:build,startA:startA,stopA:stopA});
   });
   var active=-1;
-  function activate(i){if(i===active)return;cards.forEach(function(c,k){c.classList.toggle('active',k===i);});ctrl.forEach(function(c,k){k===i?c.startA():c.stopA();});active=i;}
+  function activate(i){if(i===active)return;cards.forEach(function(c,k){var on=k===i;c.classList.toggle('active',on);c.style.flexGrow=on?'3.8':'1';});ctrl.forEach(function(c,k){k===i?c.startA():c.stopA();});active=i;}
   activate(0);
-  if(fine){cards.forEach(function(card,i){card.addEventListener('mouseenter',function(){activate(i);});});stage.addEventListener('mouseleave',function(){activate(0);});}
+  cards.forEach(function(card,i){card.addEventListener('mouseenter',function(){activate(i);});});
+  stage.addEventListener('mouseleave',function(){activate(0);});
   stage.addEventListener('click',function(e){
     var im=e.target.closest&&e.target.closest('.sc-slides img');if(!im||!im.classList.contains('on'))return;
     var lb=document.getElementById('lightbox'),l=document.getElementById('lbImg'),c=document.getElementById('lbCap');
