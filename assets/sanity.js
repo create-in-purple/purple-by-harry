@@ -3,10 +3,13 @@
    Every page uses this as an OVERRIDE: if Sanity has data it takes over,
    otherwise the page keeps its existing local content (never breaks). */
 (function () {
-  var CFG = { projectId: 'g3ju6n9y', dataset: 'production', v: '2023-10-01' };
+  // ⚙️ enabled:false → website dùng ảnh/nội dung từ GitHub (ổn định).
+  //    enabled:true  → website đọc từ Sanity CMS (bật khi Studio đã có ảnh thật).
+  var CFG = { projectId: 'g3ju6n9y', dataset: 'production', v: '2023-10-01', enabled: false };
   window.SANITY = CFG;
 
   window.sanityFetch = function (query) {
+    if (!CFG.enabled) return Promise.resolve(null);
     var url = 'https://' + CFG.projectId + '.apicdn.sanity.io/v' + CFG.v +
       '/data/query/' + CFG.dataset + '?query=' + encodeURIComponent(query);
     return fetch(url, { cache: 'no-store' })
