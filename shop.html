@@ -305,7 +305,6 @@ footer a:hover{color:var(--magenta)}
     if(d&&d.items&&d.items.length){PRODUCTS=d.items;LOCAL=d.items;if(d.currency)CURRENCY=d.currency;}
   }).catch(function(){}).then(function(){
     boot();
-    // Sanity takes over when products exist there (images fall back to local until uploaded)
     if(window.sanityFetch){
       sanityFetch(SQ.products).then(function(items){
         if(!items||!items.length)return;
