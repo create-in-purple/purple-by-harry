@@ -379,19 +379,17 @@ svg.has-photo .duo{opacity:.55}
 /* The Specimens — expanding focus gallery (hover opens a filmstrip slider; others collapse) */
 .stage{max-width:1200px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
 .spec-stage{display:flex;gap:12px;height:clamp(470px,64vh,640px)}
-.sc{position:relative;display:flex;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#0c0c0c;box-shadow:0 20px 60px rgba(0,0,0,.45);transition:flex-grow .5s cubic-bezier(.16,1,.3,1);contain:layout paint}
+.sc{position:relative;display:flex;flex:1 1 0;min-width:0;border-radius:20px;overflow:hidden;cursor:pointer;background:#0c0c0c;box-shadow:0 20px 60px rgba(0,0,0,.45);transition:transform .45s cubic-bezier(.16,1,.3,1),box-shadow .45s;contain:layout paint}
 .sc-media{position:relative;flex:1 1 auto;min-width:0;overflow:hidden;contain:layout paint}
-.sc.active{flex-grow:3.6}
+.sc:hover{transform:translateY(-6px)}
 .sc::after{content:"";position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none;z-index:6;transition:box-shadow .5s}
-.sc.active::after{box-shadow:inset 0 0 0 1px rgba(255,0,157,.6),0 0 70px rgba(255,0,157,.12)}
-.sc-slides{position:absolute;inset:0;z-index:0;opacity:1;transition:opacity .5s ease}
-.sc:not(.active) .sc-slides{opacity:0}
-.sc:not(.active) .sc-veil{background:linear-gradient(180deg,rgba(5,5,5,.2),rgba(5,5,5,.55))}
-.sc-slides img{position:absolute;top:0;bottom:0;left:50%;transform:translateX(-50%);width:64vw;max-width:none;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .7s ease}
-@media(max-width:860px){.sc-slides img{left:0;transform:none;width:100%}}
+.sc:hover::after{box-shadow:inset 0 0 0 1px rgba(255,0,157,.55)}
+.sc-slides{position:absolute;inset:0;z-index:0;opacity:0;transition:opacity .5s ease}
+.sc:hover .sc-slides{opacity:1}
+.sc-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .7s ease}
 .sc-slides img.on{opacity:1}
 .sc-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.15),rgba(5,5,5,.35) 40%,rgba(5,5,5,.92));transition:background .5s}
-.sc.active .sc-veil{background:linear-gradient(180deg,rgba(5,5,5,.05),rgba(5,5,5,.3) 45%,rgba(5,5,5,.95))}
+.sc:hover .sc-veil{background:linear-gradient(180deg,rgba(5,5,5,.05),rgba(5,5,5,.35) 45%,rgba(5,5,5,.94))}
 .sc-spine{position:absolute;inset:0;z-index:3;overflow:hidden;transition:opacity .4s}
 .sc-spine::after{content:"";position:absolute;inset:0;background:radial-gradient(130% 75% at 50% 122%,rgba(255,0,157,.22),transparent 62%);pointer-events:none}
 .sc-ghost{position:absolute;left:50%;top:47%;transform:translate(-50%,-50%);font-family:"Anton";font-size:min(40vh,210px);line-height:.8;color:transparent;-webkit-text-stroke:1.5px rgba(255,255,255,.08);pointer-events:none;user-select:none;will-change:transform}
@@ -402,16 +400,17 @@ svg.has-photo .duo{opacity:.55}
 @media(prefers-reduced-motion:reduce){.sc-vname{animation:none}}
 .sc-more{position:absolute;bottom:20px;left:0;right:0;text-align:center;font-size:9.5px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:rgba(255,255,255,.42);z-index:2;transition:color .3s}
 .sc:hover .sc-more{color:var(--magenta)}
-.sc.active .sc-spine{opacity:0;pointer-events:none}
+.sc:hover .sc-spine{opacity:0;pointer-events:none}
 .sc-topbar{position:absolute;top:0;left:0;right:0;z-index:5;display:flex;justify-content:space-between;align-items:center;padding:16px clamp(20px,2vw,34px);opacity:0;transition:opacity .4s .2s}
-.sc.active .sc-topbar{opacity:1}
+.sc:hover .sc-topbar{opacity:1}
 .sc-kicker{font-size:10px;font-weight:600;letter-spacing:.24em;text-transform:uppercase;color:#fff;background:rgba(255,0,157,.85);padding:5px 11px;border-radius:100px}
 .sc-count{font-size:11px;font-weight:600;letter-spacing:.1em;color:#fff;background:rgba(5,5,5,.72);padding:5px 10px;border-radius:100px}
-.sc-panel{flex:0 0 0;width:0;min-width:0;overflow:hidden;z-index:4;display:flex;flex-direction:column;justify-content:center;background:linear-gradient(160deg,#0d0b12,#08070b);padding:0;opacity:0;transition:flex-basis .5s cubic-bezier(.16,1,.3,1),opacity .4s .12s;pointer-events:none;contain:layout paint}
-.sc-pin{flex:0 0 auto;width:clamp(300px,34vw,420px);padding:clamp(22px,2.2vw,38px);box-sizing:border-box;display:flex;flex-direction:column}
+.sc-panel{position:absolute;left:0;right:0;bottom:0;z-index:4;overflow:hidden;display:flex;flex-direction:column;justify-content:flex-end;background:linear-gradient(180deg,transparent,rgba(8,7,11,.62) 32%,rgba(8,7,11,.95));opacity:0;transform:translateY(14px);transition:opacity .4s,transform .45s cubic-bezier(.16,1,.3,1);pointer-events:none;contain:layout paint}
+.sc-pin{width:100%;padding:clamp(18px,1.6vw,26px);box-sizing:border-box;display:flex;flex-direction:column}
 @media(max-width:860px){.sc-pin{width:100%}}
-.sc.active .sc-panel{flex:0 0 clamp(300px,34vw,420px);opacity:1;pointer-events:auto}
-.sc-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(30px,3.6vw,56px);line-height:.86;margin:0 0 4px}
+.sc:hover .sc-panel{opacity:1;transform:none;pointer-events:auto}
+@media(max-width:860px){.sc-slides{opacity:1}.sc:hover{transform:none}.sc-spine{opacity:0}.sc-panel{opacity:1;transform:none;pointer-events:auto}.sc-topbar{opacity:1}}
+.sc-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(22px,1.9vw,32px);line-height:.9;margin:0 0 4px}
 .sc-name .grad{background:linear-gradient(120deg,#ff3db0,#ff8ad4 46%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .sc-latin{font-family:"Fraunces",serif;font-style:italic;color:#cfc7cd;font-size:clamp(14px,1.4vw,17px)}
 .sc-desc{color:#e4dfe2;font-size:13.5px;line-height:1.62;margin:12px 0 14px;max-width:440px}
@@ -853,9 +852,9 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       </div>
       <div class="sm-stats" style="padding:16px 20px 0"><div><b id="igPosts">—</b><span>Posts</span></div><div><b id="igFollowers">—</b><span>Followers</span></div><div><b id="igFollowing">—</b><span>Following</span></div></div>
       <div class="ig-grid">
-        <a class="ig-cell" href="https://www.instagram.com/p/DWStuPVEb33/" target="_blank" rel="noopener"><img src="images/IMG_4129.jpeg" alt="Instagram post"><span class="ig-play">▶</span><span class="ig-cap">Watch the flowers grow</span></a>
-        <a class="ig-cell" href="https://www.instagram.com/p/DYXQiUBT2iB/" target="_blank" rel="noopener"><img src="images/IMG_8849.jpeg" alt="Instagram post"><span class="ig-play">▶</span><span class="ig-cap">Velvet in the fog</span></a>
-        <a class="ig-cell" href="https://www.instagram.com/p/DZNYATzTY_h/" target="_blank" rel="noopener"><img src="images/IMG_9713.jpeg" alt="Instagram post"><span class="ig-play">▶</span><span class="ig-cap">A brand-new unfurl</span></a>
+        <a class="ig-cell" href="https://www.instagram.com/p/DWStuPVEb33/" target="_blank" rel="noopener"><img src="images/carla-g3.jpg" alt="Instagram post" loading="lazy"><span class="ig-play">▶</span><span class="ig-cap">Watch the flowers grow</span></a>
+        <a class="ig-cell" href="https://www.instagram.com/p/DYXQiUBT2iB/" target="_blank" rel="noopener"><img src="images/stripey-g3.jpg" alt="Instagram post" loading="lazy"><span class="ig-play">▶</span><span class="ig-cap">Velvet in the fog</span></a>
+        <a class="ig-cell" href="https://www.instagram.com/p/DZNYATzTY_h/" target="_blank" rel="noopener"><img src="images/crystal-g3.jpg" alt="Instagram post" loading="lazy"><span class="ig-play">▶</span><span class="ig-cap">A brand-new unfurl</span></a>
       </div>
       <a class="ig-all" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">View all on Instagram ↗</a>
     </article>
@@ -1149,7 +1148,8 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     function row(list,rev){var set=list.map(item).join('');return '<div class="vmq-row'+(rev?' rev':'')+'"><div class="vmq-track">'+set+set+'</div></div>';}
     function build(imgs){
       imgs=(imgs||[]).filter(Boolean);if(!imgs.length)return;
-      imgs=shuffle(imgs.slice());
+      var sn={},uq=[];imgs.forEach(function(s){if(!sn[s]){sn[s]=1;uq.push(s);}});imgs=uq;
+      imgs=shuffle(imgs.slice()).slice(0,8);
       var mid=Math.ceil(imgs.length/2),a=imgs.slice(0,mid),b=imgs.slice(mid);if(!b.length)b=a.slice();
       mq.innerHTML=row(a,false)+row(b,true);
       mq.querySelectorAll('.vmq-item img').forEach(function(im){im.addEventListener('click',function(){var lb=document.getElementById('lightbox'),li=document.getElementById('lbImg'),lc=document.getElementById('lbCap');if(lb&&li){li.src=im.currentSrc||im.src;if(lc)lc.textContent='Saigon Purple · The Vault';lb.classList.add('open');lb.setAttribute('aria-hidden','false');}});});
