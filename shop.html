@@ -96,6 +96,8 @@ header.shop-hero{padding:clamp(46px,7vw,90px) clamp(20px,4vw,48px) clamp(26px,3v
 .ci .rm{background:none;border:0;color:var(--ink-muted);font-size:11px;letter-spacing:.06em;cursor:pointer;margin-top:8px;display:block}
 .ci .rm:hover{color:var(--magenta)}
 .cart-empty{padding:50px 22px;text-align:center;color:var(--ink-muted);font-size:14px}
+.shop-empty{grid-column:1/-1;text-align:center;padding:clamp(60px,10vw,120px) 20px;font-family:"Anton";text-transform:uppercase;font-size:clamp(24px,4vw,44px);line-height:1.1;color:var(--ink)}
+.shop-empty span{display:block;margin-top:16px;font-family:"Inter";font-weight:400;text-transform:none;letter-spacing:0;font-size:14px;color:var(--ink-muted)}
 .cart-foot{padding:18px 22px;border-top:1px solid var(--hairline)}
 .cart-foot .sub{display:flex;justify-content:space-between;align-items:baseline;margin-bottom:6px}
 .cart-foot .sub .t{color:var(--ink-muted);font-size:13px;letter-spacing:.04em}
@@ -213,7 +215,10 @@ footer a:hover{color:var(--magenta)}
   function render(){
     grid.innerHTML='';
     var unit=CURRENCY==='$'?'<small>USD</small>':'';
-    PRODUCTS.filter(function(p){return cur==='All'||p.cat===cur;}).forEach(function(p){
+    var fbar=document.querySelector('.filters');if(fbar)fbar.style.display=PRODUCTS.length?'':'none';
+    var list=PRODUCTS.filter(function(p){return cur==='All'||p.cat===cur;});
+    if(!list.length){grid.innerHTML='<div class="shop-empty">New drops coming soon 🌱<br><span>Follow <a class="pink" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">@purplebyhry</a> for restock alerts.</span></div>';return;}
+    list.forEach(function(p){
       var soldOut=(p.stock!=null&&p.stock<=0);
       var c=document.createElement('article');c.className='card'+(soldOut?' sold':'');
       var tags='<span class="tag cat">'+p.cat+'</span>'+(p.tags||[]).map(function(t){return '<span class="tag">'+t+'</span>';}).join('');
@@ -302,7 +307,7 @@ footer a:hover{color:var(--magenta)}
   // Load catalog from CMS-managed JSON; fall back to built-in list (e.g. local file preview)
   var LOCAL=[];
   fetch('content/products.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(d&&d.items&&d.items.length){PRODUCTS=d.items;LOCAL=d.items;if(d.currency)CURRENCY=d.currency;}
+    if(d&&Array.isArray(d.items)){PRODUCTS=d.items;LOCAL=d.items;if(d.currency)CURRENCY=d.currency;}
   }).catch(function(){}).then(function(){
     boot();
     if(window.sanityFetch){
