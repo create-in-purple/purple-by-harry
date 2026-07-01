@@ -1310,6 +1310,82 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
   }
 })();
 </script>
+<script>
+/* ===== Atmosphere: living film grain + cursor aura (futuristic · artistic) ===== */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var css=
+   ".pp-grain{position:fixed;inset:-40%;z-index:58;pointer-events:none;opacity:.05;mix-blend-mode:overlay;background-image:url(\"data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='120' height='120'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.85' numOctaves='2'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)'/%3E%3C/svg%3E\");background-size:130px}"+
+   "@keyframes ppGrain{0%{transform:translate(0,0)}20%{transform:translate(-4%,3%)}40%{transform:translate(3%,-4%)}60%{transform:translate(-3%,-2%)}80%{transform:translate(4%,2%)}100%{transform:translate(0,0)}}"+
+   ".pp-aura{position:fixed;left:0;top:0;width:560px;height:560px;margin:-280px 0 0 -280px;z-index:55;pointer-events:none;border-radius:50%;background:radial-gradient(circle,rgba(255,0,157,.13),rgba(122,43,255,.07) 42%,transparent 66%);mix-blend-mode:screen;will-change:transform;opacity:0;transition:opacity .7s}";
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+  var grain=document.createElement('div');grain.className='pp-grain';if(!reduce)grain.style.animation='ppGrain 1s steps(3) infinite';document.body.appendChild(grain);
+  if(fine&&!reduce){
+    var aura=document.createElement('div');aura.className='pp-aura';document.body.appendChild(aura);
+    var ax=innerWidth/2,ay=innerHeight*0.4,tx=ax,ty=ay,on=false;
+    addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;if(!on){on=true;aura.style.opacity=1;}},{passive:true});
+    (function loop(){ax+=(tx-ax)*0.12;ay+=(ty-ay)*0.12;aura.style.transform='translate('+ax.toFixed(1)+'px,'+ay.toFixed(1)+'px)';requestAnimationFrame(loop);})();
+  }
+})();
+</script>
+<script>
+/* ===== Purple signature: veins (A) + art cursor (B) + cinematic scroll (C) ===== */
+(function(){
+  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
+  var css=[
+   ".pp-vein{position:relative;width:100%;height:clamp(56px,8vw,110px);pointer-events:none;overflow:visible}",
+   ".pp-vein svg{width:100%;height:100%;display:block}",
+   ".pp-vein path{fill:none;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1;transition:stroke-dashoffset 1.9s cubic-bezier(.16,1,.3,1)}",
+   ".pp-vein .v1{stroke:rgba(255,208,236,.5);stroke-width:1.2}",
+   ".pp-vein .v2{stroke:rgba(255,0,157,.5);stroke-width:1.4}",
+   ".pp-vein .v3{stroke:rgba(122,43,255,.42);stroke-width:1}",
+   ".pp-vein.in path{stroke-dashoffset:0}",
+   ".pp-cur{position:fixed;top:0;left:0;z-index:8001;pointer-events:none;transform:translate(-50%,-50%) scale(0);transition:transform .28s cubic-bezier(.16,1,.3,1);width:76px;height:76px;border-radius:50%;background:rgba(255,0,157,.15);backdrop-filter:blur(2px);-webkit-backdrop-filter:blur(2px);border:1px solid rgba(255,255,255,.28);display:flex;align-items:center;justify-content:center;font-family:'Inter',sans-serif;font-size:10px;font-weight:700;letter-spacing:.18em;text-transform:uppercase;color:#fff}",
+   ".pp-cur.show{transform:translate(-50%,-50%) scale(1)}"
+  ].join("");
+  var st=document.createElement('style');st.textContent=css;document.head.appendChild(st);
+
+  /* A — vein dividers that draw on scroll */
+  function vein(){var d=document.createElement('div');d.className='pp-vein';d.setAttribute('aria-hidden','true');
+    d.innerHTML='<svg viewBox="0 0 1200 100" preserveAspectRatio="none">'+
+      '<path class="v1" pathLength="1" d="M0 60 C 220 20, 360 90, 600 55 S 980 20, 1200 62"/>'+
+      '<path class="v2" pathLength="1" d="M0 44 C 260 80, 420 18, 620 52 S 1000 86, 1200 40"/>'+
+      '<path class="v3" pathLength="1" d="M0 74 C 300 50, 500 96, 720 66 S 1050 44, 1200 76"/></svg>';
+    return d;}
+  ['#ethos','#about','#gallery','#join'].forEach(function(sel){
+    var s=document.querySelector(sel);if(!s||!s.parentNode)return;
+    var v=vein();s.parentNode.insertBefore(v,s);
+    if(reduce){v.classList.add('in');return;}
+    new IntersectionObserver(function(es,o){es.forEach(function(e){if(e.isIntersecting){v.classList.add('in');o.disconnect();}});},{threshold:.35}).observe(v);
+  });
+
+  /* B — art cursor "View" over media */
+  if(fine&&!reduce){
+    var cur=document.createElement('div');cur.className='pp-cur';cur.textContent='View';document.body.appendChild(cur);
+    var cx=innerWidth/2,cy=innerHeight/2,tx=cx,ty=cy;
+    addEventListener('mousemove',function(e){tx=e.clientX;ty=e.clientY;},{passive:true});
+    (function loop(){cx+=(tx-cx)*0.2;cy+=(ty-cy)*0.2;cur.style.left=cx.toFixed(1)+'px';cur.style.top=cy.toFixed(1)+'px';requestAnimationFrame(loop);})();
+    document.querySelectorAll('.vmq-item,.dc-feat-img,.dc-mini,.ig-cell,.ab-portrait,.ab-rooms .ab-room').forEach(function(el){
+      el.addEventListener('mouseenter',function(){cur.classList.add('show');});
+      el.addEventListener('mouseleave',function(){cur.classList.remove('show');});
+    });
+  }
+
+  /* C — cinematic scroll parallax (only if GSAP present) */
+  if(window.gsap&&window.ScrollTrigger&&!reduce){
+    try{
+      gsap.utils.toArray(['.deck-intro','.gtitle','.outro .mono-label','.mf-meta']).forEach(function(el){
+        gsap.fromTo(el,{yPercent:10},{yPercent:-10,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:0.6}});
+      });
+      gsap.utils.toArray('.pp-vein').forEach(function(el){
+        gsap.fromTo(el,{xPercent:-3},{xPercent:3,ease:'none',scrollTrigger:{trigger:el,start:'top bottom',end:'bottom top',scrub:1}});
+      });
+    }catch(e){}
+  }
+})();
+</script>
 <script src="assets/loader.js"></script>
 </body>
 </html>
