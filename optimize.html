@@ -1,0 +1,134 @@
+<!doctype html>
+<html lang="vi">
+<head>
+<meta charset="utf-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Nén ảnh — Purple by Harry</title>
+<style>
+:root{--canvas:#050505;--surface:#141414;--hairline:#262626;--ink:#f5f3f4;--muted:#8c868a;--magenta:#ff009d;--violet:#7a2bff}
+*{margin:0;padding:0;box-sizing:border-box}
+body{background:var(--canvas);color:var(--ink);font-family:"Inter",system-ui,-apple-system,sans-serif;line-height:1.5;padding:clamp(20px,4vw,48px)}
+h1{font-size:clamp(26px,4vw,40px);letter-spacing:-.02em}
+h1 .p{color:var(--magenta)}
+.sub{color:var(--muted);margin:8px 0 26px;font-size:14px}
+.panel{max-width:900px;margin:0 auto}
+.controls{display:flex;gap:20px;flex-wrap:wrap;align-items:center;background:var(--surface);border:1px solid var(--hairline);border-radius:16px;padding:16px 20px;margin-bottom:18px}
+.controls label{font-size:13px;color:var(--muted);display:flex;align-items:center;gap:10px}
+.controls input[type=range]{accent-color:var(--magenta)}
+.controls output{color:var(--ink);font-weight:600;min-width:46px}
+.drop{border:2px dashed var(--hairline);border-radius:18px;padding:48px 20px;text-align:center;cursor:pointer;transition:.25s;background:var(--surface)}
+.drop:hover,.drop.over{border-color:var(--magenta);background:#1a1014}
+.drop b{color:var(--magenta)}
+.drop small{display:block;color:var(--muted);margin-top:8px;font-size:13px}
+.bar{display:flex;gap:12px;align-items:center;margin:20px 0;flex-wrap:wrap}
+button{font:inherit;font-weight:600;border:0;border-radius:100px;padding:12px 22px;cursor:pointer;transition:.2s}
+.btn-primary{background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff}
+.btn-primary:hover{transform:translateY(-2px);box-shadow:0 10px 26px rgba(255,0,157,.4)}
+.btn-primary:disabled{opacity:.4;cursor:default;transform:none;box-shadow:none}
+.summary{color:var(--muted);font-size:13px}
+.list{display:grid;gap:10px;margin-top:8px}
+.row{display:flex;align-items:center;gap:14px;background:var(--surface);border:1px solid var(--hairline);border-radius:14px;padding:10px 14px}
+.row img{width:54px;height:54px;object-fit:cover;border-radius:9px;flex:0 0 auto;background:#000}
+.row .info{flex:1;min-width:0}
+.row .nm{font-size:13px;font-weight:600;white-space:nowrap;overflow:hidden;text-overflow:ellipsis}
+.row .sz{font-size:12px;color:var(--muted);margin-top:2px}
+.row .sz .save{color:#23e07a}
+.row a{font-size:12px;font-weight:600;color:#fff;background:var(--surface);border:1px solid var(--hairline);border-radius:100px;padding:8px 14px;text-decoration:none;white-space:nowrap;transition:.2s}
+.row a:hover{border-color:var(--magenta)}
+.tip{margin-top:22px;font-size:13px;color:var(--muted)}
+.tip code{background:var(--surface);padding:2px 6px;border-radius:5px;color:var(--ink)}
+</style>
+</head>
+<body>
+<div class="panel">
+  <h1>Nén ảnh <span class="p">Purple by Harry</span></h1>
+  <p class="sub">Kéo ảnh vào → tự thu nhỏ + nén nhẹ → tải về → upload lên CMS không lỗi 413. Mọi thứ chạy ngay trong trình duyệt, ảnh KHÔNG bị gửi đi đâu cả.</p>
+
+  <div class="controls">
+    <label>Cạnh dài tối đa
+      <input type="range" id="maxpx" min="800" max="2400" step="100" value="1600">
+      <output id="maxpxv">1600px</output>
+    </label>
+    <label>Chất lượng
+      <input type="range" id="q" min="50" max="92" step="1" value="80">
+      <output id="qv">80%</output>
+    </label>
+  </div>
+
+  <label class="drop" id="drop">
+    <input type="file" id="file" accept="image/*" multiple hidden>
+    <b>Bấm chọn ảnh</b> hoặc kéo-thả vào đây
+    <small>Chọn được nhiều ảnh cùng lúc (batch). Hỗ trợ JPG, PNG, HEIC*.</small>
+  </label>
+
+  <div class="bar">
+    <button class="btn-primary" id="dlall" disabled>⬇ Tải tất cả</button>
+    <span class="summary" id="summary"></span>
+  </div>
+
+  <div class="list" id="list"></div>
+
+  <p class="tip">Mẹo: giữ <b>nguyên tên file</b> khi upload đè để không phải sửa gì. Cạnh dài <code>1600px</code> + chất lượng <code>80%</code> thường cho ảnh đẹp & nhẹ (~200–500KB). *HEIC từ iPhone có thể cần đổi sang JPG trước.</p>
+</div>
+
+<script>
+(function(){
+  var maxpx=document.getElementById('maxpx'),q=document.getElementById('q'),
+      maxpxv=document.getElementById('maxpxv'),qv=document.getElementById('qv'),
+      drop=document.getElementById('drop'),file=document.getElementById('file'),
+      list=document.getElementById('list'),summary=document.getElementById('summary'),
+      dlall=document.getElementById('dlall');
+  var results=[];
+  maxpx.oninput=function(){maxpxv.textContent=maxpx.value+'px';};
+  q.oninput=function(){qv.textContent=q.value+'%';};
+  function kb(n){return n>1048576?(n/1048576).toFixed(1)+' MB':Math.round(n/1024)+' KB';}
+
+  function process(files){
+    var arr=[].slice.call(files).filter(function(f){return /^image\//.test(f.type);});
+    arr.forEach(function(f){ handle(f); });
+  }
+  function handle(f){
+    var img=new Image(), url=URL.createObjectURL(f);
+    img.onload=function(){
+      var m=+maxpx.value, w=img.width, h=img.height, scale=Math.min(1, m/Math.max(w,h));
+      var cw=Math.round(w*scale), ch=Math.round(h*scale);
+      var c=document.createElement('canvas'); c.width=cw; c.height=ch;
+      c.getContext('2d').drawImage(img,0,0,cw,ch);
+      c.toBlob(function(blob){
+        URL.revokeObjectURL(url);
+        var name=f.name.replace(/\.(png|heic|heif|webp|jpeg)$/i,'.jpg');
+        if(!/\.jpg$/i.test(name)) name+='.jpg';
+        var o=URL.createObjectURL(blob);
+        results.push({name:name,blob:blob,url:o});
+        addRow({name:name, before:f.size, after:blob.size, url:o, thumb:o});
+        dlall.disabled=false;
+        var saved=results.reduce(function(s,r){return s;},0);
+        summary.textContent=results.length+' ảnh đã nén.';
+      }, 'image/jpeg', (+q.value)/100);
+    };
+    img.onerror=function(){URL.revokeObjectURL(url);};
+    img.src=url;
+  }
+  function addRow(r){
+    var row=document.createElement('div'); row.className='row';
+    var pct=Math.max(0,Math.round((1-r.after/r.before)*100));
+    row.innerHTML='<img src="'+r.thumb+'" alt=""><div class="info"><div class="nm">'+r.name+'</div>'+
+      '<div class="sz">'+kb(r.before)+' → '+kb(r.after)+' <span class="save">(-'+pct+'%)</span></div></div>'+
+      '<a download="'+r.name+'" href="'+r.url+'">Tải</a>';
+    list.appendChild(row);
+  }
+  dlall.onclick=function(){
+    results.forEach(function(r,i){
+      setTimeout(function(){
+        var a=document.createElement('a'); a.href=r.url; a.download=r.name; document.body.appendChild(a); a.click(); a.remove();
+      }, i*350);
+    });
+  };
+  file.onchange=function(){ process(file.files); };
+  ;['dragenter','dragover'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.add('over');});});
+  ;['dragleave','drop'].forEach(function(e){drop.addEventListener(e,function(ev){ev.preventDefault();drop.classList.remove('over');});});
+  drop.addEventListener('drop',function(ev){ process(ev.dataTransfer.files); });
+})();
+</script>
+</body>
+</html>

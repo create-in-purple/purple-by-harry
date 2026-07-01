@@ -11,6 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/loader.css">
 <link rel="stylesheet" href="assets/transition.css">
+<script src="assets/sanity.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,300..600&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
@@ -143,6 +144,7 @@ footer a:hover{color:var(--magenta)}
   }
   build(FALLBACK);
   fetch('content/guide.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.sections&&d.sections.length)build(d);}).catch(function(){});
+  if(window.sanityFetch){sanityFetch(SQ.guide).then(function(d){if(d&&d.sections&&d.sections.length)build(d);});}
 })();
 /* ---------- Purple Envelope gauges: count-up + ring reveal ---------- */
 (function(){

@@ -16,6 +16,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <meta name="twitter:image" content="images/og-image.jpg">
 <link rel="stylesheet" href="assets/transition.css">
+<script src="assets/sanity.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,300..600&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
@@ -1105,6 +1106,7 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     }
     build(FB);
     fetch('content/vault.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.images&&d.images.length)build(d);}).catch(function(){});
+    if(window.sanityFetch){sanityFetch(SQ.vault).then(function(d){if(d&&d.images){var imgs=d.images.filter(function(x){return x&&x.img;}).map(function(x){return {img:sImg(x.img,'w=1000&q=80&auto=format'),size:x.size};});if(imgs.length)build({max:d.max||18,images:imgs});}});}
   })();
 
   /* ---------- COLLECTION VIEWER (legacy, no-op if absent) ---------- */
@@ -1268,6 +1270,23 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     if(s.tiktok){var tt=s.tiktok;txt('ttFollowing',tt.following);txt('ttFollowers',tt.followers);txt('ttLikes',tt.likes);lnk('ttFollow',tt.url);}
     if(s.facebook){var fb=s.facebook;txt('fbFollowers',fb.followers);txt('fbLikes',fb.likes);lnk('fbFollow',fb.url);}
   }).catch(function(){});
+  // ---- Sanity overrides (take over when data/images exist in the CMS) ----
+  if(window.sanityFetch){
+    sanityFetch(SQ.site).then(function(d){ if(!d)return;
+      document.querySelectorAll('.lk-img,.footer-logo').forEach(function(im){setSrc(im,sImg(d.logo,'w=700&q=85&auto=format'));});
+      document.querySelectorAll('.nav-logo img').forEach(function(im){setSrc(im,sImg(d.logoMark,'w=420&q=85&auto=format'));});
+      if(d.about){setSrc(document.querySelector('.ab-portrait img'),sImg(d.about.portrait,'w=1000&q=82&auto=format'));var rr=document.querySelectorAll('.ab-rooms .ab-room img');setSrc(rr[0],sImg(d.about.room));setSrc(rr[1],sImg(d.about.cats));}
+      if(d.instagram){var ce=document.querySelectorAll('.ig-grid .ig-cell img');d.instagram.forEach(function(u,i){setSrc(ce[i],sImg(u,'w=700&q=82&auto=format'));});}
+      if(d.varieties){['carla','stripey','crystal'].forEach(function(id){var arr=d.varieties[id];if(!arr||!arr.length)return;var card=document.getElementById(id);if(!card)return;setSrc(card.querySelector('.dc-feat-img'),sImg(arr[0],'w=1200&q=82&auto=format'));card.querySelectorAll('.dc-mini').forEach(function(m,i){if(arr[i]){var u=sImg(arr[i],'w=600&q=80&auto=format');m.setAttribute('data-src',u);setSrc(m.querySelector('img'),u);}});});}
+    });
+    sanityFetch(SQ.social).then(function(s){ if(!s)return;
+      function T(id,v){var e=document.getElementById(id);if(e&&v)e.textContent=v;}
+      function L(id,v){var e=document.getElementById(id);if(e&&v)e.href=v;}
+      if(s.instagram){T('igPosts',s.instagram.posts);T('igFollowers',s.instagram.followers);T('igFollowing',s.instagram.following);L('igFollow',s.instagram.url);}
+      if(s.tiktok){T('ttFollowing',s.tiktok.following);T('ttFollowers',s.tiktok.followers);T('ttLikes',s.tiktok.likes);L('ttFollow',s.tiktok.url);}
+      if(s.facebook){T('fbFollowers',s.facebook.followers);T('fbLikes',s.facebook.likes);L('fbFollow',s.facebook.url);}
+    });
+  }
 })();
 </script>
 <script src="assets/loader.js"></script>

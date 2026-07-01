@@ -11,6 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/loader.css">
 <link rel="stylesheet" href="assets/transition.css">
+<script src="assets/sanity.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,300..600&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
@@ -129,7 +130,18 @@ footer a:hover{color:var(--magenta)}
   addEventListener('keydown',function(e){if(e.key==='Escape')close();});
   var POSTS=FALLBACK;
   function boot(){render(POSTS);var h=location.hash.match(/post=([\w-]+)/);if(h){var p=POSTS.filter(function(x){return x.slug===h[1];})[0];if(p)open(p);}}
-  fetch('content/posts.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.posts&&d.posts.length)POSTS=d.posts.slice().reverse();}).catch(function(){}).then(boot);
+  var LOCALP=[];
+  fetch('content/posts.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.posts&&d.posts.length){POSTS=d.posts.slice().reverse();LOCALP=POSTS;}}).catch(function(){}).then(function(){
+    boot();
+    if(window.sanityFetch){
+      sanityFetch(SQ.posts).then(function(items){
+        if(!items||!items.length)return;
+        var byS={};LOCALP.forEach(function(p){byS[p.slug]=p;});
+        POSTS=items.map(function(p){var loc=byS[p.slug]||{};return {title:p.title,slug:p.slug,date:p.date,excerpt:p.excerpt,body:p.body,cover:p.cover?sImg(p.cover,'w=1200&q=82&auto=format'):(loc.cover||'')};});
+        render(POSTS);
+      });
+    }
+  });
 })();
 </script>
 <script src="assets/loader.js"></script>

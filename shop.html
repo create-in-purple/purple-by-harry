@@ -11,6 +11,7 @@
 <meta name="twitter:card" content="summary_large_image">
 <link rel="stylesheet" href="assets/loader.css">
 <link rel="stylesheet" href="assets/transition.css">
+<script src="assets/sanity.js"></script>
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
 <link href="https://fonts.googleapis.com/css2?family=Anton&family=Fraunces:ital,opsz,wght@0,9..144,400..600;1,9..144,300..600&family=Inter:opsz,wght@14..32,300..700&display=swap" rel="stylesheet">
@@ -299,9 +300,25 @@ footer a:hover{color:var(--magenta)}
 
   function boot(){render();renderCart();updateCount();}
   // Load catalog from CMS-managed JSON; fall back to built-in list (e.g. local file preview)
+  var LOCAL=[];
   fetch('content/products.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(d&&d.items&&d.items.length){PRODUCTS=d.items;if(d.currency)CURRENCY=d.currency;}
-  }).catch(function(){}).then(boot);
+    if(d&&d.items&&d.items.length){PRODUCTS=d.items;LOCAL=d.items;if(d.currency)CURRENCY=d.currency;}
+  }).catch(function(){}).then(function(){
+    boot();
+    // Sanity takes over when products exist there (images fall back to local until uploaded)
+    if(window.sanityFetch){
+      sanityFetch(SQ.products).then(function(items){
+        if(!items||!items.length)return;
+        var byId={};LOCAL.forEach(function(p){byId[p.id]=p;});
+        PRODUCTS=items.map(function(p){
+          var lid=(p.id||'').replace(/^product-/,'');var loc=byId[lid]||{};
+          return {id:lid||p.id,name:p.name,lat:p.lat,cat:p.cat,tags:p.tags||[],price:p.price,stock:p.stock,
+                  img:p.img?sImg(p.img,'w=900&q=82&auto=format'):(loc.img||'')};
+        });
+        render();updateCount();
+      });
+    }
+  });
 })();
 </script>
 <script src="assets/loader.js"></script>
