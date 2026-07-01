@@ -1,77 +1,23 @@
 {
   "max": 18,
   "images": [
-    {
-      "img": "images/IMG_4129-1.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_8702.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_8846.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9295.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9545.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9548.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9602.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9605.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_0155.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9660.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_0018.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9657.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_0160.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9605.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_7869-1.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_8842.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9626.jpeg",
-      "size": "normal"
-    },
-    {
-      "img": "images/IMG_9826.jpeg",
-      "size": "normal"
-    }
+    {"img":"images/Carlablackiae1.jpg","size":"tall"},
+    {"img":"images/RedCrystallinum1.jpg","size":"normal"},
+    {"img":"images/Stripey1.jpg","size":"normal"},
+    {"img":"images/crystal-detail.jpg","size":"wide"},
+    {"img":"images/Carlablackiae3.jpg","size":"normal"},
+    {"img":"images/Stripey4.jpg","size":"tall"},
+    {"img":"images/RedCrystallinum4.jpg","size":"normal"},
+    {"img":"images/tile-05.jpg","size":"normal"},
+    {"img":"images/Carlablackiae2.jpg","size":"normal"},
+    {"img":"images/Stripey3.jpg","size":"tall"},
+    {"img":"images/RedCrystallinum2.jpg","size":"wide"},
+    {"img":"images/tile-10.jpg","size":"normal"},
+    {"img":"images/Carlablackiae4.jpg","size":"normal"},
+    {"img":"images/Stripey2.jpg","size":"normal"},
+    {"img":"images/RedCrystallinum3.jpg","size":"normal"},
+    {"img":"images/tile-06.jpg","size":"normal"},
+    {"img":"images/Carlablackiae5.jpg","size":"normal"},
+    {"img":"images/Stripey5.jpg","size":"tall"}
   ]
 }
