@@ -374,6 +374,20 @@ svg.has-photo .duo{opacity:.55}
 .gwall figure::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.4));opacity:0;transition:opacity .4s}
 .gwall figure:hover::after{opacity:1}
 @media(max-width:600px){.gwall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
+/* Vault — continuous marquee */
+.vault-mq{overflow:hidden;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px);-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
+.vmq-row{display:flex;overflow:hidden}
+.vmq-track{display:flex;gap:clamp(12px,1.4vw,18px);padding-right:clamp(12px,1.4vw,18px);width:max-content;animation:vmqScroll 55s linear infinite;will-change:transform}
+.vmq-row.rev .vmq-track{animation-duration:70s;animation-direction:reverse}
+.vault-mq:hover .vmq-track{animation-play-state:paused}
+.vmq-item{flex:0 0 auto;width:clamp(190px,20vw,280px);height:clamp(240px,26vw,340px);border-radius:14px;overflow:hidden;position:relative;cursor:pointer;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.vmq-item img{width:100%;height:100%;object-fit:cover;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vmq-item:hover img{transform:scale(1.07)}
+.vmq-item::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.45));opacity:0;transition:opacity .4s}
+.vmq-item:hover::after{opacity:1}
+@keyframes vmqScroll{to{transform:translateX(-50%)}}
+@media(prefers-reduced-motion:reduce){.vmq-track{animation:none}}
+@media(max-width:600px){.vmq-item{width:150px;height:200px}}
 
 /* ---------- HERO live spec tiles ---------- */
 .hx-stat{position:absolute;z-index:3;padding:15px 17px;border-radius:15px;background:rgba(16,14,18,.5);backdrop-filter:blur(16px);-webkit-backdrop-filter:blur(16px);border:1px solid rgba(255,255,255,.1);box-shadow:0 26px 60px rgba(0,0,0,.45);min-width:152px;opacity:0;animation:fadeIn 1.1s 1.25s forwards;will-change:transform}
@@ -833,8 +847,8 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 
 <!-- ============ DENSITY GALLERY ============ -->
 <section class="gallery" id="gallery" data-hud-num="✦" data-hud-name="The Vault">
-  <div class="gtitle reveal"><h3>THE <span class="pink">VAULT</span></h3><p>Every leaf, every angle — how dense a wall of living art can get.</p></div>
-  <div class="gwall" id="gwall"></div>
+  <div class="gtitle reveal"><h3>THE <span class="pink">VAULT</span></h3><p>Every leaf, every angle — a living wall of velvet, in constant motion.</p></div>
+  <div class="vault-mq" id="vaultMq" aria-label="The Vault gallery"></div>
 </section>
 
 <!-- ============ OUTRO ============ -->
@@ -1087,26 +1101,33 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
     if(feat)feat.addEventListener('click',()=>openLb(feat.currentSrc||feat.src,feat.alt));
   });
 
-  /* ---------- THE VAULT (CMS-managed, capped, choose featured) ---------- */
+  /* ---------- THE VAULT — continuous marquee, auto-built from images already used on the site ---------- */
   (function(){
-    var gw=document.getElementById('gwall');if(!gw)return;
-    var FB={max:18,images:[
-      {img:'images/IMG_4129-1.jpeg'},{img:'images/IMG_8702.jpeg'},{img:'images/IMG_8846.jpeg'},
-      {img:'images/IMG_9295.jpeg'},{img:'images/IMG_9545.jpeg'},{img:'images/IMG_9548.jpeg'},
-      {img:'images/IMG_9602.jpeg'},{img:'images/IMG_9605.jpeg'},{img:'images/IMG_0155.jpeg'},
-      {img:'images/IMG_9660.jpeg'},{img:'images/IMG_0018.jpeg'},{img:'images/IMG_9657.jpeg'},
-      {img:'images/IMG_0160.jpeg'},{img:'images/IMG_7869-1.jpeg'},{img:'images/IMG_8842.jpeg'},
-      {img:'images/IMG_9626.jpeg'},{img:'images/IMG_9826.jpeg'},{img:'images/IMG_8289.jpeg'}]};
-    function build(d){
-      var max=d.max||18,imgs=(d.images||[]).slice(0,max);
-      gw.innerHTML=imgs.map(function(it){var cls=it.size==='tall'?' class="tall"':it.size==='wide'?' class="wide"':'';var im=(it.img&&it.img.charAt(0)==='/')?it.img.slice(1):it.img;return '<figure'+cls+'><img src="'+im+'" alt="" loading="lazy"></figure>';}).join('');
-      gw.querySelectorAll('figure img').forEach(function(im){im.addEventListener('click',function(){openLb(im.currentSrc||im.src,'Saigon Purple · The Vault');});});
-      if(!reduce){var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.style.opacity=1;e.target.style.transform='none';io.unobserve(e.target);}});},{threshold:.1});
-        gw.querySelectorAll('figure').forEach(function(f){f.style.opacity=0;f.style.transform='translateY(18px)';f.style.transition='opacity .7s cubic-bezier(.16,1,.3,1),transform .7s cubic-bezier(.16,1,.3,1)';io.observe(f);});}
+    var mq=document.getElementById('vaultMq');if(!mq)return;
+    function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
+    function collect(){
+      var seen={},out=[];
+      document.querySelectorAll('.dc-mini img,.dc-feat-img,.ig-cell img,.ab-portrait img,.ab-rooms .ab-room img').forEach(function(im){
+        var s=rel(im.getAttribute('src')||im.currentSrc||'');
+        if(s&&!seen[s]){seen[s]=1;out.push(s);}
+      });
+      return out;
     }
-    build(FB);
-    fetch('content/vault.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.images&&d.images.length)build(d);}).catch(function(){});
-    if(window.sanityFetch){sanityFetch(SQ.vault).then(function(d){if(d&&d.images){var imgs=d.images.filter(function(x){return x&&x.img;}).map(function(x){return {img:sImg(x.img,'w=1000&q=80&auto=format'),size:x.size};});if(imgs.length)build({max:d.max||18,images:imgs});}});}
+    function shuffle(a){for(var i=a.length-1;i>0;i--){var j=Math.floor(Math.random()*(i+1));var t=a[i];a[i]=a[j];a[j]=t;}return a;}
+    function item(s){return '<figure class="vmq-item"><img src="'+s+'" alt="Saigon Purple · The Vault" loading="lazy"></figure>';}
+    function row(list,rev){var set=list.map(item).join('');return '<div class="vmq-row'+(rev?' rev':'')+'"><div class="vmq-track">'+set+set+'</div></div>';}
+    function build(imgs){
+      imgs=(imgs||[]).filter(Boolean);if(!imgs.length)return;
+      imgs=shuffle(imgs.slice());
+      var mid=Math.ceil(imgs.length/2),a=imgs.slice(0,mid),b=imgs.slice(mid);if(!b.length)b=a.slice();
+      mq.innerHTML=row(a,false)+row(b,true);
+      mq.querySelectorAll('.vmq-item img').forEach(function(im){im.addEventListener('click',function(){openLb(im.currentSrc||im.src,'Saigon Purple · The Vault');});});
+    }
+    // Default: auto from used images (random). Customise later by adding a pinned list to content/vault.json.
+    build(collect());
+    fetch('content/vault.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+      if(d&&d.images&&d.images.length){var pinned=d.images.map(function(x){return rel(x.img);}).filter(Boolean);if(pinned.length)build(pinned);}
+    }).catch(function(){});
   })();
 
   /* ---------- COLLECTION VIEWER (legacy, no-op if absent) ---------- */
