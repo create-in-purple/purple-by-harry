@@ -7,31 +7,31 @@
     "cats": "images/about-cats.jpg"
   },
   "instagram": [
-    "images/IMG_4129-1.jpeg",
-    "images/IMG_9713.jpeg",
-    "images/IMG_8849.jpeg"
+    "images/carla-g3.jpg",
+    "images/stripey-g3.jpg",
+    "images/crystal-g3.jpg"
   ],
   "varieties": {
     "carla": [
-      "images/FullSizeRender-1.jpeg",
-      "images/IMG_8842.jpeg",
-      "images/IMG_0018.jpeg",
-      "images/IMG_7869.jpeg",
-      "images/IMG_7979.jpeg"
+      "images/carla-g1.jpg",
+      "images/carla-g2.jpg",
+      "images/carla-g3.jpg",
+      "images/carla-g4.jpg",
+      "images/carla-g5.jpg"
     ],
     "stripey": [
-      "images/IMG_9657.jpeg",
-      "images/IMG_9660.jpeg",
-      "images/IMG_9295.jpeg",
-      "images/IMG_9712.jpeg",
-      "images/IMG_8543.jpeg"
+      "images/stripey-g1.jpg",
+      "images/stripey-g2.jpg",
+      "images/stripey-g3.jpg",
+      "images/stripey-g4.jpg",
+      "images/stripey-g5.jpg"
     ],
     "crystal": [
-      "images/IMG_9626.jpeg",
-      "images/IMG_9826.jpeg",
-      "images/IMG_9602.jpeg",
-      "images/IMG_0009.jpeg",
-      "images/IMG_0015.jpeg"
+      "images/crystal-g1.jpg",
+      "images/crystal-g2.jpg",
+      "images/crystal-g3.jpg",
+      "images/crystal-g4.jpg",
+      "images/crystal-g5.jpg"
     ]
   }
 }
