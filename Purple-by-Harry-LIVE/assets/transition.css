@@ -1,5 +1,0 @@
-/* Page-transition sweep (all pages) */
-.page-wipe{position:fixed;inset:-25% -18%;z-index:8000;pointer-events:none;transform:translateX(-135%) skewX(-10deg);background:linear-gradient(100deg,transparent 30%,var(--magenta) 46%,#7a2bff 58%,transparent 76%)}
-.leaving .page-wipe{animation:pWipe .66s cubic-bezier(.76,0,.24,1) forwards}
-@keyframes pWipe{0%{transform:translateX(-135%) skewX(-10deg)}100%{transform:translateX(135%) skewX(-10deg)}}
-@media(prefers-reduced-motion:reduce){.page-wipe{display:none}}
