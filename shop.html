@@ -187,21 +187,7 @@ footer a:hover{color:var(--magenta)}
 <script>
 (function(){
   var CURRENCY='$';
-  var PRODUCTS=[
-    {id:'carla-ps', name:'Anthurium Carlablackiae', lat:'Anthurium carlablackiae', cat:'Pure Species', tags:['Velvet'], price:480, img:'images/Carlablackiae1.jpg'},
-    {id:'crystal-ps', name:'Red Crystallinum', lat:'Anthurium crystallinum', cat:'Pure Species', tags:['Silver vein'], price:260, img:'images/RedCrystallinum1.jpg'},
-    {id:'forget-ps', name:'Forgetii Dark', lat:'Anthurium forgetii', cat:'Pure Species', tags:['Round leaf'], price:210, img:'images/RedCrystallinum2.jpg'},
-    {id:'carla-exact', name:'Carlablackiae — Specimen N°01', lat:'Mother plant · 5-leaf', cat:'Exact Plant Selections', tags:['The Grail','Exact'], price:920, img:'images/Carlablackiae2.jpg'},
-    {id:'stripey-exact', name:'Stripey — Select Clone', lat:"Anthurium 'Stripey' variegata", cat:'Exact Plant Selections', tags:['Variegata','Exact'], price:1500, img:'images/Stripey1.jpg'},
-    {id:'crystal-exact', name:'Red Crystallinum — Specimen N°03', lat:'High-contrast vein', cat:'Exact Plant Selections', tags:['Exact'], price:640, img:'images/RedCrystallinum4.jpg'},
-    {id:'carla-off', name:'Carlablackiae Offset', lat:'Rooted offset · 2-leaf', cat:'Cutting and Offset', tags:['Rooted'], price:300, img:'images/Carlablackiae4.jpg'},
-    {id:'stripey-cut', name:'Stripey Top Cutting', lat:'Variegated top cut', cat:'Cutting and Offset', tags:['Variegata'], price:700, img:'images/Stripey3.jpg'},
-    {id:'crystal-off', name:'Crystallinum Offset', lat:'Rooted offset', cat:'Cutting and Offset', tags:['Rooted'], price:180, img:'images/RedCrystallinum3.jpg'},
-    {id:'carla-seed', name:'Carlablackiae Seeds ×10', lat:'Fresh, hand-pollinated', cat:'Seeds', tags:['Fresh'], price:90, img:'images/Carlablackiae5.jpg'},
-    {id:'crystal-seed', name:'Crystallinum Seeds ×10', lat:'Fresh batch', cat:'Seeds', tags:['Fresh'], price:60, img:'images/Stripey5.jpg'},
-    {id:'hyb-cc', name:'Carla × Crystallinum', lat:'F1 hybrid seedling', cat:'Hybrids', tags:['F1','Limited'], price:350, img:'images/Carlablackiae3.jpg'},
-    {id:'hyb-sc', name:'Stripey × Carla', lat:'F1 hybrid seedling', cat:'Hybrids', tags:['F1','Limited'], price:420, img:'images/Stripey4.jpg'}
-  ];
+  var PRODUCTS=[];
   var CATS=['All','Pure Species','Exact Plant Selections','Cutting and Offset','Seeds','Hybrids'];
   var KEY='saigonpurple-cart';
   var cart={};try{cart=JSON.parse(localStorage.getItem(KEY)||'{}');}catch(e){}
@@ -310,21 +296,12 @@ footer a:hover{color:var(--magenta)}
     if(d&&Array.isArray(d.items)){PRODUCTS=d.items;LOCAL=d.items;if(d.currency)CURRENCY=d.currency;}
   }).catch(function(){}).then(function(){
     boot();
-    if(window.sanityFetch){
-      sanityFetch(SQ.products).then(function(items){
-        if(!items||!items.length)return;
-        var byId={};LOCAL.forEach(function(p){byId[p.id]=p;});
-        PRODUCTS=items.map(function(p){
-          var lid=(p.id||'').replace(/^product-/,'');var loc=byId[lid]||{};
-          return {id:lid||p.id,name:p.name,lat:p.lat,cat:p.cat,tags:p.tags||[],price:p.price,stock:p.stock,
-                  img:p.img?sImg(p.img,'w=900&q=82&auto=format'):(loc.img||'')};
-        });
-        render();updateCount();
-      });
-    }
   });
 })();
 </script>
 <script src="assets/loader.js"></script>
+<style>.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);transform:translateY(0);transition:transform .6s cubic-bezier(.7,0,.3,1)}.pp-curtain.up{transform:translateY(-100%)}</style>
+<div class="pp-curtain" id="ppCurtain" aria-hidden="true"></div>
+<script>(function(){var c=document.getElementById('ppCurtain');if(!c)return;if(matchMedia('(prefers-reduced-motion:reduce)').matches){c.style.display='none';}else{requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.add('up');});});setTimeout(function(){c.style.display='none';},700);}document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href$="index.html"],a[href$="shop.html"],a[href$="blog.html"],a[href$="guide.html"]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href)return;e.preventDefault();c.style.display='';c.classList.remove('up');setTimeout(function(){location.href=href;},470);});})();</script>
 </body>
 </html>

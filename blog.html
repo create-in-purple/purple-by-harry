@@ -145,5 +145,8 @@ footer a:hover{color:var(--magenta)}
 })();
 </script>
 <script src="assets/loader.js"></script>
+<style>.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);transform:translateY(0);transition:transform .6s cubic-bezier(.7,0,.3,1)}.pp-curtain.up{transform:translateY(-100%)}</style>
+<div class="pp-curtain" id="ppCurtain" aria-hidden="true"></div>
+<script>(function(){var c=document.getElementById('ppCurtain');if(!c)return;if(matchMedia('(prefers-reduced-motion:reduce)').matches){c.style.display='none';}else{requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.add('up');});});setTimeout(function(){c.style.display='none';},700);}document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href$="index.html"],a[href$="shop.html"],a[href$="blog.html"],a[href$="guide.html"]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href)return;e.preventDefault();c.style.display='';c.classList.remove('up');setTimeout(function(){location.href=href;},470);});})();</script>
 </body>
 </html>
