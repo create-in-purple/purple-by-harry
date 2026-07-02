@@ -257,8 +257,8 @@ svg.has-photo .duo{opacity:.55}
 }
 
 /* ---------- THE COLLECTION (stacked folder deck) ---------- */
-.deck{position:relative;padding:0 clamp(14px,3vw,42px) 6vh;display:flex;flex-direction:column;gap:22px}
-.deck-intro{padding:clamp(54px,9vh,110px) clamp(6px,2vw,18px) clamp(20px,4vh,38px)}
+.deck{position:relative;padding:0 clamp(20px,4vw,48px) 6vh;display:flex;flex-direction:column;gap:22px}
+.deck-intro{padding:clamp(54px,9vh,110px) 0 clamp(20px,4vh,38px)}
 .deck-intro h2{font-size:clamp(34px,6vw,90px);line-height:.9}
 .deck-card{position:relative;border-radius:26px;overflow:hidden;border:1px solid rgba(255,255,255,.1);box-shadow:0 30px 80px rgba(0,0,0,.5);background:#0b0a0d;display:grid;grid-template-columns:44% 56%;align-items:center}
 /* right-column photo gallery — 1 hero + 4 stacked thumbnails */
@@ -381,27 +381,42 @@ svg.has-photo .duo{opacity:.55}
 .gwall figure::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.4));opacity:0;transition:opacity .4s}
 .gwall figure:hover::after{opacity:1}
 @media(max-width:600px){.gwall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
-/* The Specimens — mosaic: photos around a giant reactive wordmark */
-.stage{max-width:1200px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
-.spec-mosaic{position:relative;max-width:1200px;margin:clamp(18px,2.5vw,36px) auto 0}
-.sm-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(190px,21vw,300px);gap:10px}
-@media(max-width:760px){.sm-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(150px,40vw,220px)}}
-.sm-tile{position:relative;border-radius:16px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#0c0c0c;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
-.sm-tile[data-key="carla"]{background:linear-gradient(150deg,#2a0b3f,#0b0810)}
-.sm-tile[data-key="stripey"]{background:linear-gradient(150deg,#0b3f2a,#0b0810)}
-.sm-tile[data-key="crystal"]{background:linear-gradient(150deg,#3f0b1e,#0b0810)}
-.sm-tile img{width:100%;height:100%;object-fit:cover;display:block;opacity:.6;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .45s}
-.sm-tile::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,5,5,.15),rgba(5,5,5,.45));transition:opacity .4s}
-.sm-tile:hover img{transform:scale(1.09);opacity:1}
-.sm-tile:hover::before{opacity:.15}
-.sm-tile::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 0 rgba(255,0,157,0);transition:box-shadow .35s;z-index:2;pointer-events:none}
-.sm-tile:hover::after{box-shadow:inset 0 0 0 2px rgba(255,0,157,.75)}
-.sm-lbl{position:absolute;left:14px;bottom:12px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;pointer-events:none}
-.sm-tile:hover .sm-lbl{opacity:1;transform:none}
-.spec-mosaic::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse 46% 38% at 50% 50%,rgba(5,5,5,.5),transparent 72%)}
-.sm-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 4%;pointer-events:none;z-index:4;font-family:"Anton";text-transform:uppercase;font-size:clamp(40px,8.5vw,140px);line-height:.86;letter-spacing:-.01em;background:linear-gradient(120deg,#ffffff,#ff6fc0 55%,#9a5cff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 36px rgba(5,5,5,.75));transition:opacity .28s ease,transform .28s ease}
-.sm-word.swap{opacity:0;transform:scale(.97)}
-@media(prefers-reduced-motion:reduce){.sm-tile img{transition:none}.sm-word{transition:none}}
+/* The Specimens — info card + continuous diagonal image slider (3 staggered lines; aspect never distorts) */
+.stage{max-width:1320px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
+.vsl{display:grid;grid-template-columns:1fr 1fr;gap:clamp(24px,4vw,60px);align-items:center;padding:clamp(16px,2.6vh,38px) 0}
+.vsl:nth-child(even) .vsl-info{order:2}
+.vsl-eyebrow{display:flex;align-items:center;gap:14px;margin-bottom:2px}
+.vsl-no{font-size:12px;font-weight:800;letter-spacing:.24em;text-transform:uppercase;color:var(--magenta)}
+.vsl-rule{width:46px;height:1px;background:linear-gradient(90deg,var(--magenta),transparent)}
+.vsl-tag{font-family:"Fraunces",serif;font-style:italic;color:var(--ink-muted);font-size:clamp(15px,1.5vw,21px)}
+.vsl-title{font-family:"Anton";font-weight:400;text-transform:uppercase;font-size:clamp(50px,6.2vw,104px);line-height:.82;letter-spacing:-.022em;margin:14px 0 12px;color:#fff}
+.vsl-title .pink{color:var(--magenta)}
+.vsl-lat{display:block;font-family:"Fraunces",serif;font-style:italic;color:var(--ink-muted);font-size:clamp(13px,1.3vw,17px)}
+.vsl-lat::before{content:"— "}
+.vsl-desc{margin:clamp(16px,2.4vh,24px) 0 0;max-width:42ch;color:rgba(255,255,255,.72);font-size:clamp(14px,1.1vw,16px);line-height:1.65}
+.vsl-more{display:inline-block;margin-top:clamp(18px,3vh,28px);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28);padding-bottom:5px;transition:color .3s,border-color .3s}
+.vsl-more:hover{color:var(--magenta);border-color:var(--magenta)}
+.vsl-slider{position:relative;height:clamp(440px,62vh,660px);overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)}
+.vsl-track{position:absolute;inset:-18% -6%;display:grid;grid-template-columns:repeat(3,1fr);gap:13px;transform:rotate(-7deg) scale(1.22)}
+.vsl-col{display:flex;flex-direction:column;gap:13px;will-change:transform;animation:vslUp 40s linear infinite}
+.vsl-col:nth-child(2){animation-name:vslDown;animation-duration:50s;margin-top:-64px}
+.vsl-col:nth-child(3){animation-duration:34s;margin-top:-30px}
+.vsl-slider:hover .vsl-col{animation-play-state:paused}
+.vsl-cell{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#181020,#0a0810);border:1px solid rgba(255,255,255,.06)}
+.vsl-cell img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vsl-cell:hover img{transform:scale(1.05)}
+.vsl-cell::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 rgba(255,0,157,0);transition:box-shadow .3s}
+.vsl-cell:hover::after{box-shadow:inset 0 0 0 2px rgba(255,0,157,.7)}
+@keyframes vslUp{from{transform:translateY(0)}to{transform:translateY(-50%)}}
+@keyframes vslDown{from{transform:translateY(-50%)}to{transform:translateY(0)}}
+@media(max-width:860px){
+  .vsl{grid-template-columns:1fr;gap:18px;padding:clamp(20px,4vh,36px) 0}
+  .vsl:nth-child(even) .vsl-info{order:0}
+  .vsl-slider{height:clamp(360px,50vh,460px)}
+  .vsl-track{grid-template-columns:repeat(2,1fr);transform:rotate(-6deg) scale(1.3)}
+  .vsl-col:nth-child(3){display:none}
+}
+@media(prefers-reduced-motion:reduce){.vsl-col{animation:none}.vsl-cell img{transition:none}}
 /* Vault — continuous marquee */
 .vault-mq{overflow:hidden;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px);-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 .vmq-row{display:flex;overflow:hidden}
@@ -469,7 +484,7 @@ svg.has-photo .duo{opacity:.55}
 /* ---------- ABOUT PURPLE ---------- */
 .about{padding:clamp(52px,8vh,104px) clamp(20px,4vw,48px);border-top:1px solid var(--hairline);position:relative;overflow:hidden}
 .about .ab-glow{position:absolute;right:-10%;top:10%;width:46vw;height:46vw;border-radius:50%;filter:blur(70px);opacity:.32;background:radial-gradient(circle,#7a2bff,transparent 65%);pointer-events:none}
-.ab-wrap{display:grid;grid-template-columns:.9fr 1.1fr;gap:clamp(28px,4vw,64px);align-items:center;max-width:1200px;margin:0 auto;position:relative;z-index:1}
+.ab-wrap{display:grid;grid-template-columns:.85fr 1.15fr;gap:clamp(28px,4vw,64px);align-items:center;max-width:none;margin:0;position:relative;z-index:1}
 @media(max-width:900px){.ab-wrap{grid-template-columns:1fr}}
 .ab-strips{display:flex;gap:10px;height:clamp(380px,50vh,500px)}
 .ab-strip{position:relative;flex:1 1 0;min-width:0;border-radius:16px;overflow:hidden;cursor:pointer;background:var(--surface-1);box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);transition:flex-grow .6s cubic-bezier(.16,1,.3,1)}
@@ -495,12 +510,12 @@ svg.has-photo .duo{opacity:.55}
 .ab-stats .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted);margin-top:5px}
 
 /* ---------- SOCIAL SHOWCASE ---------- */
-.sc-head2{max-width:1200px;margin:clamp(24px,3.5vw,40px) auto 18px;position:relative;z-index:1;border-top:1px solid var(--hairline);padding-top:clamp(24px,3.5vw,40px)}
+.sc-head2{max-width:1320px;margin:clamp(24px,3.5vw,40px) auto 18px;position:relative;z-index:1;border-top:1px solid var(--hairline);padding-top:clamp(24px,3.5vw,40px)}
 #community .sc-head2{border-top:0;padding-top:0;margin-top:0}
 .sc-head2 .mono-label{margin-bottom:10px}
 .sc-head2 h3{font-family:"Anton";text-transform:uppercase;font-size:clamp(26px,4vw,52px);line-height:.95}
 .sc-head2 h3 .pink{color:var(--magenta)}
-.socials{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;max-width:1200px;margin:0 auto;position:relative;z-index:1;align-items:stretch}
+.socials{display:grid;grid-template-columns:1.5fr 1fr;gap:18px;max-width:1320px;margin:0 auto;position:relative;z-index:1;align-items:stretch}
 @media(max-width:860px){.socials{grid-template-columns:1fr}}
 .sc-card{border:1px solid var(--hairline);border-radius:18px;overflow:hidden;background:var(--surface-1);box-shadow:0 30px 70px rgba(0,0,0,.4)}
 .sc-headrow{display:flex;align-items:center;gap:14px;padding:18px 20px;border-bottom:1px solid var(--hairline)}
@@ -611,6 +626,52 @@ body.cms-on .cursor-dot,body.cms-on .cursor-ring{display:none!important}
 body.cms-img [data-ik]{cursor:pointer}
 body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px}
 @media print{#editbar{display:none}}
+
+/* ===== Mega menu (immersive overlay) ===== */
+.nav-right{display:flex;align-items:center;gap:clamp(14px,2vw,24px)}
+.menu-btn{display:inline-flex;align-items:center;gap:11px;background:none;border:0;cursor:pointer;color:#fff;font:inherit;padding:6px 2px;-webkit-tap-highlight-color:transparent}
+.menu-btn .mb-txt{font-size:12px;font-weight:600;letter-spacing:.18em;text-transform:uppercase}
+.menu-btn .mb-ic{position:relative;width:26px;height:12px;display:inline-block}
+.menu-btn .mb-ic i{position:absolute;left:0;right:0;height:1.6px;background:currentColor;transition:transform .35s cubic-bezier(.16,1,.3,1),width .35s}
+.menu-btn .mb-ic i:first-child{top:2px}.menu-btn .mb-ic i:last-child{bottom:2px;width:62%}
+.menu-btn:hover .mb-ic i:last-child{width:100%}
+body.menu-open .menu-btn{opacity:0;pointer-events:none}
+.mega{position:fixed;inset:0;z-index:200;visibility:hidden;pointer-events:none}
+.mega.open{visibility:visible;pointer-events:auto}
+.mega-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 82% 6%,rgba(122,43,255,.30),transparent 55%),linear-gradient(150deg,#0b0410,#050505 58%,#0e0620);clip-path:inset(0 0 100% 0);transition:clip-path .72s cubic-bezier(.76,0,.24,1)}
+.mega.open .mega-bg{clip-path:inset(0 0 0 0)}
+.mega-inner{position:relative;height:100%;max-width:none;padding:clamp(20px,4vw,42px) clamp(26px,5vw,72px);display:flex;flex-direction:column}
+.mega-head{display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(-8px);transition:opacity .5s .15s,transform .5s .15s}
+.mega.open .mega-head{opacity:1;transform:none}
+.mega-tag{font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-muted)}
+.mega-x{width:46px;height:46px;border:1px solid rgba(255,255,255,.18);border-radius:50%;background:transparent;cursor:pointer;position:relative;transition:background .3s,transform .3s}
+.mega-x:hover{background:var(--magenta);transform:rotate(90deg)}
+.mega-x i{position:absolute;top:50%;left:50%;width:16px;height:1.6px;background:#fff}
+.mega-x i:first-child{transform:translate(-50%,-50%) rotate(45deg)}
+.mega-x i:last-child{transform:translate(-50%,-50%) rotate(-45deg)}
+.mega-nav{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(2px,.6vh,8px)}
+.mega-nav a{position:relative;display:flex;align-items:baseline;gap:clamp(12px,2vw,26px);padding:clamp(4px,1vh,10px) 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
+.mega-nav a::before{content:attr(data-n);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--magenta);width:34px;flex:0 0 auto;transform:translateY(-.4em)}
+.mn-main{position:relative;overflow:hidden;display:inline-block}
+.mn-main span{display:inline-block;font-family:"Anton";text-transform:uppercase;font-size:clamp(32px,6.2vw,84px);line-height:.9;letter-spacing:-.012em;color:#fff;transform:translateY(112%);transition:transform .7s cubic-bezier(.16,1,.3,1),color .3s}
+.mega.open .mn-main span{transform:none}
+.mega-nav a:hover .mn-main span{color:var(--magenta)}
+.mn-sub{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(13px,1.4vw,18px);color:var(--ink-muted);opacity:0;transition:opacity .5s .4s,color .3s}
+.mega.open .mn-sub{opacity:1}
+.mega-nav a:hover .mn-sub{color:#fff}
+.mega-foot{display:flex;gap:22px;align-items:center;flex-wrap:wrap;font-size:12px;letter-spacing:.05em;color:var(--ink-muted);opacity:0;transform:translateY(10px);transition:opacity .5s .4s,transform .5s .4s}
+.mega.open .mega-foot{opacity:1;transform:none}
+.mega-foot a{color:#fff;transition:color .3s}.mega-foot a:hover{color:var(--magenta)}
+.mega-foot .mega-loc{margin-left:auto}
+.mega-nav a{transition:opacity .38s ease}
+.mega-nav:hover a:not(:hover){opacity:.34}
+body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
+.mega-nav a:nth-child(1) .mn-main span{transition-delay:.14s}
+.mega-nav a:nth-child(2) .mn-main span{transition-delay:.20s}
+.mega-nav a:nth-child(3) .mn-main span{transition-delay:.26s}
+.mega-nav a:nth-child(4) .mn-main span{transition-delay:.32s}
+@media(prefers-reduced-motion:reduce){.mega-bg,.mega-head,.mn-main span,.mn-sub,.mega-foot{transition-duration:.01s}}
+@media(max-width:560px){.mega-foot .mega-loc{width:100%;margin:6px 0 0}}
 </style>
 </head>
 <body class="loading">
@@ -662,11 +723,26 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 
 <nav>
   <a class="nav-logo magnetic" href="#top" aria-label="Purple by Harry"><img src="images/logo-mark.png" alt="Purple by Harry"></a>
-  <div class="links">
-    <a href="#about">About</a><a href="shop.html">Shop</a><a href="blog.html">Journal</a><a href="guide.html">Guide</a><a class="nav-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow me</a>
+  <div class="nav-right">
+     <div class="links">
+    <a href="#about">About</a><a href="shop.html">Shop</a><a href="blog.html">Grower’s Guide</a><a class="nav-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow me</a>
   </div>
-  <div class="wordmark" style="font-size:13px;letter-spacing:.05em">BY HARRY</div>
+     <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mb-txt">Menu</span><span class="mb-ic"><i></i><i></i></span></button>
+   </div>
 </nav>
+<div class="mega" id="mega" aria-hidden="true">
+  <div class="mega-bg"></div>
+  <div class="mega-inner">
+    <div class="mega-head"><span class="mega-tag">Purple by Harry — Saigon</span><button class="mega-x" id="megaX" aria-label="Close menu"><i></i><i></i></button></div>
+    <nav class="mega-nav">
+      <a href="index.html#about" data-n="01"><span class="mn-main"><span>About</span></span><span class="mn-sub">The atelier</span></a>
+      <a href="shop.html" data-n="02"><span class="mn-main"><span>Shop</span></span><span class="mn-sub">The collection</span></a>
+      <a href="blog.html" data-n="03"><span class="mn-main"><span>Grower’s Guide</span></span><span class="mn-sub">Journal &amp; care</span></a>
+    </nav>
+    <div class="mega-foot"><a href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.tiktok.com/@purplebyhry" target="_blank" rel="noopener">TikTok ↗</a><span class="mega-loc">26°C · 70–85% RH</span></div>
+  </div>
+</div>
+
 
 <!-- ============ HERO ============ -->
 <header class="hero" data-hud-num="00" data-hud-name="Saigon Purple">
@@ -730,9 +806,9 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
       <p class="reveal d2">Purple is the private atelier of <b>Harry</b> — an Anthurium obsessive based in Saigon, Vietnam. What began with a single velvet leaf grew into a climate-controlled room where the rarest aroids are raised like living jewellery.</p>
       <p class="reveal d2">Held at a steady <b>26°C</b> and <b>70–85% humidity</b>, every specimen is hand-selected for vein, velvet and form — a <b>veinclusive purple selection</b> where love and luxury grow in every leaf.</p>
       <div class="ab-stats reveal d3">
-        <div><div class="v pink">120+</div><div class="k">Specimens</div></div>
-        <div><div class="v">26°C</div><div class="k">Climate</div></div>
-        <div><div class="v">70–85%</div><div class="k">Humidity</div></div>
+        <div><div class="v pink" data-count="120" data-suffix="+">120+</div><div class="k">Specimens</div></div>
+        <div><div class="v" data-count="26" data-suffix="°C">26°C</div><div class="k">Climate</div></div>
+        <div><div class="v" data-count="85" data-prefix="70–" data-suffix="%">70–85%</div><div class="k">Humidity</div></div>
         <div><div class="v">2025</div><div class="k">Established</div></div>
       </div>
     </div>
@@ -748,10 +824,36 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 <!-- ============ THE SPECIMENS (interactive focus stage) ============ -->
 <section class="deck" id="varieties" data-hud-num="✦" data-hud-name="The Specimens">
   <div class="deck-intro reveal"><div class="mono-label">The Collection · 03 Specimens</div><h2 class="display">THE <span class="pink">SPECIMENS</span></h2></div>
-  <div class="spec-mosaic" id="specMosaic">
-    <div class="sm-grid" id="smGrid"></div>
-    <div class="sm-word" id="smWord">Carlablackiae</div>
-  </div>
+  <article class="vsl" data-key="carla">
+    <div class="vsl-info reveal">
+      <div class="vsl-eyebrow"><span class="vsl-no">N°01</span><span class="vsl-rule"></span><span class="vsl-tag">The Grail</span></div>
+      <h3 class="vsl-title">Carla<span class="pink">blackiae</span></h3>
+      <span class="vsl-lat">Anthurium carlablackiae</span>
+      <p class="vsl-desc">The collector's grail — deep-veined, near-black velvet foliage from the cloud forest, raised slow in Saigon humidity.</p>
+      <a class="vsl-more" href="shop.html">See the collection ↗</a>
+    </div>
+    <div class="vsl-slider"><div class="vsl-track"></div></div>
+  </article>
+  <article class="vsl" data-key="stripey">
+    <div class="vsl-info reveal">
+      <div class="vsl-eyebrow"><span class="vsl-no">N°02</span><span class="vsl-rule"></span><span class="vsl-tag">The Outlier</span></div>
+      <h3 class="vsl-title">Stri<span class="pink">pey</span></h3>
+      <span class="vsl-lat">Anthurium 'Stripey'</span>
+      <p class="vsl-desc">No two leaves ever repeat — cream and jade running like rivers across each living blade, a one-off in every flush.</p>
+      <a class="vsl-more" href="shop.html">See the collection ↗</a>
+    </div>
+    <div class="vsl-slider"><div class="vsl-track"></div></div>
+  </article>
+  <article class="vsl" data-key="crystal">
+    <div class="vsl-info reveal">
+      <div class="vsl-eyebrow"><span class="vsl-no">N°03</span><span class="vsl-rule"></span><span class="vsl-tag">The Jewel</span></div>
+      <h3 class="vsl-title">Red <span class="pink">Crystallinum</span></h3>
+      <span class="vsl-lat">Anthurium crystallinum</span>
+      <p class="vsl-desc">Iridescent silver veins drawn over blush-red new growth that hardens, leaf by leaf, into deep velvet emerald.</p>
+      <a class="vsl-more" href="shop.html">See the collection ↗</a>
+    </div>
+    <div class="vsl-slider"><div class="vsl-track"></div></div>
+  </article>
 </section>
 
 
@@ -1358,28 +1460,37 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 })();
 </script>
 <script>
-/* ===== The Specimens — mosaic; renders instantly from in-folder photos, hydrates from site.json, never blanks ===== */
+/* ===== The Specimens — diagonal 3-line image slider (images keep natural aspect); click → gallery ===== */
 (function(){
-  var grid=document.getElementById('smGrid'),word=document.getElementById('smWord');if(!grid)return;
   function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
-  var META={carla:'Carlablackiae',stripey:'Stripey',crystal:'Red Crystallinum'},order=['carla','stripey','crystal'];
+  var META={carla:'Carlablackiae',stripey:'Stripey',crystal:'Red Crystallinum'};
   var FALL={carla:['images/carla-g1.jpg','images/carla-g2.jpg','images/carla-g3.jpg','images/carla-g4.jpg','images/carla-g5.jpg'],stripey:['images/stripey-g1.jpg','images/stripey-g2.jpg','images/stripey-g3.jpg','images/stripey-g4.jpg','images/stripey-g5.jpg'],crystal:['images/crystal-g1.jpg','images/crystal-g2.jpg','images/crystal-g3.jpg','images/crystal-g4.jpg','images/crystal-g5.jpg']};
-  var full={},wt=null;
-  function render(data){
-    full={};order.forEach(function(k){full[k]=((data&&data[k]&&data[k].length)?data[k]:FALL[k]||[]).map(rel).filter(Boolean);});
-    var tiles=[];[0,1].forEach(function(row){order.forEach(function(k){var img=full[k][row]||full[k][0];if(img)tiles.push({key:k,img:img});});});
-    if(!tiles.length)return;
-    grid.innerHTML=tiles.map(function(t){return '<button type="button" class="sm-tile" data-key="'+t.key+'"><img src="'+t.img+'" alt="'+META[t.key]+'" loading="lazy"><span class="sm-lbl">'+META[t.key]+'</span></button>';}).join('');
-    if(word)word.textContent=META[tiles[0].key];
-    [].slice.call(grid.querySelectorAll('.sm-tile')).forEach(function(btn){
-      var k=btn.getAttribute('data-key'),im=btn.querySelector('img');
-      im.addEventListener('error',function(){im.style.visibility='hidden';});
-      btn.addEventListener('mouseenter',function(){if(!word)return;word.classList.add('swap');clearTimeout(wt);wt=setTimeout(function(){word.textContent=META[k];word.classList.remove('swap');},150);});
-      btn.addEventListener('click',function(){if(window.openGallery&&full[k].length)window.openGallery(full[k],0,META[k]);});
-    });
+  var arts=[].slice.call(document.querySelectorAll('.vsl')),data=null;
+  function cell(src,name,i){return '<button type="button" class="vsl-cell" data-i="'+i+'"><img src="'+src+'" alt="'+name+'" loading="lazy"></button>';}
+  function setup(art){
+    var key=art.getAttribute('data-key'),name=META[key]||'Saigon Purple',track=art.querySelector('.vsl-track');if(!track)return;
+    var fb=(FALL[key]||[]).map(rel);
+    var list=((data&&data[key]&&data[key].length)?data[key]:(FALL[key]||[])).map(rel).filter(Boolean);
+    if(!list.length)return;
+    var cols=[[],[],[]];list.forEach(function(sr,i){cols[i%3].push({s:sr,i:i});});
+    track.innerHTML=cols.map(function(arr){if(!arr.length)arr=[{s:list[0],i:0}];var one=arr.map(function(o){return cell(o.s,name,o.i);}).join('');return '<div class="vsl-col">'+one+one+'</div>';}).join('');
+    [].slice.call(track.querySelectorAll('.vsl-cell')).forEach(function(btn){var im=btn.querySelector('img'),idx=+btn.getAttribute('data-i');im.addEventListener('error',function(){if(im.getAttribute('data-fb')!=='1'&&fb.length){im.setAttribute('data-fb','1');var nu=fb[idx%fb.length];im.src=nu;if(idx<list.length)list[idx]=nu;}else{im.style.visibility='hidden';}});btn.addEventListener('click',function(){if(window.openGallery)window.openGallery(list,idx,name);});});
   }
-  render(null);
-  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties)render(d.varieties);}).catch(function(){});
+  function render(){arts.forEach(setup);}
+  if(arts.length)render();
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties){data=d.varieties;render();}}).catch(function(){});
+
+  /* count-up — About Purple stats */
+  var anums=[].slice.call(document.querySelectorAll('.ab-stats .v[data-count]'));
+  if(anums.length&&'IntersectionObserver' in window){
+    var aio=new IntersectionObserver(function(es){es.forEach(function(e){if(!e.isIntersecting)return;aio.unobserve(e.target);
+      var el=e.target,to=+el.getAttribute('data-count'),pre=el.getAttribute('data-prefix')||'',suf=el.getAttribute('data-suffix')||'',t0=null,dur=1600;
+      el.textContent=pre+'0'+suf;
+      function step(t){if(!t0)t0=t;var p=Math.min(1,(t-t0)/dur),k=1-Math.pow(1-p,3);el.textContent=pre+Math.round(to*k)+suf;if(p<1)requestAnimationFrame(step);else el.textContent=pre+to+suf;}
+      requestAnimationFrame(step);
+    });},{threshold:.55});
+    anums.forEach(function(el){aio.observe(el);});
+  }
 })();
 </script>
 <script>
@@ -1482,8 +1593,8 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
 .pp-sound{position:fixed;right:22px;bottom:84px;width:52px;height:52px;z-index:120;border:0;border-radius:50%;background:rgba(10,8,13,.5);backdrop-filter:blur(8px);color:#fff;cursor:pointer;font-size:17px;line-height:1;transition:color .3s,transform .2s}
 .pp-sound:hover{transform:translateY(-2px)}
 .pp-sound.on{color:var(--magenta)}
-.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);transform:translateY(100%)}
-.pp-curtain.cover{transform:translateY(0);transition:transform .5s cubic-bezier(.7,0,.3,1)}
+.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;transition:opacity .32s ease}
+.pp-curtain.show{opacity:1}
 @media(max-width:720px){.pp-sound{right:16px;bottom:70px;width:46px;height:46px}}
 </style>
 <button class="pp-sound" id="ppSound" aria-label="Bật/tắt âm thanh" aria-pressed="false">♪</button>
@@ -1546,16 +1657,21 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
     document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.btn,.sc-cta,.sc-follow,.nav-follow,.ig-all'))tone(740,0.13,0.045,'triangle');});
   })();
 
-  (function(){
-    var cur=document.getElementById('ppCurtain');if(!cur)return;
-    document.addEventListener('click',function(e){
-      var a=e.target.closest&&e.target.closest('a[href$="shop.html"],a[href$="blog.html"],a[href$="guide.html"]');
-      if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href)return;
-      e.preventDefault();cur.classList.add('cover');setTimeout(function(){location.href=href;},470);
-    });
-  })();
+  (function(){var c=document.getElementById('ppCurtain');if(!c)return;var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;if(c.classList.contains('show')&&!reduce){requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.remove('show');});});}else{c.classList.remove('show');}document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();if(reduce){location.href=href;return;}c.classList.add('show');setTimeout(function(){location.href=href;},260);});})();
 })();
 </script>
 <script src="assets/loader.js"></script>
+<script>
+(function(){
+  var btn=document.getElementById('menuBtn'),mega=document.getElementById('mega'),x=document.getElementById('megaX');
+  if(!btn||!mega)return;
+  function setOpen(o){var sbw=o?(window.innerWidth-document.documentElement.clientWidth):0;document.documentElement.style.setProperty('--sbw',sbw+'px');mega.classList.toggle('open',o);document.body.classList.toggle('menu-open',o);mega.setAttribute('aria-hidden',o?'false':'true');document.body.style.overflow=o?'hidden':'';document.body.style.paddingRight=o?sbw+'px':'';try{if(window.lenis){o?window.lenis.stop():window.lenis.start();}}catch(e){}}
+  btn.addEventListener('click',function(){setOpen(!mega.classList.contains('open'));});
+  if(x)x.addEventListener('click',function(){setOpen(false);});
+  var bg=mega.querySelector('.mega-bg');if(bg)bg.addEventListener('click',function(){setOpen(false);});
+  [].forEach.call(mega.querySelectorAll('.mega-nav a'),function(a){a.addEventListener('click',function(){setOpen(false);});});
+  addEventListener('keydown',function(e){if(e.key==='Escape'&&mega.classList.contains('open'))setOpen(false);});
+})();
+</script>
 </body>
 </html>
