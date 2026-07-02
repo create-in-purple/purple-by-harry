@@ -381,44 +381,27 @@ svg.has-photo .duo{opacity:.55}
 .gwall figure::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(0,0,0,.4));opacity:0;transition:opacity .4s}
 .gwall figure:hover::after{opacity:1}
 @media(max-width:600px){.gwall{grid-template-columns:repeat(2,1fr);grid-auto-rows:150px}}
-/* The Specimens — fixed portrait cards; hover = photo slideshow, click = full gallery */
+/* The Specimens — mosaic: photos around a giant reactive wordmark */
 .stage{max-width:1200px;margin:clamp(28px,4vw,52px) auto 0;position:relative;z-index:1}
-.spec-stage{display:grid;grid-template-columns:repeat(3,1fr);gap:clamp(12px,1.5vw,20px)}
-@media(max-width:820px){.spec-stage{grid-template-columns:1fr;max-width:440px;margin-left:auto;margin-right:auto}}
-.sc{position:relative;aspect-ratio:4/5;border-radius:20px;overflow:hidden;cursor:pointer;background:#0c0c0c;box-shadow:0 18px 46px rgba(0,0,0,.4);transition:transform .5s cubic-bezier(.16,1,.3,1),box-shadow .5s}
-.sc:hover{transform:translateY(-8px);box-shadow:0 34px 70px rgba(122,43,255,.25)}
-.sc::after{content:"";position:absolute;inset:0;border-radius:20px;box-shadow:inset 0 0 0 1px rgba(255,255,255,.08);pointer-events:none;z-index:5;transition:box-shadow .5s}
-.sc:hover::after{box-shadow:inset 0 0 0 1px rgba(255,0,157,.6)}
-.sc-slides{position:absolute;inset:0;z-index:0}
-.sc-slides img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;object-position:center;opacity:0;transition:opacity .8s ease;transform:scale(1.03)}
-.sc-slides img.on{opacity:1}
-.sc:hover .sc-slides img.on{animation:scKB 6s ease-out forwards}
-@keyframes scKB{from{transform:scale(1.07)}to{transform:scale(1)}}
-.sc-veil{position:absolute;inset:0;z-index:1;pointer-events:none;background:linear-gradient(180deg,rgba(5,5,5,.05) 28%,rgba(5,5,5,.5) 66%,rgba(5,5,5,.9))}
-.sc-idx{position:absolute;top:16px;left:16px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.22em;color:#fff;background:rgba(255,0,157,.9);padding:5px 11px;border-radius:100px}
-.sc-count{position:absolute;top:16px;right:16px;z-index:3;font-size:11px;font-weight:600;letter-spacing:.08em;color:#fff;background:rgba(5,5,5,.5);backdrop-filter:blur(4px);padding:5px 9px;border-radius:100px;opacity:0;transition:opacity .4s}
-.sc:hover .sc-count{opacity:1}
-.sc-cap{position:absolute;left:0;right:0;bottom:0;z-index:3;padding:clamp(16px,1.6vw,22px)}
-.sc-name{font-family:"Anton";text-transform:uppercase;font-size:clamp(23px,2.3vw,34px);line-height:.92;margin:0}
-.sc-name .grad{background:linear-gradient(120deg,#ff3db0,#ff8ad4 46%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
-.sc-latin{font-family:"Fraunces",serif;font-style:italic;color:#cfc7cd;font-size:13px;margin-top:4px}
-.sc-dots{display:flex;gap:5px;margin-top:12px;opacity:0;transition:opacity .4s}
-.sc:hover .sc-dots{opacity:1}
-.sc-dots i{width:5px;height:5px;border-radius:50%;background:rgba(255,255,255,.4);transition:width .3s,background .3s}
-.sc-dots i.on{width:16px;border-radius:3px;background:var(--magenta)}
-@media(prefers-reduced-motion:reduce){.sc,.sc-slides img{transition:none}.sc-slides img.on{animation:none}}
-.spec-wall{max-width:1200px;margin:clamp(14px,1.6vw,20px) auto 0;display:grid;grid-template-columns:repeat(auto-fill,minmax(clamp(84px,9vw,128px),1fr));gap:8px}
-.sw-tile{position:relative;aspect-ratio:1;border-radius:12px;overflow:hidden;cursor:pointer;background:#0c0c0c;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
-.sw-tile img{width:100%;height:100%;object-fit:cover;transition:transform .5s cubic-bezier(.16,1,.3,1),opacity .4s;opacity:.82}
-.sw-tile:hover img{transform:scale(1.1);opacity:1}
-.sw-tile::after{content:"";position:absolute;inset:0;border-radius:12px;box-shadow:inset 0 0 0 0 rgba(255,0,157,0);transition:box-shadow .3s}
-.sw-tile:hover::after{box-shadow:inset 0 0 0 2px rgba(255,0,157,.7)}
-@media(max-width:560px){.spec-wall{grid-template-columns:repeat(4,1fr)}}
-.display.kin{clip-path:inset(0 0 110% 0)}
-.display.kin.tin{clip-path:inset(0 0 -14% 0);transition:clip-path 1.05s cubic-bezier(.16,1,.3,1)}
-.sw-tile{animation:swPop .6s cubic-bezier(.16,1,.3,1) both}
-@keyframes swPop{from{opacity:0;transform:translateY(14px) scale(.95)}to{opacity:1;transform:none}}
-@media(prefers-reduced-motion:reduce){.sw-tile{animation:none}}
+.spec-mosaic{position:relative;max-width:1200px;margin:clamp(18px,2.5vw,36px) auto 0}
+.sm-grid{display:grid;grid-template-columns:repeat(3,1fr);grid-auto-rows:clamp(190px,21vw,300px);gap:10px}
+@media(max-width:760px){.sm-grid{grid-template-columns:repeat(2,1fr);grid-auto-rows:clamp(150px,40vw,220px)}}
+.sm-tile{position:relative;border-radius:16px;overflow:hidden;border:0;padding:0;cursor:pointer;background:#0c0c0c;box-shadow:0 0 0 1px rgba(255,255,255,.06)}
+.sm-tile[data-key="carla"]{background:linear-gradient(150deg,#2a0b3f,#0b0810)}
+.sm-tile[data-key="stripey"]{background:linear-gradient(150deg,#0b3f2a,#0b0810)}
+.sm-tile[data-key="crystal"]{background:linear-gradient(150deg,#3f0b1e,#0b0810)}
+.sm-tile img{width:100%;height:100%;object-fit:cover;display:block;opacity:.6;transition:transform .7s cubic-bezier(.16,1,.3,1),opacity .45s}
+.sm-tile::before{content:"";position:absolute;inset:0;z-index:1;background:linear-gradient(180deg,rgba(5,5,5,.15),rgba(5,5,5,.45));transition:opacity .4s}
+.sm-tile:hover img{transform:scale(1.09);opacity:1}
+.sm-tile:hover::before{opacity:.15}
+.sm-tile::after{content:"";position:absolute;inset:0;border-radius:16px;box-shadow:inset 0 0 0 0 rgba(255,0,157,0);transition:box-shadow .35s;z-index:2;pointer-events:none}
+.sm-tile:hover::after{box-shadow:inset 0 0 0 2px rgba(255,0,157,.75)}
+.sm-lbl{position:absolute;left:14px;bottom:12px;z-index:3;font-size:10px;font-weight:700;letter-spacing:.2em;text-transform:uppercase;color:#fff;opacity:0;transform:translateY(6px);transition:opacity .35s,transform .35s;pointer-events:none}
+.sm-tile:hover .sm-lbl{opacity:1;transform:none}
+.spec-mosaic::after{content:"";position:absolute;inset:0;z-index:3;pointer-events:none;background:radial-gradient(ellipse 46% 38% at 50% 50%,rgba(5,5,5,.5),transparent 72%)}
+.sm-word{position:absolute;inset:0;display:flex;align-items:center;justify-content:center;text-align:center;padding:0 4%;pointer-events:none;z-index:4;font-family:"Anton";text-transform:uppercase;font-size:clamp(40px,8.5vw,140px);line-height:.86;letter-spacing:-.01em;background:linear-gradient(120deg,#ffffff,#ff6fc0 55%,#9a5cff);-webkit-background-clip:text;background-clip:text;color:transparent;filter:drop-shadow(0 10px 36px rgba(5,5,5,.75));transition:opacity .28s ease,transform .28s ease}
+.sm-word.swap{opacity:0;transform:scale(.97)}
+@media(prefers-reduced-motion:reduce){.sm-tile img{transition:none}.sm-word{transition:none}}
 /* Vault — continuous marquee */
 .vault-mq{overflow:hidden;display:flex;flex-direction:column;gap:clamp(12px,1.4vw,18px);-webkit-mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent);mask:linear-gradient(90deg,transparent,#000 5%,#000 95%,transparent)}
 .vmq-row{display:flex;overflow:hidden}
@@ -765,24 +748,10 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 <!-- ============ THE SPECIMENS (interactive focus stage) ============ -->
 <section class="deck" id="varieties" data-hud-num="✦" data-hud-name="The Specimens">
   <div class="deck-intro reveal"><div class="mono-label">The Collection · 03 Specimens</div><h2 class="display">THE <span class="pink">SPECIMENS</span></h2></div>
-  <div class="spec-stage" id="specStage">
-    <article class="sc" data-key="carla">
-      <div class="sc-slides"></div><div class="sc-veil"></div>
-      <span class="sc-idx">N°01</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">5</span></span>
-      <div class="sc-cap"><h3 class="sc-name">Carla<span class="grad">blackiae</span></h3><div class="sc-latin">Anthurium carlablackiae · The Grail</div><div class="sc-dots"></div></div>
-    </article>
-    <article class="sc" data-key="stripey">
-      <div class="sc-slides"></div><div class="sc-veil"></div>
-      <span class="sc-idx">N°02</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">5</span></span>
-      <div class="sc-cap"><h3 class="sc-name">Stri<span class="grad">pey</span></h3><div class="sc-latin">Anthurium 'Stripey' · The Outlier</div><div class="sc-dots"></div></div>
-    </article>
-    <article class="sc" data-key="crystal">
-      <div class="sc-slides"></div><div class="sc-veil"></div>
-      <span class="sc-idx">N°03</span><span class="sc-count"><span class="sc-cur">1</span>/<span class="sc-tot">5</span></span>
-      <div class="sc-cap"><h3 class="sc-name">Red <span class="grad">Crystallinum</span></h3><div class="sc-latin">Anthurium crystallinum · The Jewel</div><div class="sc-dots"></div></div>
-    </article>
+  <div class="spec-mosaic" id="specMosaic">
+    <div class="sm-grid" id="smGrid"></div>
+    <div class="sm-word" id="smWord">Carlablackiae</div>
   </div>
-  <div class="spec-wall" id="specWall" aria-label="More from the collection"></div>
 </section>
 
 
@@ -1389,36 +1358,28 @@ body.cms-img [data-ik]:hover{outline:2px solid var(--magenta);outline-offset:2px
 })();
 </script>
 <script>
-/* ===== The Specimens — fixed portrait cards; hover slideshows the photos, click opens the full gallery ===== */
+/* ===== The Specimens — mosaic; renders instantly from in-folder photos, hydrates from site.json, never blanks ===== */
 (function(){
-  var stage=document.getElementById('specStage');if(!stage)return;
-  var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;
+  var grid=document.getElementById('smGrid'),word=document.getElementById('smWord');if(!grid)return;
   function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
-  var ctrl=[].slice.call(stage.querySelectorAll('.sc')).map(function(card){
-    var slides=card.querySelector('.sc-slides'),dots=card.querySelector('.sc-dots');
-    var curEl=card.querySelector('.sc-cur'),totEl=card.querySelector('.sc-tot');
-    var name=(card.querySelector('.sc-name')||{}).textContent||'Saigon Purple';
-    var items=[],idx=0,timer=null;
-    function live(){return items.filter(function(it){return it.ok;});}
-    function refresh(){var L=live();if(totEl)totEl.textContent=L.length||'—';if(dots)dots.style.display=L.length>1?'flex':'none';}
-    function show(n){var L=live();if(!L.length){if(curEl)curEl.textContent='0';return;}n=((n%L.length)+L.length)%L.length;items.forEach(function(it){it.img.classList.remove('on');if(it.dot)it.dot.classList.remove('on');});L[n].img.classList.add('on');if(L[n].dot)L[n].dot.classList.add('on');idx=n;if(curEl)curEl.textContent=n+1;}
-    function stop(){if(timer){clearInterval(timer);timer=null;}}
-    function start(){stop();if(reduce)return;var L=live();if(L.length<2)return;timer=setInterval(function(){if(!document.hidden)show(idx+1);},1600);}
-    function build(list){
-      (list||[]).slice(0,8).forEach(function(src){
-        var im=document.createElement('img');im.src=rel(src);im.loading='lazy';im.alt=name;
-        var d=document.createElement('i');var it={img:im,dot:d,ok:true};
-        im.addEventListener('error',function(){it.ok=false;im.style.display='none';d.style.display='none';refresh();var L=live();if(L.length&&!L.some(function(x){return x.img.classList.contains('on');}))show(0);});
-        slides.appendChild(im);dots.appendChild(d);items.push(it);
-      });
-      refresh();show(0);
-    }
-    card.addEventListener('mouseenter',start);
-    card.addEventListener('mouseleave',function(){stop();show(0);});
-    card.addEventListener('click',function(){var L=live();if(!L.length)return;var ss=L.map(function(x){return x.img.currentSrc||x.img.src;});if(window.openGallery)window.openGallery(ss,idx,name);});
-    return {card:card,build:build};
-  });
-  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){var v=(d&&d.varieties)||{};ctrl.forEach(function(c){c.build(v[c.card.getAttribute('data-key')]);});}).catch(function(){ctrl.forEach(function(c){c.build([]);});});
+  var META={carla:'Carlablackiae',stripey:'Stripey',crystal:'Red Crystallinum'},order=['carla','stripey','crystal'];
+  var FALL={carla:['images/carla-g1.jpg','images/carla-g2.jpg','images/carla-g3.jpg','images/carla-g4.jpg','images/carla-g5.jpg'],stripey:['images/stripey-g1.jpg','images/stripey-g2.jpg','images/stripey-g3.jpg','images/stripey-g4.jpg','images/stripey-g5.jpg'],crystal:['images/crystal-g1.jpg','images/crystal-g2.jpg','images/crystal-g3.jpg','images/crystal-g4.jpg','images/crystal-g5.jpg']};
+  var full={},wt=null;
+  function render(data){
+    full={};order.forEach(function(k){full[k]=((data&&data[k]&&data[k].length)?data[k]:FALL[k]||[]).map(rel).filter(Boolean);});
+    var tiles=[];[0,1].forEach(function(row){order.forEach(function(k){var img=full[k][row]||full[k][0];if(img)tiles.push({key:k,img:img});});});
+    if(!tiles.length)return;
+    grid.innerHTML=tiles.map(function(t){return '<button type="button" class="sm-tile" data-key="'+t.key+'"><img src="'+t.img+'" alt="'+META[t.key]+'" loading="lazy"><span class="sm-lbl">'+META[t.key]+'</span></button>';}).join('');
+    if(word)word.textContent=META[tiles[0].key];
+    [].slice.call(grid.querySelectorAll('.sm-tile')).forEach(function(btn){
+      var k=btn.getAttribute('data-key'),im=btn.querySelector('img');
+      im.addEventListener('error',function(){im.style.visibility='hidden';});
+      btn.addEventListener('mouseenter',function(){if(!word)return;word.classList.add('swap');clearTimeout(wt);wt=setTimeout(function(){word.textContent=META[k];word.classList.remove('swap');},150);});
+      btn.addEventListener('click',function(){if(window.openGallery&&full[k].length)window.openGallery(full[k],0,META[k]);});
+    });
+  }
+  render(null);
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties)render(d.varieties);}).catch(function(){});
 })();
 </script>
 <script>
@@ -1593,35 +1554,6 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
       e.preventDefault();cur.classList.add('cover');setTimeout(function(){location.href=href;},470);
     });
   })();
-})();
-</script>
-<script>
-/* Specimens — collection tile wall (flex more photos; click = full gallery) */
-(function(){
-  var wall=document.getElementById('specWall');if(!wall)return;
-  function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
-  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(!d){wall.style.display='none';return;}
-    var all=[],v=d.varieties||{};['carla','stripey','crystal'].forEach(function(k){(v[k]||[]).forEach(function(x){all.push(rel(x));});});(d.instagram||[]).forEach(function(x){all.push(rel(x));});
-    var seen={},u=[];all.forEach(function(x){if(x&&!seen[x]){seen[x]=1;u.push(x);}});u=u.slice(0,18);
-    if(!u.length){wall.style.display='none';return;}
-    wall.innerHTML=u.map(function(x,i){return '<div class="sw-tile" style="animation-delay:'+(i*45)+'ms"><img src="'+x+'" alt="Saigon Purple specimen" loading="lazy"></div>';}).join('');
-    var tiles=[].slice.call(wall.querySelectorAll('.sw-tile img'));
-    tiles.forEach(function(im,i){
-      im.addEventListener('error',function(){im.parentNode.style.display='none';});
-      im.parentNode.addEventListener('click',function(){var srcs=tiles.filter(function(y){return y.parentNode.style.display!=='none';}).map(function(y){return y.currentSrc||y.src;});var st=srcs.indexOf(im.currentSrc||im.src);if(window.openGallery)window.openGallery(srcs,st<0?0:st,'Saigon Purple · Collection');});
-    });
-  }).catch(function(){wall.style.display='none';});
-})();
-</script>
-<script>
-/* Signature: cinematic wipe-reveal for section titles */
-(function(){
-  if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;
-  var titles=[].slice.call(document.querySelectorAll('.display'));if(!titles.length)return;
-  titles.forEach(function(t){t.classList.add('kin');});
-  var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){e.target.classList.add('tin');io.unobserve(e.target);}});},{threshold:.2});
-  titles.forEach(function(t){io.observe(t);});
 })();
 </script>
 <script src="assets/loader.js"></script>
