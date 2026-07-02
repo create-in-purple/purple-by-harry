@@ -123,8 +123,15 @@ body.menu-open .menu-btn{opacity:0;pointer-events:none}
 .mega.open .mega-foot{opacity:1;transform:none}
 .mega-foot a{color:#fff;transition:color .3s}.mega-foot a:hover{color:var(--magenta)}
 .mega-foot .mega-loc{margin-left:auto}
-.mega-nav a{transition:opacity .38s ease}
-.mega-nav:hover a:not(:hover){opacity:.34}
+.mega-nav>a,.mega-nav>.mega-row{transition:opacity .38s ease}
+.mega-nav:hover>a:not(:hover),.mega-nav:hover>.mega-row:not(:hover){opacity:.34}
+.mega-row{position:relative}
+.mega-row .mn-main span{transition-delay:.26s}
+.mn-drop{display:flex;gap:22px;padding-left:calc(34px + clamp(12px,2vw,26px));max-height:0;opacity:0;transform:translateY(-6px);overflow:hidden;transition:opacity .3s,max-height .4s,transform .4s}
+.mega-row:hover .mn-drop{max-height:72px;opacity:1;transform:none;padding-top:8px}
+.mn-drop a{display:inline;border:0;padding:0;font-family:"Fraunces",serif;font-style:italic;font-size:clamp(15px,1.6vw,20px);color:var(--ink-muted);transition:color .3s}
+.mn-drop a::before{content:none}
+.mn-drop a:hover{color:var(--magenta)}
 body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 .mega-nav a:nth-child(1) .mn-main span{transition-delay:.14s}
 .mega-nav a:nth-child(2) .mn-main span{transition-delay:.20s}
@@ -153,7 +160,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
     <nav class="mega-nav">
       <a href="index.html#about" data-n="01"><span class="mn-main"><span>About</span></span><span class="mn-sub">The atelier</span></a>
       <a href="shop.html" data-n="02"><span class="mn-main"><span>Shop</span></span><span class="mn-sub">The collection</span></a>
-      <a href="blog.html" data-n="03"><span class="mn-main"><span>Grower’s Guide</span></span><span class="mn-sub">Journal &amp; care</span></a>
+      <div class="mega-row"><a href="blog.html" data-n="03" class="mn-a"><span class="mn-main"><span>Grower’s Guide</span></span><span class="mn-sub">Journal &amp; care</span></a><div class="mn-drop"><a href="blog.html#journal">Journal</a><a href="blog.html#guide">Guide</a></div></div>
     </nav>
     <div class="mega-foot"><a href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Instagram ↗</a><a href="https://www.tiktok.com/@purplebyhry" target="_blank" rel="noopener">TikTok ↗</a><span class="mega-loc">26°C · 70–85% RH</span></div>
   </div>
