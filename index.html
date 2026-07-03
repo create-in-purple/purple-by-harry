@@ -486,9 +486,9 @@ svg.has-photo .duo{opacity:.55}
 /* ---------- ABOUT PURPLE ---------- */
 .about{padding:clamp(52px,8vh,104px) clamp(20px,4vw,48px);border-top:1px solid var(--hairline);position:relative;overflow:hidden}
 .about .ab-glow{position:absolute;right:-10%;top:10%;width:46vw;height:46vw;border-radius:50%;filter:blur(70px);opacity:.32;background:radial-gradient(circle,#7a2bff,transparent 65%);pointer-events:none}
-.ab-wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,4vw,64px);align-items:center;max-width:none;margin:0;position:relative;z-index:1}
+.ab-wrap{display:grid;grid-template-columns:1fr 1.05fr;gap:clamp(28px,4vw,64px);align-items:stretch;max-width:none;margin:0;position:relative;z-index:1}
 @media(max-width:900px){.ab-wrap{grid-template-columns:1fr}}
-.ab-strips{display:flex;gap:10px;height:clamp(380px,50vh,500px)}
+.ab-strips{display:flex;gap:10px;min-height:clamp(440px,54vh,580px)}
 .ab-strip{position:relative;flex:1 1 0;min-width:0;border-radius:16px;overflow:hidden;cursor:pointer;background:var(--surface-1);box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);transition:flex-grow .6s cubic-bezier(.16,1,.3,1)}
 .ab-strip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform .9s cubic-bezier(.16,1,.3,1)}
 .ab-strip.active img{transform:scale(1)}
@@ -501,8 +501,9 @@ svg.has-photo .duo{opacity:.55}
 @media(max-width:900px){.ab-strips{flex-direction:column;height:auto}.ab-strip{flex:none;height:clamp(220px,40vh,300px)}.ab-strip img{transform:scale(1)}.ab-cap .s{opacity:1}}
 .pending{display:flex;align-items:center;justify-content:center}
 .pending::after{content:"Photo pending";font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-muted)}
+.ab-copy{display:flex;flex-direction:column;justify-content:center}
 .ab-copy .mono-label{margin-bottom:18px}
-.ab-copy h2{font-family:"Anton";text-transform:uppercase;font-size:clamp(46px,7vw,104px);line-height:.86;margin-bottom:24px}
+.ab-copy h2{font-family:"Anton";text-transform:uppercase;font-size:clamp(44px,6vw,92px);line-height:.86;margin-bottom:22px}
 .ab-copy h2 .pink{color:var(--magenta)}
 .ab-copy p{color:var(--ink-muted);font-size:16px;line-height:1.6;max-width:540px;margin-bottom:16px}
 .ab-copy p b{color:var(--ink);font-weight:600}
@@ -676,7 +677,8 @@ body.menu-open .menu-btn{opacity:0;pointer-events:none}
 .mega-row .mn-main span{transition-delay:.26s}
 .mn-drop{display:flex;gap:22px;padding-left:calc(34px + clamp(12px,2vw,26px));max-height:0;opacity:0;transform:translateY(-6px);overflow:hidden;transition:opacity .3s,max-height .4s,transform .4s}
 .mega-row:hover .mn-drop{max-height:72px;opacity:1;transform:none;padding-top:8px}
-.mn-drop a{display:inline;border:0;padding:0;font-family:"Fraunces",serif;font-style:italic;font-size:clamp(15px,1.6vw,20px);color:var(--ink-muted);transition:color .3s}
+.mega-row.subopen .mn-drop{max-height:80px;opacity:1;transform:none;padding-top:8px}
+.mn-drop a{display:inline;border:0;padding:0;font-family:"Fraunces",serif;font-style:italic;font-size:clamp(16px,1.7vw,22px);color:rgba(255,255,255,.8);transition:color .3s}
 .mn-drop a::before{content:none}
 .mn-drop a:hover{color:var(--magenta)}
 body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
@@ -1686,6 +1688,7 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
   var bg=mega.querySelector('.mega-bg');if(bg)bg.addEventListener('click',function(){setOpen(false);});
   [].forEach.call(mega.querySelectorAll('.mega-nav a'),function(a){a.addEventListener('click',function(){setOpen(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&mega.classList.contains('open'))setOpen(false);});
+  var mrow=mega.querySelector('.mega-row');if(mrow){mrow.addEventListener('mouseenter',function(){mrow.classList.add('subopen');});mrow.addEventListener('mouseleave',function(){mrow.classList.remove('subopen');});}
   (function(){var n=document.querySelector('nav');if(!n)return;var u=function(){n.classList.toggle('scrolled',(window.scrollY||window.pageYOffset)>30);};addEventListener('scroll',u,{passive:true});u();})();
 })();
 </script>
