@@ -402,8 +402,7 @@ svg.has-photo .duo{opacity:.55}
 .vsl-col{display:flex;flex-direction:column;gap:13px;will-change:transform;animation:vslUp 40s linear infinite}
 .vsl-col:nth-child(2){animation-name:vslDown;animation-duration:50s;margin-top:-64px}
 .vsl-col:nth-child(3){animation-duration:34s;margin-top:-30px}
-.vsl-slider:hover .vsl-col{animation-play-state:paused}
-.vsl-slider.pause .vsl-col{animation-play-state:paused!important}
+
 .vsl-cell{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#181020,#0a0810);border:1px solid rgba(255,255,255,.06)}
 .vsl-cell img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
 .vsl-cell:hover img{transform:scale(1.05)}
@@ -517,6 +516,33 @@ svg.has-photo .duo{opacity:.55}
 .ab-stats .k{font-size:11px;letter-spacing:.2em;text-transform:uppercase;color:var(--ink-muted);margin-top:9px}
 @media(max-width:900px){.ab-stats{max-width:none}}
 
+/* ---------- FAQ ---------- */
+#faq{padding:clamp(52px,8vh,104px) clamp(20px,4vw,48px);border-top:1px solid var(--hairline);position:relative;overflow:hidden}
+#faq .ab-glow{position:absolute;left:-10%;bottom:0;width:44vw;height:44vw;border-radius:50%;filter:blur(80px);opacity:.26;background:radial-gradient(circle,#ff009d,transparent 65%);pointer-events:none}
+.faq-wrap{display:grid;grid-template-columns:.82fr 1.18fr;gap:clamp(30px,5vw,84px);max-width:1320px;margin:0 auto;position:relative;z-index:1;align-items:start}
+@media(max-width:900px){.faq-wrap{grid-template-columns:1fr;gap:22px}}
+.faq-intro{position:sticky;top:88px}
+@media(max-width:900px){.faq-intro{position:static}}
+.faq-intro .mono-label{margin-bottom:16px}
+.faq-intro h2{font-family:"Anton";text-transform:uppercase;font-size:clamp(40px,5.4vw,86px);line-height:.88;letter-spacing:-.01em}
+.faq-intro h2 .pink{color:var(--magenta)}
+.faq-intro p{color:var(--ink-muted);font-size:15px;line-height:1.6;margin-top:18px;max-width:32ch}
+.faq-list{border-top:1px solid var(--hairline)}
+.faq-item{border-bottom:1px solid var(--hairline)}
+.faq-q{display:flex;align-items:center;gap:18px;width:100%;background:none;border:0;cursor:pointer;color:var(--ink);text-align:left;padding:clamp(20px,2.4vw,28px) 0;font:inherit;-webkit-tap-highlight-color:transparent}
+.faq-q .n{font-size:12px;font-weight:700;color:var(--magenta);letter-spacing:.06em;flex:0 0 auto;width:26px}
+.faq-q .t{flex:1;font-family:"Anton";text-transform:uppercase;font-size:clamp(17px,1.9vw,26px);line-height:1.05;letter-spacing:.005em;transition:color .3s}
+.faq-item.open .faq-q .t,.faq-q:hover .t{color:var(--magenta)}
+.faq-q .ic{position:relative;width:18px;height:18px;flex:0 0 auto}
+.faq-q .ic::before,.faq-q .ic::after{content:"";position:absolute;background:var(--magenta);transition:transform .35s cubic-bezier(.16,1,.3,1)}
+.faq-q .ic::before{top:50%;left:0;right:0;height:1.6px;transform:translateY(-50%)}
+.faq-q .ic::after{left:50%;top:0;bottom:0;width:1.6px;transform:translateX(-50%)}
+.faq-item.open .faq-q .ic::after{transform:translateX(-50%) scaleY(0)}
+.faq-a{overflow:hidden;max-height:0;transition:max-height .45s cubic-bezier(.16,1,.3,1)}
+.faq-a .inner{padding:0 0 clamp(20px,2.4vw,26px) 44px;color:var(--ink-muted);font-size:15px;line-height:1.68;max-width:62ch}
+.faq-a .inner b{color:var(--ink);font-weight:600}
+.faq-a .inner a{color:var(--magenta);text-decoration:underline}
+@media(max-width:560px){.faq-a .inner{padding-left:0}}
 /* ---------- SOCIAL SHOWCASE ---------- */
 .sc-head2{max-width:1320px;margin:clamp(24px,3.5vw,40px) auto 18px;position:relative;z-index:1;border-top:1px solid var(--hairline);padding-top:clamp(24px,3.5vw,40px)}
 #community .sc-head2{border-top:0;padding-top:0;margin-top:0}
@@ -648,7 +674,7 @@ body.menu-open .menu-btn{opacity:0;pointer-events:none}
 .mega.open{visibility:visible;pointer-events:auto}
 .mega-bg{position:absolute;inset:0;background:radial-gradient(120% 90% at 82% 6%,rgba(122,43,255,.30),transparent 55%),linear-gradient(150deg,#0b0410,#050505 58%,#0e0620);clip-path:inset(0 0 100% 0);transition:clip-path .72s cubic-bezier(.76,0,.24,1)}
 .mega.open .mega-bg{clip-path:inset(0 0 0 0)}
-.mega-inner{position:relative;height:100%;max-width:none;padding:clamp(20px,4vw,42px) clamp(26px,5vw,72px);display:flex;flex-direction:column}
+.mega-inner{position:relative;height:100%;max-width:none;padding:clamp(18px,3.4vw,40px) clamp(26px,5vw,72px);display:flex;flex-direction:column;overflow-y:auto}
 .mega-head{display:flex;align-items:center;justify-content:space-between;opacity:0;transform:translateY(-8px);transition:opacity .5s .15s,transform .5s .15s}
 .mega.open .mega-head{opacity:1;transform:none}
 .mega-tag{font-size:11px;font-weight:600;letter-spacing:.26em;text-transform:uppercase;color:var(--ink-muted)}
@@ -657,11 +683,11 @@ body.menu-open .menu-btn{opacity:0;pointer-events:none}
 .mega-x i{position:absolute;top:50%;left:50%;width:16px;height:1.6px;background:#fff}
 .mega-x i:first-child{transform:translate(-50%,-50%) rotate(45deg)}
 .mega-x i:last-child{transform:translate(-50%,-50%) rotate(-45deg)}
-.mega-nav{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(2px,.6vh,8px)}
+.mega-nav{flex:1;display:flex;flex-direction:column;justify-content:center;gap:clamp(0px,.3vh,6px);min-height:0}
 .mega-nav a{position:relative;display:flex;align-items:baseline;gap:clamp(12px,2vw,26px);padding:clamp(4px,1vh,10px) 0;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.08)}
 .mega-nav a::before{content:attr(data-n);font-size:12px;font-weight:700;letter-spacing:.1em;color:var(--magenta);width:34px;flex:0 0 auto;transform:translateY(-.4em)}
 .mn-main{position:relative;overflow:hidden;display:inline-block}
-.mn-main span{display:inline-block;font-family:"Anton";text-transform:uppercase;font-size:clamp(32px,6.2vw,84px);line-height:.9;letter-spacing:-.012em;color:#fff;transform:translateY(112%);transition:transform .7s cubic-bezier(.16,1,.3,1),color .3s}
+.mn-main span{display:inline-block;font-family:"Anton";text-transform:uppercase;font-size:clamp(30px,min(6vw,10vh),78px);line-height:.92;letter-spacing:-.012em;color:#fff;transform:translateY(112%);transition:transform .7s cubic-bezier(.16,1,.3,1),color .3s}
 .mega.open .mn-main span{transform:none}
 .mega-nav a:hover .mn-main span{color:var(--magenta)}
 .mn-sub{font-family:"Fraunces",serif;font-style:italic;font-size:clamp(13px,1.4vw,18px);color:var(--ink-muted);opacity:0;transition:opacity .5s .4s,color .3s}
@@ -675,9 +701,8 @@ body.menu-open .menu-btn{opacity:0;pointer-events:none}
 .mega-nav:hover>a:not(:hover),.mega-nav:hover>.mega-row:not(:hover){opacity:.34}
 .mega-row{position:relative}
 .mega-row .mn-main span{transition-delay:.26s}
-.mn-drop{display:flex;gap:22px;padding-left:calc(34px + clamp(12px,2vw,26px));max-height:0;opacity:0;transform:translateY(-6px);overflow:hidden;transition:opacity .3s,max-height .4s,transform .4s}
-.mega-row:hover .mn-drop{max-height:72px;opacity:1;transform:none;padding-top:8px}
-.mega-row.subopen .mn-drop{max-height:80px;opacity:1;transform:none;padding-top:8px}
+.mn-drop{position:absolute;top:100%;left:0;margin-top:2px;display:flex;gap:26px;padding-left:calc(34px + clamp(12px,2vw,26px));opacity:0;transform:translateY(-6px);pointer-events:none;transition:opacity .3s,transform .3s;z-index:3}
+.mega-row:hover .mn-drop,.mega-row.subopen .mn-drop{opacity:1;transform:none;pointer-events:auto}
 .mn-drop a{display:inline;border:0;padding:0;font-family:"Fraunces",serif;font-style:italic;font-size:clamp(16px,1.7vw,22px);color:rgba(255,255,255,.8);transition:color .3s}
 .mn-drop a::before{content:none}
 .mn-drop a:hover{color:var(--magenta)}
@@ -741,7 +766,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   <a class="nav-logo magnetic" href="#top" aria-label="Purple by Harry"><img src="images/logo-mark.png" alt="Purple by Harry"></a>
   <div class="nav-right">
      <div class="links">
-    <a href="#about">About</a><a href="shop.html">Shop</a><a href="blog.html">Grower’s Guide</a><a class="nav-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow me</a>
+    <a href="about.html">About</a><a href="shop.html">Shop</a><a href="blog.html">Grower’s Guide</a><a class="nav-follow" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Follow me</a>
   </div>
      <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mb-txt">Menu</span><span class="mb-ic"><i></i><i></i></span></button>
    </div>
@@ -751,7 +776,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   <div class="mega-inner">
     <div class="mega-head"><span class="mega-tag">Purple by Harry — Saigon</span><button class="mega-x" id="megaX" aria-label="Close menu"><i></i><i></i></button></div>
     <nav class="mega-nav">
-      <a href="index.html#about" data-n="01"><span class="mn-main"><span>About</span></span><span class="mn-sub">The atelier</span></a>
+      <a href="about.html" data-n="01"><span class="mn-main"><span>About</span></span><span class="mn-sub">The atelier</span></a>
       <a href="shop.html" data-n="02"><span class="mn-main"><span>Shop</span></span><span class="mn-sub">The collection</span></a>
       <div class="mega-row"><a href="blog.html" data-n="03" class="mn-a"><span class="mn-main"><span>Grower’s Guide</span></span><span class="mn-sub">Journal &amp; care</span></a><div class="mn-drop"><a href="blog.html#journal">Journal</a><a href="blog.html#guide">Guide</a></div></div>
     </nav>
@@ -880,6 +905,26 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 </section>
 
 <!-- ============ OUTRO ============ -->
+
+<!-- ============ FAQ ============ -->
+<section id="faq" data-hud-num="✦" data-hud-name="FAQ">
+  <div class="ab-glow"></div>
+  <div class="faq-wrap">
+    <div class="faq-intro reveal">
+      <div class="mono-label">FAQ</div>
+      <h2>ANSWERED<br><span class="pink">QUESTIONS</span></h2>
+      <p>How we actually grow — substrate, feed, climate and shipping — answered up front.</p>
+    </div>
+    <div class="faq-list reveal">
+      <div class="faq-item"><button class="faq-q"><span class="n">01</span><span class="t">What substrate do you grow in?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">A semi-hydro mix of <b>LECA and Seramis at roughly 60/40</b>. LECA gives airflow and steady moisture wicking; Seramis adds a little water retention around fine roots. It resists rot and keeps the watering rhythm predictable.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span class="n">02</span><span class="t">What nutrients do you use?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">A lean, consistent feed: <b>Foliage Focus</b> as the balanced base, <b>HumicBoosta</b> for root and microbe health, and <b>Silica</b> to strengthen cell walls and petioles. Little and often, with a plain-water flush every few weeks.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span class="n">03</span><span class="t">What climate do the plants live in?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">A steady <b>26°C</b> and <b>70–85% humidity</b>, bright indirect light (~120 µmol PAR, ~12h) and constant gentle airflow. Stability over intensity, always — it’s what builds the velvet and silver veins.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span class="n">04</span><span class="t">How are plants shipped and acclimated?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">Specimens are prepped and, for international transit, often bare-rooted and wrapped. On arrival: rehydrate the roots, pot into an airy mix, then give two weeks of higher humidity and lower light before normal care. Full steps live in the <a href="blog.html#guide">Grower’s Guide</a>.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span class="n">05</span><span class="t">Do you offer support after purchase?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">Yes. Every specimen ships with grow notes, and you can message the atelier any time on <a href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener">Instagram</a> — we’re happy to help you settle a new leaf in.</div></div></div>
+      <div class="faq-item"><button class="faq-q"><span class="n">06</span><span class="t">How do I reserve or buy a plant?</span><span class="ic"></span></button><div class="faq-a"><div class="inner">New drops are announced on Instagram and the <a href="shop.html">Shop</a> page. Message us to reserve a specimen; we hold it while payment is arranged.</div></div></div>
+    </div>
+  </div>
+</section>
 
 <section class="about" id="community" data-hud-num="✦" data-hud-name="The Community">
   <div class="ab-glow"></div>
@@ -1494,7 +1539,6 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   }
   function render(){arts.forEach(setup);}
   if(arts.length)render();
-  arts.forEach(function(art){var sl=art.querySelector('.vsl-slider');if(sl){sl.addEventListener('mouseenter',function(){sl.classList.add('pause');});sl.addEventListener('mouseleave',function(){sl.classList.remove('pause');});}});
   fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties){data=d.varieties;render();}}).catch(function(){});
 
   /* count-up — About Purple stats */
@@ -1603,7 +1647,7 @@ html{overflow-anchor:none}
 html.perf-lite .pp-grain,html.perf-lite .pp-aura,html.perf-lite .pp-cur,html.perf-lite .pp-aurora{display:none!important}
 html.perf-lite .hx-aurora,html.perf-lite .mf-aurora{opacity:.5}
 footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
-#ethos,#about,#varieties,#gallery,#community,#join{content-visibility:auto;contain-intrinsic-size:auto 900px}
+#ethos,#about,#varieties,#gallery,#faq,#community,#join{content-visibility:auto;contain-intrinsic-size:auto 900px}
 .hx-title .rl{display:inline-block;transition:transform .55s cubic-bezier(.16,1,.3,1);will-change:transform}
 .hx-title .l2 .rl{background:linear-gradient(180deg,#ff3db0,#ff8ad4 48%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pp-morph{position:fixed;z-index:9999;pointer-events:none;object-fit:contain;transition:left .9s cubic-bezier(.5,0,.2,1),top .9s cubic-bezier(.5,0,.2,1),width .9s cubic-bezier(.5,0,.2,1),height .9s cubic-bezier(.5,0,.2,1),opacity .9s ease;will-change:left,top,width,height,opacity}
@@ -1690,6 +1734,14 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
   addEventListener('keydown',function(e){if(e.key==='Escape'&&mega.classList.contains('open'))setOpen(false);});
   var mrow=mega.querySelector('.mega-row');if(mrow){mrow.addEventListener('mouseenter',function(){mrow.classList.add('subopen');});mrow.addEventListener('mouseleave',function(){mrow.classList.remove('subopen');});}
   (function(){var n=document.querySelector('nav');if(!n)return;var u=function(){n.classList.toggle('scrolled',(window.scrollY||window.pageYOffset)>30);};addEventListener('scroll',u,{passive:true});u();})();
+})();
+</script>
+<script>
+(function(){
+  var items=[].slice.call(document.querySelectorAll('#faq .faq-item'));if(!items.length)return;
+  function setH(it){var a=it.querySelector('.faq-a');a.style.maxHeight=it.classList.contains('open')?(a.scrollHeight+'px'):'0';}
+  items.forEach(function(it){it.querySelector('.faq-q').addEventListener('click',function(){var was=it.classList.contains('open');items.forEach(function(o){o.classList.remove('open');setH(o);});if(!was){it.classList.add('open');setH(it);}});});
+  addEventListener('resize',function(){items.forEach(function(o){if(o.classList.contains('open'))setH(o);});},{passive:true});
 })();
 </script>
 </body>

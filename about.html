@@ -3,7 +3,7 @@
 <head>
 <meta charset="utf-8" />
 <meta name="viewport" content="width=device-width, initial-scale=1" />
-<title>Journal — Purple by Harry</title>
+<title>About — Purple by Harry</title>
 <link rel="icon" type="image/png" sizes="32x32" href="images/favicon-32.png">
 <link rel="apple-touch-icon" href="images/apple-touch-icon.png">
 <meta name="theme-color" content="#050505">
@@ -140,6 +140,31 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 @media(prefers-reduced-motion:reduce){.mega-bg,.mega-head,.mn-main span,.mn-sub,.mega-foot{transition-duration:.01s}}
 @media(max-width:560px){.mega-foot .mega-loc{width:100%;margin:6px 0 0}}
 </style>
+<style>
+.ab-page{max-width:1180px;margin:0 auto;padding:clamp(18px,3vw,36px) clamp(20px,4vw,48px) clamp(70px,9vw,120px)}
+.ap-intro{padding:clamp(18px,3vw,44px) 0 clamp(28px,4vw,56px);border-bottom:1px solid var(--hairline)}
+.ap-lead{font-family:"Fraunces",serif;font-size:clamp(21px,2.7vw,36px);line-height:1.38;color:var(--ink);max-width:24em}
+.ap-lead b{color:var(--magenta);font-weight:600}
+.ap-block{display:grid;grid-template-columns:1fr 1fr;gap:clamp(28px,5vw,72px);align-items:center;padding:clamp(40px,7vw,92px) 0;border-bottom:1px solid var(--hairline)}
+@media(max-width:820px){.ap-block{grid-template-columns:1fr;gap:22px}}
+.ap-block.rev .ap-media{order:2}
+@media(max-width:820px){.ap-block.rev .ap-media{order:0}}
+.ap-media{border-radius:16px;overflow:hidden;aspect-ratio:4/5;background:#111;box-shadow:0 30px 70px rgba(0,0,0,.45)}
+.ap-media img{width:100%;height:100%;object-fit:cover}
+.ap-n{font-size:11px;font-weight:700;letter-spacing:.22em;text-transform:uppercase;color:var(--magenta)}
+.ap-text h2{font-family:"Anton";text-transform:uppercase;font-size:clamp(34px,4.4vw,66px);line-height:.9;margin:12px 0 18px}
+.ap-text p{color:var(--ink-muted);font-size:16px;line-height:1.7;margin-bottom:14px;max-width:46ch}
+.ap-text p b{color:var(--ink);font-weight:600}
+.ap-specs{list-style:none;margin:20px 0 0;padding:0;border-top:1px solid var(--hairline)}
+.ap-specs li{display:flex;justify-content:space-between;gap:16px;align-items:baseline;padding:13px 0;border-bottom:1px solid var(--hairline)}
+.ap-specs .k{color:var(--ink-muted);letter-spacing:.14em;text-transform:uppercase;font-size:11px;font-weight:600;flex:0 0 auto}
+.ap-specs .v{color:var(--ink);text-align:right;font-size:14px}
+.ap-cta{text-align:center;padding:clamp(52px,8vw,112px) 0 0}
+.ap-cta h3{font-family:"Anton";text-transform:uppercase;font-size:clamp(40px,6.4vw,104px);line-height:.86;margin-bottom:26px}
+.ap-cta h3 .grad{background:linear-gradient(108deg,#ff009d,#ff8ad4 52%,#7a2bff);-webkit-background-clip:text;background-clip:text;color:transparent}
+.ap-btn{display:inline-block;font-size:12px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;padding:15px 30px;border-radius:100px;background:linear-gradient(120deg,var(--magenta),var(--violet));color:#fff;text-decoration:none;transition:transform .25s,box-shadow .3s}
+.ap-btn:hover{transform:translateY(-2px);box-shadow:0 12px 30px rgba(255,0,157,.4)}
+</style>
 </head>
 <body>
 <nav>
@@ -147,8 +172,8 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   <div class="links">
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
-    <a href="blog.html" class="active">Grower’s Guide</a>
-    <a href="about.html">About</a>
+    <a href="blog.html">Grower’s Guide</a>
+    <a href="about.html" class="active">About</a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mb-txt">Menu</span><span class="mb-ic"><i></i><i></i></span></button>
   </div>
 </nav>
@@ -169,15 +194,55 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 
 <header class="bl-hero">
   <div class="glow"></div>
-  <div class="mono-label">Saigon Purple · Read</div>
-  <h1 class="display">GROWER’S <span class="grad">GUIDE</span></h1>
+  <div class="mono-label">Saigon Purple · The Story</div>
+  <h1 class="display">MEET <span class="grad">PURPLE</span></h1>
 </header>
 
-<main class="jr-wrap">
-  <div class="jr-tabs"><button class="jr-tab active" data-tab="journal">Journal</button><button class="jr-tab" data-tab="guide">Guide</button></div>
-  <article class="jr-feat" id="jrFeat"></article>
-  <div class="jr-ihead"><span class="mono-label">All entries</span><span class="jr-count" id="jrCount"></span></div>
-  <section class="jr-index" id="jrIndex"></section>
+<main class="ab-page">
+  <section class="ap-intro reveal">
+    <p class="ap-lead">Purple is the private atelier of <b>Harry</b> — a one-person studio in Saigon devoted to the rarest velvet Anthurium. What began with a single leaf on a windowsill is now a climate-controlled room where love and luxury grow in every vein.</p>
+  </section>
+
+  <section class="ap-block reveal">
+    <div class="ap-media"><img src="images/about-room.jpg" alt="The Purple grow room" loading="lazy" onerror="this.src='images/carla-g1.jpg'"></div>
+    <div class="ap-text">
+      <span class="ap-n">01 — The beginning</span>
+      <h2>One velvet leaf</h2>
+      <p>It started with a single <b>Carlablackiae</b> leaf — deep, near-black velvet that seemed to drink the light rather than reflect it. One leaf became a shelf; a shelf became a room.</p>
+      <p>Somewhere along the way the hobby turned into an obsession, and the obsession became Purple: a place to raise aroids the slow, careful way they deserve.</p>
+    </div>
+  </section>
+
+  <section class="ap-block rev reveal">
+    <div class="ap-media"><img src="images/about-portrait.jpg" alt="Harry, founder of Purple" loading="lazy" onerror="this.src='images/stripey-g1.jpg'"></div>
+    <div class="ap-text">
+      <span class="ap-n">02 — The approach</span>
+      <h2>Veinclusive, not hype</h2>
+      <p>Every specimen is chosen by hand for <b>vein, velvet and form</b> — never by trend. The philosophy is simple: <b>stability over speed</b>. We don’t force big leaves or chase fast growth.</p>
+      <p>We hold a tight, patient envelope and let each plant become the best version of itself. Fewer plants, better plants — a veinclusive purple selection.</p>
+    </div>
+  </section>
+
+  <section class="ap-block reveal">
+    <div class="ap-media"><img src="images/crystal-g1.jpg" alt="The setup" loading="lazy" onerror="this.src='images/about-cats.jpg'"></div>
+    <div class="ap-text">
+      <span class="ap-n">03 — The setup</span>
+      <h2>The room, like an instrument</h2>
+      <p>Everything is measured, logged and kept consistent — because rare plants reward the keeper who shows up every day.</p>
+      <ul class="ap-specs">
+        <li><span class="k">Substrate</span><span class="v">LECA + Seramis · ~60/40 semi-hydro</span></li>
+        <li><span class="k">Nutrients</span><span class="v">Foliage Focus · HumicBoosta · Silica</span></li>
+        <li><span class="k">Climate</span><span class="v">26°C · 70–85% RH</span></li>
+        <li><span class="k">Light</span><span class="v">Bright indirect · ~120 µmol PAR · ~12h</span></li>
+        <li><span class="k">Air</span><span class="v">Constant gentle movement</span></li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="ap-cta reveal">
+    <h3>Own a living<br><span class="grad">jewel</span></h3>
+    <a class="ap-btn" href="shop.html">Explore the collection ↗</a>
+  </section>
 </main>
 
 
@@ -190,59 +255,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 
 <script src="https://cdnjs.cloudflare.com/ajax/libs/marked/12.0.2/marked.min.js"></script>
 <script>
-(function(){
-  var JOURNAL=[{"slug": "the-new-leaf-ritual", "title": "The New-Leaf Ritual", "date": "2026-07-01", "tag": "Culture", "cover": "images/about-portrait.jpg", "excerpt": "Every new arrival at Purple goes through the same quiet two-week ritual before it joins the room.", "body": "Every new arrival at Purple goes through the same quiet ritual before it joins the collection.\n\n**Day 0 — Isolation.** New plants sit apart for two weeks. Pests and disease travel on the healthiest-looking leaves.\n\n**Day 1 — Read and photograph.** We log the leaf: vein, velvet, form, any damage. It becomes the baseline for every future unfurl.\n\n**Week 1 — Match the envelope.** Slowly bring humidity and light to room standard. No repotting, no feeding — just observation.\n\n**Week 2 — Integrate.** If the newest leaf hardens off clean, the plant joins the room.\n\nIt is slower than most people expect. That is the point. Rare plants reward the patient keeper."}, {"slug": "caring-for-carlablackiae", "title": "Caring for Carlablackiae", "date": "2026-06-26", "tag": "Care", "cover": "images/IMG_8842.jpeg", "excerpt": "Velvet, bullate and notoriously fussy — the exact envelope that keeps Carla pushing perfect hearts.", "body": "Carlablackiae rewards consistency and punishes impatience.\n\n### The envelope\n\n- **Light:** bright indirect, roughly 120 µmol PAR, ~12h\n- **Humidity:** 70–85% RH with gentle airflow\n- **Medium:** chunky, airy aroid mix — never wet feet\n- **Temp:** steady 24–26°C\n\nThe most common mistake is chasing fast growth with heavy feeding and strong light. Carla doesn't work that way. Slow, stable conditions are what give you the quilted velvet and silver veining people wait a decade to see.\n\nWhen a new leaf pushes, resist the urge to move or repot. Let it harden in place."}, {"slug": "saigon-humidity-playbook", "title": "The Saigon Humidity Playbook", "date": "2026-06-20", "tag": "Care", "cover": "images/IMG_9660.jpeg", "excerpt": "Tropical city, dry apartment. How to hold 70–85% humidity when the air-con is fighting you.", "body": "Tropical city, dry apartment — the classic Saigon paradox. Air-conditioning can drop a room to 45% RH in minutes, and rare aroids hate it.\n\nHere is the playbook that keeps the Purple room stable:\n\n- **Cluster your plants.** Grouped foliage creates its own humid microclimate.\n- **One good hygrometer per zone.** You manage what you measure.\n- **Ultrasonic humidifier on a timer,** not a mister. Consistency beats intensity.\n- **Airflow always.** A small clip fan on low prevents the stagnant, fungal air that high humidity invites.\n\nTarget 70–85% RH and, crucially, *keep it there.* Plants forgive a lower number far more easily than a swinging one."}, {"slug": "reading-a-rare-anthurium", "title": "How to Read a Rare Anthurium", "date": "2026-06-07", "tag": "Collection", "cover": "images/IMG_9626.jpeg", "excerpt": "Before you buy, learn to read a leaf. Three things separate a good specimen from a great one.", "body": "Before you buy, learn to read a leaf. Three things separate a good specimen from a great one.\n\n### Vein\nLook for high contrast and even spacing. Silver veins should feel *drawn on*, not muddy, and run symmetrically from the midrib.\n\n### Velvet\nTilt the leaf to the light. True velvet shifts from near-black to deep green as the angle changes. A flat, glossy sheen is a younger or lower-grade leaf.\n\n### Form\nThe best hearts are wide, deeply lobed and held flat. Cupping and narrow sinuses usually mean stress or unstable genetics.\n\nA fair price follows the leaf, not the label. Learn the leaf first."}, {"slug": "anatomy-of-velvet", "title": "The Anatomy of Velvet", "date": "2026-05-24", "tag": "Grow notes", "cover": "images/IMG_8842.jpeg", "excerpt": "Why do some anthurium leaves look like cut velvet? The answer is structure, not pigment.", "body": "Why do some anthurium leaves look like cut velvet?\n\nThe effect is structural, not pigment. Tiny cone-shaped cells on the leaf surface scatter light in every direction, so the leaf drinks shine instead of reflecting it. Add pale, sunken veins and you get the quilted, three-dimensional look collectors chase.\n\n### What velvet needs\n\n- **Soft, even light.** Harsh sun flattens the nap and bleaches veins. Bright indirect is plenty.\n- **Stable humidity.** Velvet forms as the leaf hardens off; swings give thin, matte foliage.\n- **Airflow.** Gentle movement keeps those cells clean and prevents fungal spotting.\n\nGet a leaf's *first two weeks* right and the velvet is set for life."}, {"slug": "welcome-to-purple", "title": "Welcome to the Purple Room", "date": "2026-05-10", "tag": "Journal", "cover": "images/about-room.jpg", "excerpt": "How one velvet leaf turned into a climate-controlled atelier of rare anthurium in the heart of Saigon.", "body": "It started with a single **Carlablackiae** leaf on a windowsill.\n\nWhat began as an obsession is now a climate-controlled room in Saigon, held at a steady 26°C and 70–85% humidity, where the rarest aroids are raised like living jewellery.\n\nThis journal is the workshop diary: grow notes, new unfurls, restock announcements and the quiet stories behind each specimen. No hype, no shortcuts — just velvet, veins and patience.\n\nWelcome to the veinclusive purple selection."}];
-  var GSECTIONS=[{"id": "envelope", "title": "The Purple Envelope", "body": "Rare anthurium reward **stability** over everything. We hold the room inside a tight window and let the plant settle into it.\n\n- **Temperature:** steady 24–26°C, day and night. Avoid swings and cold drafts.\n- **Humidity:** 70–85% RH. Pair high humidity with gentle airflow so leaves never sit wet.\n- **Light:** bright, indirect — about 100–150 µmol PAR, ~12-hour photoperiod. No harsh direct sun.\n- **Airflow:** a constant soft breeze prevents fungal issues and strengthens petioles.\n\nChasing fast growth is the #1 mistake. Slow and stable gives you the quilted velvet and silver veins collectors chase."}, {"id": "medium", "title": "Medium & Potting", "body": "Anthurium roots want **air**. They rot in dense, wet soil.\n\n- Use a chunky, airy aroid mix: bark, perlite/pumice, and horticultural charcoal. Many growers add a little sphagnum for moisture balance.\n- Choose pots with strong drainage. Clear nursery pots help you watch roots and moisture.\n- **Semi-hydro (LECA/Pon)** is an excellent, low-rot option once a plant is established — keep a shallow reservoir and a consistent nutrient solution.\n- Re-pot when roots fill the pot or the mix breaks down (usually every 12–18 months)."}, {"id": "watering", "title": "Watering", "body": "Aim for **evenly moist, never soggy**.\n\n- Let the top of the mix dry slightly between waterings; never let the plant sit in standing water.\n- Use room-temperature, low-mineral water (rain/RO/filtered) when possible — velvet leaves dislike hard water spots.\n- In high humidity, plants drink slower; water by feel and weight, not by calendar."}, {"id": "feeding", "title": "Feeding", "body": "Feed **little and often**.\n\n- A balanced fertilizer at roughly ¼–½ strength, every 1–2 weeks during active growth.\n- Flush the medium with plain water monthly to prevent salt build-up.\n- Ease off in cooler, lower-light periods."}, {"id": "acclimation", "title": "Acclimating a New Arrival", "body": "Plants shipped internationally arrive stressed and often bare-root. Go slow.\n\n1. Unbox immediately, rinse roots, and rehydrate in clean water for 20–30 minutes.\n2. Pot into your airy mix (or sphagnum to recover roots).\n3. First 2 weeks: **higher humidity, lower light**, no fertilizer. A clear humidity tent or prop box helps.\n4. Quarantine away from your collection for ~2 weeks and watch for pests.\n5. Expect the first new leaf to be small — that’s normal. Stability brings the next ones up to size."}, {"id": "pests", "title": "Pests & Troubleshooting", "body": "Inspect weekly — early action is everything.\n\n- **Thrips:** silvery streaks, deformed new growth. Isolate, rinse, treat repeatedly.\n- **Spider mites:** fine webbing, stippling — thrive in dry air; raise humidity and treat.\n- **Root rot:** mushy, dark roots from staying wet. Trim to healthy tissue, re-pot airy, ease watering.\n- **Crispy edges:** humidity too low or salts too high — raise RH, flush the medium.\n- **Yellowing:** usually overwatering or old leaves; check roots first."}, {"id": "varieties", "title": "Notes by Specimen", "body": "**Carlablackiae** — near-black velvet, slow and proud. Maximum stability; protect the velvet from water spots.\n\n**Stripey** — naturally striped, unstable by nature; give a touch more light to hold pattern, but never direct sun on pale sectors.\n\n**Red Crystallinum (red form)** — blushes blood-red on new growth, hardening to green with silver veins. Loves humidity and steady warmth."}];
-  var GCOVERS={envelope:'images/about-room.jpg',medium:'images/stripey-g3.jpg',watering:'images/crystal-g2.jpg',feeding:'images/carla-g4.jpg',acclimation:'images/about-portrait.jpg',pests:'images/stripey-g5.jpg',varieties:'images/carla-g1.jpg'};
-  var GLABEL={envelope:'Basics',medium:'Potting',watering:'Watering',feeding:'Feeding',acclimation:'New arrivals',pests:'Troubleshooting',varieties:'By specimen'};
-  function relc(c){return c&&c.charAt(0)==='/'?c.slice(1):c;}
-  function guidesFrom(secs){return (secs||[]).map(function(x){return {slug:x.id,title:x.title,tag:(GLABEL[x.id]||'Guide'),cover:(GCOVERS[x.id]||'images/about-room.jpg'),body:x.body,excerpt:(x.body||'').replace(/[#*>`]/g,'').replace(/\n+/g,' ').trim().slice(0,150)};});}
-  var SETS={journal:JOURNAL,guide:guidesFrom(GSECTIONS)};
-  var active='journal';
-  var feat=document.getElementById('jrFeat'),idx=document.getElementById('jrIndex'),cnt=document.getElementById('jrCount'),hover=document.getElementById('jrHover'),hoverImg=hover?hover.querySelector('img'):null;
-  var reader=document.getElementById('reader'),rd=document.getElementById('rdContent'),tabs=[].slice.call(document.querySelectorAll('.jr-tab'));
-  function fmt(d){if(!d)return'';try{return new Date(d).toLocaleDateString('en-US',{year:'numeric',month:'long',day:'numeric'});}catch(e){return d;}}
-  function md(t){return (window.marked?marked.parse(t||''):'<p>'+(t||'').replace(/\n/g,'<br>')+'</p>');}
-  function cov(p){return relc(p.cover||'images/about-room.jpg');}
-  function fb(im){im.onerror=null;im.src='images/about-room.jpg';}
-  function metaLine(p){return (p.tag?'<span class="cat">'+p.tag+'</span>':'')+(p.date?fmt(p.date):(active==='guide'?'Grower\u2019s Guide':''));}
-  function all(){return SETS.journal.concat(SETS.guide);}
-  function findBySlug(sl){return all().filter(function(x){return x.slug===sl;})[0];}
-  function render(posts){
-    if(!posts||!posts.length)return;
-    var f=posts[0];
-    if(feat){feat.innerHTML='<div class="ph"><img src="'+cov(f)+'" alt="" loading="lazy"></div><div class="tx"><div class="meta"><span>'+(active==='guide'?'Start here':'Latest')+'</span><span class="cat">'+(f.tag||'')+'</span>'+(f.date?'<span class="cat">'+fmt(f.date)+'</span>':'')+'</div><h2>'+f.title+'</h2><p class="ex">'+(f.excerpt||'')+'</p><span class="go">Read the entry \u2197</span></div>';var fi=feat.querySelector('img');if(fi)fi.onerror=function(){fb(fi);};feat.onclick=function(){openP(f);};}
-    if(cnt)cnt.textContent=posts.length+' entries';
-    if(idx){idx.innerHTML='';posts.slice(1).forEach(function(p,i){
-      var a=document.createElement('a');a.href='#post='+p.slug;
-      a.innerHTML='<span class="n">'+('0'+(i+2)).slice(-2)+'</span><span class="rmeta">'+metaLine(p)+'</span><h3>'+p.title+'</h3><span class="go">\u2197</span>';
-      a.addEventListener('click',function(e){e.preventDefault();openP(p);});
-      if(hover&&hoverImg){a.addEventListener('mouseenter',function(){hoverImg.onerror=function(){fb(hoverImg);};hoverImg.src=cov(p);hover.classList.add('on');});a.addEventListener('mouseleave',function(){hover.classList.remove('on');});}
-      idx.appendChild(a);
-    });}
-  }
-  if(hover){addEventListener('mousemove',function(e){if(hover.classList.contains('on')){hover.style.left=e.clientX+'px';hover.style.top=e.clientY+'px';}});}
-  function setTab(t,skipHash){active=(t==='guide')?'guide':'journal';tabs.forEach(function(b){b.classList.toggle('active',b.getAttribute('data-tab')===active);});render(SETS[active]);if(!skipHash){try{history.replaceState(null,'','#'+active);}catch(e){location.hash=active;}}}
-  tabs.forEach(function(b){b.addEventListener('click',function(){setTab(b.getAttribute('data-tab'));});});
-  function openP(p){
-    rd.innerHTML='<div class="rd-cover"><img src="'+cov(p)+'" alt=""></div><div class="rd-body"><div class="d">'+((p.tag?p.tag+' \u00b7 ':'')+(p.date?fmt(p.date):'Grower\u2019s Guide'))+'</div><h1>'+p.title+'</h1><div class="rt">'+md(p.body)+'</div></div>';
-    var ci=rd.querySelector('.rd-cover img');if(ci)ci.onerror=function(){fb(ci);};
-    reader.classList.add('open');document.body.style.overflow='hidden';location.hash='post='+p.slug;
-  }
-  function closeR(){reader.classList.remove('open');document.body.style.overflow='';if(location.hash.indexOf('post=')>-1)history.replaceState(null,'','#'+active);}
-  document.getElementById('rdClose').onclick=closeR;
-  addEventListener('keydown',function(e){if(e.key==='Escape')closeR();});
-  function boot(){
-    var h=location.hash;
-    var pm=h.match(/post=([\w-]+)/);
-    if(/guide/.test(h)&&!pm)setTab('guide',true);else setTab('journal',true);
-    if(pm){var p=findBySlug(pm[1]);if(p){if(SETS.guide.indexOf(p)>-1)setTab('guide',true);openP(p);}}
-  }
-  boot();
-  fetch('content/posts.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.posts&&d.posts.length){SETS.journal=d.posts.slice().reverse();}}).catch(function(){}).then(function(){
-    return fetch('content/guide.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.sections&&d.sections.length){SETS.guide=guidesFrom(d.sections);}}).catch(function(){});
-  }).then(function(){render(SETS[active]);});
-})();
+/* about page */
 </script>
 <script src="assets/loader.js"></script>
 <style>.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;transition:opacity .32s ease}.pp-curtain.show{opacity:1}</style>
