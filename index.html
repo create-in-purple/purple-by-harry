@@ -115,6 +115,15 @@ nav .links a:hover{opacity:1}
 .hx-aurora .b1{width:52vw;height:52vw;left:14%;top:14%;background:radial-gradient(circle,rgba(255,0,157,.85),transparent 60%);animation:drift1 15s ease-in-out infinite}
 .hx-aurora .b2{width:46vw;height:46vw;right:10%;top:24%;background:radial-gradient(circle,rgba(122,43,255,.8),transparent 60%);animation:drift2 18s ease-in-out infinite}
 .hx-aurora .b3{width:40vw;height:40vw;left:38%;bottom:2%;background:radial-gradient(circle,rgba(255,77,187,.7),transparent 62%);animation:drift3 13s ease-in-out infinite}
+.hx-mist{position:absolute;left:0;right:0;bottom:0;height:54%;z-index:1;pointer-events:none;overflow:hidden;mix-blend-mode:screen}
+.hx-mist span{position:absolute;bottom:-30%;width:72vw;height:60vh;border-radius:50%;background:radial-gradient(ellipse 60% 50% at 50% 70%,rgba(212,192,255,.18),rgba(150,110,255,.07) 45%,transparent 72%);will-change:transform,opacity}
+.hx-mist span:nth-child(1){left:-16%;animation:mistDrift1 36s ease-in-out infinite}
+.hx-mist span:nth-child(2){left:24%;width:82vw;animation:mistDrift2 48s ease-in-out infinite}
+.hx-mist span:nth-child(3){left:58%;animation:mistDrift1 42s ease-in-out infinite reverse}
+@keyframes mistDrift1{0%,100%{transform:translate(0,8%) scale(1)}50%{transform:translate(6%,-3%) scale(1.14)}}
+@keyframes mistDrift2{0%,100%{transform:translate(0,5%) scale(1.06)}50%{transform:translate(-8%,-5%) scale(1.2)}}
+@media(prefers-reduced-motion:reduce){.hx-mist span{animation:none}}
+.perf-lite .hx-mist{display:none}
 .hx-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:
   radial-gradient(135% 100% at 50% 42%,transparent 48%,rgba(5,5,5,.78) 100%),
   linear-gradient(0deg,var(--canvas) 1%,transparent 16%)}
@@ -397,7 +406,7 @@ svg.has-photo .duo{opacity:.55}
 .vsl-desc{margin:clamp(16px,2.4vh,24px) 0 0;max-width:42ch;color:rgba(255,255,255,.72);font-size:clamp(14px,1.1vw,16px);line-height:1.65}
 .vsl-more{display:inline-block;margin-top:clamp(18px,3vh,28px);font-size:11px;font-weight:700;letter-spacing:.16em;text-transform:uppercase;color:#fff;text-decoration:none;border-bottom:1px solid rgba(255,255,255,.28);padding-bottom:5px;transition:color .3s,border-color .3s}
 .vsl-more:hover{color:var(--magenta);border-color:var(--magenta)}
-.vsl-slider{position:relative;height:clamp(440px,62vh,660px);overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)}
+.vsl-slider{position:relative;height:clamp(380px,48vh,520px);overflow:hidden;-webkit-mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent);mask-image:linear-gradient(180deg,transparent,#000 6%,#000 94%,transparent)}
 .vsl-track{position:absolute;inset:-18% -6%;display:grid;grid-template-columns:repeat(3,1fr);gap:13px;transform:rotate(-7deg) scale(1.22)}
 .vsl-col{display:flex;flex-direction:column;gap:13px;will-change:transform;animation:vslUp 40s linear infinite}
 .vsl-col:nth-child(2){animation-name:vslDown;animation-duration:50s;margin-top:-64px}
@@ -413,7 +422,7 @@ svg.has-photo .duo{opacity:.55}
 @media(max-width:860px){
   .vsl{grid-template-columns:1fr;gap:18px;padding:clamp(20px,4vh,36px) 0}
   .vsl:nth-child(even) .vsl-info{order:0}
-  .vsl-slider{height:clamp(360px,50vh,460px)}
+  .vsl-slider{height:clamp(320px,44vh,420px)}
   .vsl-track{grid-template-columns:repeat(2,1fr);transform:rotate(-6deg) scale(1.3)}
   .vsl-col:nth-child(3){display:none}
 }
@@ -491,13 +500,16 @@ svg.has-photo .duo{opacity:.55}
 .ab-strip{position:relative;flex:1 1 0;min-width:0;border-radius:16px;overflow:hidden;cursor:pointer;background:var(--surface-1);box-shadow:0 30px 70px rgba(0,0,0,.5),0 0 0 1px rgba(255,255,255,.06);transition:flex-grow .6s cubic-bezier(.16,1,.3,1)}
 .ab-strip img{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform .9s cubic-bezier(.16,1,.3,1)}
 .ab-strip.active img{transform:scale(1)}
+.ab-strip video{position:absolute;inset:0;width:100%;height:100%;object-fit:cover;display:block;transform:scale(1.05);transition:transform .9s cubic-bezier(.16,1,.3,1)}
+.ab-strip.active video{transform:scale(1)}
+.ab-unmute{position:absolute;bottom:16px;right:16px;z-index:3;width:42px;height:42px;border-radius:50%;border:1px solid rgba(255,255,255,.32);background:rgba(10,8,14,.5);-webkit-backdrop-filter:blur(6px);backdrop-filter:blur(6px);color:#fff;display:none;align-items:center;justify-content:center;cursor:pointer;transition:background .3s,transform .25s}.ab-strip.active[data-video] .ab-unmute{display:flex}.ab-unmute:hover{background:var(--magenta);transform:scale(1.08)}.ab-unmute svg{width:18px;height:18px;fill:currentColor;display:block}.ab-unmute .slash{position:absolute;width:24px;height:2px;background:currentColor;transform:rotate(-45deg);border-radius:2px;box-shadow:0 0 0 1.5px rgba(10,8,14,.5)}.ab-unmute.on .slash{display:none}
 .ab-strip::after{content:"";position:absolute;inset:0;background:linear-gradient(180deg,rgba(5,5,5,.05) 38%,rgba(5,5,5,.82));pointer-events:none;z-index:1}
 .ab-strip.active{flex-grow:3.2;box-shadow:0 30px 70px rgba(0,0,0,.5),inset 0 0 0 1px rgba(255,0,157,.42)}
 .ab-cap{position:absolute;left:0;bottom:0;z-index:2;padding:16px 18px;display:flex;flex-direction:column;gap:4px}
 .ab-cap .t{font-family:"Anton";text-transform:uppercase;font-size:clamp(15px,1.5vw,20px);color:#fff;line-height:1;white-space:nowrap}
 .ab-cap .s{font-size:10px;letter-spacing:.2em;text-transform:uppercase;color:var(--magenta);opacity:0;transition:opacity .4s}
 .ab-strip.active .ab-cap .s{opacity:1}
-@media(max-width:900px){.ab-strips{flex-direction:column;height:auto}.ab-strip{flex:none;height:clamp(220px,40vh,300px)}.ab-strip img{transform:scale(1)}.ab-cap .s{opacity:1}}
+@media(max-width:900px){.ab-strips{flex-direction:column;height:auto}.ab-strip{flex:none;height:clamp(220px,40vh,300px)}.ab-strip img,.ab-strip video{transform:scale(1)}.ab-cap .s{opacity:1}}
 .pending{display:flex;align-items:center;justify-content:center}
 .pending::after{content:"Photo pending";font-size:11px;letter-spacing:.24em;text-transform:uppercase;color:var(--ink-muted)}
 .ab-copy{display:flex;flex-direction:column;justify-content:center}
@@ -799,6 +811,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   <div class="hx-grid"></div>
   <div class="hx-aurora"><span class="blob b1"></span><span class="blob b2"></span><span class="blob b3"></span></div>
   <div class="hx-vignette"></div>
+  <div class="hx-mist" aria-hidden="true"><span></span><span></span><span></span></div>
   <!-- live telemetry tiles -->
   <div class="hx-stat s1"><div class="hx-k">Temperature <i></i></div><div class="hx-val"><span class="count" data-to="26" data-dec="1">0</span><small>°C</small></div><div class="hx-spark"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
   <div class="hx-stat s2"><div class="hx-k">Humidity <i></i></div><div class="hx-val"><span class="count" id="rhVal" data-to="78">0</span><small>% RH</small></div><div class="hx-spark"><span></span><span></span><span></span><span></span><span></span><span></span><span></span><span></span></div></div>
@@ -863,8 +876,8 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
       </div>
     </div>
     <div class="ab-strips reveal d2" id="abStrips">
-      <figure class="ab-strip active"><img src="images/about-portrait.jpg" alt="Harry, founder of Saigon Purple" onerror="this.style.display='none';this.parentNode.classList.add('pending')"><figcaption class="ab-cap"><span class="t">Harry</span><span class="s">Founder</span></figcaption></figure>
-      <figure class="ab-strip"><img src="images/about-room.jpg" alt="The Purple grow room" onerror="this.style.display='none';this.parentNode.classList.add('pending')"><figcaption class="ab-cap"><span class="t">The Room</span><span class="s">Saigon · 26°C</span></figcaption></figure>
+      <figure class="ab-strip"><img src="images/about-portrait.jpg" alt="Harry, founder of Saigon Purple" onerror="this.style.display='none';this.parentNode.classList.add('pending')"><figcaption class="ab-cap"><span class="t">Harry</span><span class="s">Founder</span></figcaption></figure>
+      <figure class="ab-strip active" data-video><img src="images/about-room.jpg" alt="The Purple grow room" onerror="this.style.display='none';this.parentNode.classList.add('pending')"><video class="ab-video" src="images/room.mp4" poster="images/room-poster.jpg" muted loop playsinline preload="metadata"></video><button class="ab-unmute" type="button" aria-label="Toggle sound"><svg viewBox="0 0 24 24" aria-hidden="true"><path d="M3 9v6h4l5 5V4L7 9H3z"/></svg><span class="slash"></span></button><figcaption class="ab-cap"><span class="t">The Room</span><span class="s">Saigon · 26°C</span></figcaption></figure>
       <figure class="ab-strip"><img src="images/about-cats.jpg" alt="Harry and the resident cats" onerror="this.style.display='none';this.parentNode.classList.add('pending')"><figcaption class="ab-cap"><span class="t">Familiars</span><span class="s">Resident cats</span></figcaption></figure>
     </div>
   </div>
@@ -1569,10 +1582,16 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   var wrap=document.getElementById('abStrips');if(!wrap)return;
   var strips=[].slice.call(wrap.querySelectorAll('.ab-strip'));if(!strips.length)return;
   var fine=matchMedia('(hover:hover) and (pointer:fine)').matches;
-  var cur=0;
-  function activate(i){if(i===cur)return;strips.forEach(function(s,k){var on=k===i;s.classList.toggle('active',on);s.style.flexGrow=on?'3.2':'1';});cur=i;}
-  strips.forEach(function(s,i){s.style.flexGrow=i===0?'3.2':'1';});
-  if(fine){strips.forEach(function(s,i){s.addEventListener('mouseenter',function(){activate(i);});});wrap.addEventListener('mouseleave',function(){activate(0);});}
+  var roomIdx=-1;strips.forEach(function(s,i){if(s.hasAttribute('data-video'))roomIdx=i;});if(roomIdx<0)roomIdx=Math.min(1,strips.length-1);
+  var vid=strips[roomIdx]?strips[roomIdx].querySelector('video'):null,inView=true;
+  var unBtn=strips[roomIdx]?strips[roomIdx].querySelector('.ab-unmute'):null;
+  if(unBtn&&vid){unBtn.addEventListener('click',function(e){e.stopPropagation();e.preventDefault();vid.muted=!vid.muted;unBtn.classList.toggle('on',!vid.muted);unBtn.setAttribute('aria-label',vid.muted?'Unmute video':'Mute video');if(!vid.muted){var p=vid.play();if(p&&p.catch)p.catch(function(){});}});}
+  function playVid(on){if(!vid)return;try{if(on&&inView){var p=vid.play();if(p&&p.catch)p.catch(function(){});}else{vid.pause();}}catch(e){}}
+  var cur=-1;
+  function activate(i){if(i===cur)return;strips.forEach(function(s,k){var on=k===i;s.classList.toggle('active',on);s.style.flexGrow=on?'3.2':'1';});cur=i;playVid(i===roomIdx);}
+  activate(roomIdx);
+  if(vid&&'IntersectionObserver' in window){var io=new IntersectionObserver(function(es){es.forEach(function(e){inView=e.isIntersecting;playVid(cur===roomIdx);});},{threshold:.12});io.observe(wrap);}
+  if(fine){strips.forEach(function(s,i){s.addEventListener('mouseenter',function(){activate(i);});});wrap.addEventListener('mouseleave',function(){activate(roomIdx);});}
   wrap.addEventListener('click',function(e){
     var im=e.target.closest&&e.target.closest('.ab-strip img');if(!im||im.style.display==='none')return;
     var lb=document.getElementById('lightbox'),l=document.getElementById('lbImg'),c=document.getElementById('lbCap');

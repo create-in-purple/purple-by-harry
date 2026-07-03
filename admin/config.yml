@@ -40,6 +40,39 @@ collections:
               - { label: "Stripey (up to 5)", name: "stripey", widget: "list", field: { label: "Photo", name: "photo", widget: "image" } }
               - { label: "Red Crystallinum (up to 5)", name: "crystal", widget: "list", field: { label: "Photo", name: "photo", widget: "image" } }
 
+  # ---------- SOCIAL ----------
+  - name: "social"
+    label: "📣 Social — follower counts"
+    files:
+      - name: "social"
+        label: "Follower counts & links"
+        file: "content/social.json"
+        description: "Update the numbers shown on the Follow the Atelier cards."
+        fields:
+          - label: "Instagram"
+            name: "instagram"
+            widget: "object"
+            fields:
+              - { label: "Profile URL", name: "url", widget: "string" }
+              - { label: "Posts", name: "posts", widget: "string" }
+              - { label: "Followers", name: "followers", widget: "string" }
+              - { label: "Following", name: "following", widget: "string" }
+          - label: "TikTok"
+            name: "tiktok"
+            widget: "object"
+            fields:
+              - { label: "Profile URL", name: "url", widget: "string" }
+              - { label: "Following", name: "following", widget: "string" }
+              - { label: "Followers", name: "followers", widget: "string" }
+              - { label: "Likes", name: "likes", widget: "string" }
+          - label: "Facebook"
+            name: "facebook"
+            widget: "object"
+            fields:
+              - { label: "Page URL", name: "url", widget: "string" }
+              - { label: "Followers", name: "followers", widget: "string" }
+              - { label: "Likes", name: "likes", widget: "string" }
+
   # ---------- SHOP ----------
   - name: "shop"
     label: "🛒 Shop — Products & stock"
