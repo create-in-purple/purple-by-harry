@@ -154,6 +154,19 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 .world-cell:hover img{transform:scale(1.06)}
 .world-cell::after{content:"";position:absolute;inset:0;background:linear-gradient(transparent 55%,rgba(5,5,5,.55));opacity:0;transition:opacity .3s}
 .world-cell:hover::after{opacity:1}
+.world-cell{opacity:0;transform:scale(.92) translateY(22px);transition:opacity .8s cubic-bezier(.16,1,.3,1),transform .8s cubic-bezier(.16,1,.3,1)}
+.world-cell.in{opacity:1;transform:none}
+@media(prefers-reduced-motion:reduce){.world-cell{opacity:1!important;transform:none!important;transition:none}}
+
+
+/* ---- top-nav dropdown (Grower's Guide) ---- */
+.nav-dd{position:relative;display:inline-flex;align-items:center}
+.nav-dd::after{content:"";position:absolute;top:100%;left:-10px;right:-10px;height:16px}
+.nav-dd-menu{position:absolute;top:calc(100% + 12px);left:50%;transform:translateX(-50%) translateY(-6px);display:flex;flex-direction:column;gap:2px;min-width:160px;padding:8px;background:rgba(12,10,16,.97);border:1px solid var(--hairline);border-radius:12px;box-shadow:0 22px 55px rgba(0,0,0,.55);opacity:0;visibility:hidden;pointer-events:none;transition:opacity .28s cubic-bezier(.16,1,.3,1),transform .28s cubic-bezier(.16,1,.3,1);z-index:130}
+.nav-dd:hover .nav-dd-menu{opacity:1;visibility:visible;transform:translateX(-50%) translateY(0);pointer-events:auto}
+.nav-dd-menu a{font-family:"Fraunces",serif;font-style:italic;font-size:14px;color:var(--ink-muted);padding:9px 13px;border-radius:8px;white-space:nowrap;letter-spacing:0;opacity:1!important}
+.nav-dd-menu a::after{display:none!important}
+.nav-dd-menu a:hover{color:#fff;background:rgba(255,0,157,.15)}
 </style>
 </head>
 <body>
@@ -162,7 +175,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   <div class="links">
     <a href="index.html">Home</a>
     <a href="shop.html">Shop</a>
-    <a href="blog.html" class="active">Grower’s Guide</a>
+    <span class="nav-dd"><a href="blog.html" class="active">Grower’s Guide</a><span class="nav-dd-menu"><a href="blog.html#journal">Journal</a><a href="blog.html#guide">Guide</a></span></span>
     <a href="about.html">About</a>
     <button class="menu-btn" id="menuBtn" aria-label="Open menu"><span class="mb-txt">Menu</span><span class="mb-ic"><i></i><i></i></span></button>
   </div>
@@ -198,7 +211,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 
 <section class="world">
   <div class="world-head"><div class="mono-label">The Purple world</div><h3>GROWN IN <span class="pink">SAIGON</span></h3></div>
-  <div class="world-grid"><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/carla-g1.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/stripey-g2.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/crystal-g3.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/about-room.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/carla-g4.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/stripey-g5.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/crystal-g1.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/about-portrait.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/carla-g3.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a><a class="world-cell" href="https://www.instagram.com/purplebyhry/" target="_blank" rel="noopener"><img src="images/crystal-g5.jpg" alt="Purple by Harry" loading="lazy" onerror="this.src='images/about-room.jpg'"></a></div>
+  <div class="world-grid" id="worldGrid"></div>
 </section>
 <footer>
   <span>© 2026 Saigon Purple by Harry — veinclusive purple selection.</span>
@@ -278,6 +291,38 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   [].forEach.call(mega.querySelectorAll('.mega-nav a'),function(a){a.addEventListener('click',function(){setOpen(false);});});
   addEventListener('keydown',function(e){if(e.key==='Escape'&&mega.classList.contains('open'))setOpen(false);});
   var mrow=mega.querySelector('.mega-row');if(mrow){mrow.addEventListener('mouseenter',function(){mrow.classList.add('subopen');});mrow.addEventListener('mouseleave',function(){mrow.classList.remove('subopen');});}
+})();
+</script>
+<script>
+(function(){
+  var grid=document.getElementById('worldGrid');if(!grid)return;
+  function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
+  var FB=['images/carla-g1.jpg','images/crystal-g3.jpg','images/stripey-g2.jpg','images/about-room.jpg','images/carla-g4.jpg','images/crystal-g1.jpg','images/stripey-g5.jpg','images/about-portrait.jpg','images/crystal-g5.jpg','images/carla-g3.jpg'];
+  var built=false;
+  function build(pool){
+    var list=pool.filter(Boolean).slice(0,10);if(list.length<10){while(list.length<10&&FB.length)list.push(FB[list.length%FB.length]);}
+    grid.innerHTML='';
+    list.forEach(function(src){
+      var a=document.createElement('a');a.className='world-cell';a.href='https://www.instagram.com/purplebyhry/';a.target='_blank';a.rel='noopener';
+      var im=document.createElement('img');im.src=rel(src);im.alt='Purple by Harry';im.loading='lazy';im.onerror=function(){im.onerror=null;im.src='images/about-room.jpg';};
+      a.appendChild(im);grid.appendChild(a);
+    });
+    var cells=[].slice.call(grid.querySelectorAll('.world-cell'));
+    if('IntersectionObserver' in window){
+      var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){cells.forEach(function(c,i){c.style.transitionDelay=(i*70)+'ms';c.classList.add('in');});io.disconnect();}});},{threshold:.1});
+      io.observe(grid);
+    } else { cells.forEach(function(c){c.classList.add('in');}); }
+  }
+  build(FB);
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
+    if(!d)return;var arrs=[];
+    if(d.varieties)Object.keys(d.varieties).forEach(function(k){arrs.push(d.varieties[k]||[]);});
+    if(d.instagram)arrs.push(d.instagram);
+    var pool=[],max=0;arrs.forEach(function(a){if(a.length>max)max=a.length;});
+    for(var i=0;i<max;i++){arrs.forEach(function(a){if(a[i])pool.push(a[i]);});}
+    if(d.about)['portrait','room','cats'].forEach(function(k){if(d.about[k])pool.push(d.about[k]);});
+    if(pool.length>=6)build(pool);
+  }).catch(function(){});
 })();
 </script>
 </body>
