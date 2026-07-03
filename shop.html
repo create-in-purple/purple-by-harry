@@ -483,7 +483,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   }
   build(FB);
   fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(!d)return;var arrs=[];
+    if(!d)return;if(d.world&&d.world.length){build(d.world);return;}var arrs=[];
     if(d.varieties)Object.keys(d.varieties).forEach(function(k){arrs.push(d.varieties[k]||[]);});
     if(d.instagram)arrs.push(d.instagram);
     var pool=[],max=0;arrs.forEach(function(a){if(a.length>max)max=a.length;});

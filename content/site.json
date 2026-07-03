@@ -1,11 +1,54 @@
 {
   "logo": "images/logo.png",
   "logoMark": "images/logo-mark.png",
-  "about": { "portrait": "images/about-portrait.jpg", "room": "images/about-room.jpg", "cats": "images/about-cats.jpg" },
-  "instagram": [ "images/IMG_4129.jpeg", "images/IMG_9712.jpeg", "images/IMG_8846.jpeg" ],
+  "about": {
+    "portrait": "images/about-portrait.jpg",
+    "room": "images/about-room.jpg",
+    "cats": "images/about-cats.jpg"
+  },
+  "instagram": [
+    "images/IMG_4129.jpeg",
+    "images/IMG_9712.jpeg",
+    "images/IMG_8846.jpeg"
+  ],
   "varieties": {
-    "carla": [ "images/IMG_8070.jpeg", "images/IMG_8842.jpeg", "images/IMG_7979.jpeg", "images/IMG_0018.jpeg", "images/IMG_7869.jpeg" ],
-    "stripey": [ "images/IMG_9660.jpeg", "images/IMG_9657.jpeg", "images/IMG_9295.jpeg", "images/IMG_0160.jpeg", "images/IMG_8543.jpeg" ],
-    "crystal": [ "images/IMG_9626.jpeg", "images/IMG_9826.jpeg", "images/IMG_0015.jpeg", "images/IMG_9602.jpeg", "images/IMG_0013.jpeg" ]
-  }
+    "carla": [
+      "images/IMG_8070.jpeg",
+      "images/IMG_8842.jpeg",
+      "images/IMG_7979.jpeg",
+      "images/IMG_0018.jpeg",
+      "images/IMG_7869.jpeg"
+    ],
+    "stripey": [
+      "images/IMG_9660.jpeg",
+      "images/IMG_9657.jpeg",
+      "images/IMG_9295.jpeg",
+      "images/IMG_0160.jpeg",
+      "images/IMG_8543.jpeg"
+    ],
+    "crystal": [
+      "images/IMG_9626.jpeg",
+      "images/IMG_9826.jpeg",
+      "images/IMG_0015.jpeg",
+      "images/IMG_9602.jpeg",
+      "images/IMG_0013.jpeg"
+    ]
+  },
+  "aboutStory": {
+    "beginning": "images/about-room.jpg",
+    "approach": "images/about-portrait.jpg",
+    "setup": "images/crystal-g1.jpg"
+  },
+  "world": [
+    "images/IMG_8842.jpeg",
+    "images/IMG_9660.jpeg",
+    "images/IMG_9626.jpeg",
+    "images/about-room.jpg",
+    "images/IMG_7979.jpeg",
+    "images/IMG_9295.jpeg",
+    "images/IMG_0015.jpeg",
+    "images/about-portrait.jpg",
+    "images/IMG_4129.jpeg",
+    "images/IMG_9712.jpeg"
+  ]
 }

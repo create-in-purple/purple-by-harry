@@ -1,5 +1,90 @@
 {
-  "note": "Để trống = Vault tự lấy ngẫu nhiên các ảnh đang dùng trên web. Muốn ghim ảnh cố định thì thêm vào 'images' (mỗi dòng {\"img\":\"images/ten-anh.jpg\"}).",
+  "note": "Ảnh chạy trong The Vault. Thêm/bớt/đổi ảnh ở đây. Để trống danh sách = tự lấy ngẫu nhiên ảnh trên web.",
   "max": 24,
-  "images": []
+  "images": [
+    {
+      "img": "images/IMG_8842.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9660.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9626.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_8070.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9657.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9826.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_7979.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9295.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_0015.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_0018.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_0160.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9602.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_7869.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_8543.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_0013.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_4129.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_9712.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/IMG_8846.jpeg",
+      "size": "normal"
+    },
+    {
+      "img": "images/about-room.jpg",
+      "size": "normal"
+    },
+    {
+      "img": "images/about-portrait.jpg",
+      "size": "normal"
+    },
+    {
+      "img": "images/about-cats.jpg",
+      "size": "normal"
+    }
+  ]
 }

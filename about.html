@@ -232,7 +232,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   </section>
 
   <section class="ap-block reveal">
-    <div class="ap-media"><img src="images/about-room.jpg" alt="The Purple grow room" loading="lazy" onerror="this.src='images/carla-g1.jpg'"></div>
+    <div class="ap-media"><img id="apImg0" src="images/about-room.jpg" alt="The Purple grow room" loading="lazy" onerror="this.src='images/carla-g1.jpg'"></div>
     <div class="ap-text">
       <span class="ap-n">01 — The beginning</span>
       <h2>One velvet leaf</h2>
@@ -242,7 +242,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   </section>
 
   <section class="ap-block rev reveal">
-    <div class="ap-media"><img src="images/about-portrait.jpg" alt="Harry, founder of Purple" loading="lazy" onerror="this.src='images/stripey-g1.jpg'"></div>
+    <div class="ap-media"><img id="apImg1" src="images/about-portrait.jpg" alt="Harry, founder of Purple" loading="lazy" onerror="this.src='images/stripey-g1.jpg'"></div>
     <div class="ap-text">
       <span class="ap-n">02 — The approach</span>
       <h2>Veinclusive, not hype</h2>
@@ -252,7 +252,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   </section>
 
   <section class="ap-block reveal">
-    <div class="ap-media"><img src="images/crystal-g1.jpg" alt="The setup" loading="lazy" onerror="this.src='images/about-cats.jpg'"></div>
+    <div class="ap-media"><img id="apImg2" src="images/crystal-g1.jpg" alt="The setup" loading="lazy" onerror="this.src='images/about-cats.jpg'"></div>
     <div class="ap-text">
       <span class="ap-n">03 — The setup</span>
       <h2>The room, like an instrument</h2>
@@ -328,7 +328,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   }
   build(FB);
   fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(!d)return;var arrs=[];
+    if(!d)return;if(d.world&&d.world.length){build(d.world);return;}var arrs=[];
     if(d.varieties)Object.keys(d.varieties).forEach(function(k){arrs.push(d.varieties[k]||[]);});
     if(d.instagram)arrs.push(d.instagram);
     var pool=[],max=0;arrs.forEach(function(a){if(a.length>max)max=a.length;});
@@ -338,5 +338,6 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   }).catch(function(){});
 })();
 </script>
+<script>(function(){fetch("content/site.json",{cache:"no-store"}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(!d||!d.aboutStory)return;var a=d.aboutStory;function set(id,s){var e=document.getElementById(id);if(e&&s)e.src=(s.charAt(0)==="/"?s.slice(1):s);}set("apImg0",a.beginning);set("apImg1",a.approach);set("apImg2",a.setup);}).catch(function(){});})();</script>
 </body>
 </html>

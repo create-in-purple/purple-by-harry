@@ -228,7 +228,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   var GCOVERS={envelope:'images/about-room.jpg',medium:'images/stripey-g3.jpg',watering:'images/crystal-g2.jpg',feeding:'images/carla-g4.jpg',acclimation:'images/about-portrait.jpg',pests:'images/stripey-g5.jpg',varieties:'images/carla-g1.jpg'};
   var GLABEL={envelope:'Basics',medium:'Potting',watering:'Watering',feeding:'Feeding',acclimation:'New arrivals',pests:'Troubleshooting',varieties:'By specimen'};
   function relc(c){return c&&c.charAt(0)==='/'?c.slice(1):c;}
-  function guidesFrom(secs){return (secs||[]).map(function(x){return {slug:x.id,title:x.title,tag:(GLABEL[x.id]||'Guide'),cover:(GCOVERS[x.id]||'images/about-room.jpg'),body:x.body,excerpt:(x.body||'').replace(/[#*>`]/g,'').replace(/\n+/g,' ').trim().slice(0,150)};});}
+  function guidesFrom(secs){return (secs||[]).map(function(x){return {slug:x.id,title:x.title,tag:(GLABEL[x.id]||'Guide'),cover:(x.cover||GCOVERS[x.id]||'images/about-room.jpg'),body:x.body,excerpt:(x.body||'').replace(/[#*>`]/g,'').replace(/\n+/g,' ').trim().slice(0,150)};});}
   var SETS={journal:JOURNAL,guide:guidesFrom(GSECTIONS)};
   var active='journal';
   var feat=document.getElementById('jrFeat'),idx=document.getElementById('jrIndex'),cnt=document.getElementById('jrCount'),hover=document.getElementById('jrHover'),hoverImg=hover?hover.querySelector('img'):null;
@@ -315,7 +315,7 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   }
   build(FB);
   fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){
-    if(!d)return;var arrs=[];
+    if(!d)return;if(d.world&&d.world.length){build(d.world);return;}var arrs=[];
     if(d.varieties)Object.keys(d.varieties).forEach(function(k){arrs.push(d.varieties[k]||[]);});
     if(d.instagram)arrs.push(d.instagram);
     var pool=[],max=0;arrs.forEach(function(a){if(a.length>max)max=a.length;});
