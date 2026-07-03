@@ -25,6 +25,14 @@ content:
           - { name: carla, label: Carlablackiae, type: image, list: true }
           - { name: stripey, label: Stripey, type: image, list: true }
           - { name: crystal, label: Red Crystallinum, type: image, list: true }
+      - name: aboutStory
+        label: About page — story photos (3)
+        type: object
+        fields:
+          - { name: beginning, label: "01 · The beginning", type: image }
+          - { name: approach, label: "02 · The approach", type: image }
+          - { name: setup, label: "03 · The setup", type: image }
+      - { name: world, label: "Footer gallery — Grown in Saigon (Shop/Journal/About)", type: image, list: true }
 
   - name: social
     label: Social — follower counts & links
@@ -119,4 +127,5 @@ content:
         fields:
           - { name: id, label: Anchor id, type: string }
           - { name: title, label: Title, type: string }
+          - { name: cover, label: Cover photo, type: image }
           - { name: body, label: Body, type: rich-text }
