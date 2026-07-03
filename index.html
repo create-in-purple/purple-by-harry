@@ -406,7 +406,8 @@ svg.has-photo .duo{opacity:.55}
 .vsl-col:nth-child(3){animation-duration:34s;margin-top:-30px}
 
 .vsl-cell{position:relative;border-radius:12px;overflow:hidden;cursor:pointer;background:linear-gradient(150deg,#181020,#0a0810);border:1px solid rgba(255,255,255,.06)}
-.vsl-cell img{width:100%;height:auto;display:block;transition:transform .6s cubic-bezier(.16,1,.3,1)}
+.vsl-cell img{width:100%;height:auto;display:block;opacity:0;transition:opacity .55s ease,transform .6s cubic-bezier(.16,1,.3,1)}
+.vsl-cell img.on{opacity:1}
 .vsl-cell:hover img{transform:scale(1.05)}
 .vsl-cell::after{content:"";position:absolute;inset:0;box-shadow:inset 0 0 0 0 rgba(255,0,157,0);transition:box-shadow .3s}
 .vsl-cell:hover::after{box-shadow:inset 0 0 0 2px rgba(255,0,157,.7)}
@@ -1540,8 +1541,9 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   function rel(s){return s&&s.charAt(0)==='/'?s.slice(1):s;}
   var META={carla:'Carlablackiae',stripey:'Stripey',crystal:'Red Crystallinum'};
   var FALL={carla:['images/carla-g1.jpg','images/carla-g2.jpg','images/carla-g3.jpg','images/carla-g4.jpg','images/carla-g5.jpg'],stripey:['images/stripey-g1.jpg','images/stripey-g2.jpg','images/stripey-g3.jpg','images/stripey-g4.jpg','images/stripey-g5.jpg'],crystal:['images/crystal-g1.jpg','images/crystal-g2.jpg','images/crystal-g3.jpg','images/crystal-g4.jpg','images/crystal-g5.jpg']};
-  var arts=[].slice.call(document.querySelectorAll('.vsl')),data=null;
-  function cell(src,name,i){return '<button type="button" class="vsl-cell" data-i="'+i+'"><img src="'+src+'" alt="'+name+'" loading="lazy"></button>';}
+  var arts=[].slice.call(document.querySelectorAll('.vsl')),data=null,rendered=false;
+  function cell(src,name,i){return '<button type="button" class="vsl-cell" data-i="'+i+'"><img src="'+src+'" alt="'+name+'" loading="lazy" decoding="async"></button>';}
+  function fade(im){if(im.complete&&im.naturalWidth){im.classList.add('on');}else{im.addEventListener('load',function(){im.classList.add('on');});}}
   function setup(art){
     var key=art.getAttribute('data-key'),name=META[key]||'Saigon Purple',track=art.querySelector('.vsl-track');if(!track)return;
     var fb=(FALL[key]||[]).map(rel);
@@ -1549,11 +1551,12 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
     if(!list.length)return;
     var cols=[[],[],[]];list.forEach(function(sr,i){cols[i%3].push({s:sr,i:i});});
     track.innerHTML=cols.map(function(arr){if(!arr.length)arr=[{s:list[0],i:0}];var one=arr.map(function(o){return cell(o.s,name,o.i);}).join('');return '<div class="vsl-col">'+one+one+'</div>';}).join('');
-    [].slice.call(track.querySelectorAll('.vsl-cell')).forEach(function(btn){var im=btn.querySelector('img'),idx=+btn.getAttribute('data-i');im.addEventListener('error',function(){if(im.getAttribute('data-fb')!=='1'&&fb.length){im.setAttribute('data-fb','1');var nu=fb[idx%fb.length];im.src=nu;if(idx<list.length)list[idx]=nu;}else{im.style.visibility='hidden';}});btn.addEventListener('click',function(){if(window.openGallery)window.openGallery(list,idx,name);});});
+    [].slice.call(track.querySelectorAll('.vsl-cell')).forEach(function(btn){var im=btn.querySelector('img'),idx=+btn.getAttribute('data-i');fade(im);im.addEventListener('error',function(){if(im.getAttribute('data-fb')!=='1'&&fb.length){im.setAttribute('data-fb','1');im.classList.remove('on');var nu=fb[idx%fb.length];im.src=nu;if(idx<list.length)list[idx]=nu;}else{im.style.visibility='hidden';}});btn.addEventListener('click',function(){if(window.openGallery)window.openGallery(list,idx,name);});});
   }
-  function render(){arts.forEach(setup);}
-  if(arts.length)render();
-  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties){data=d.varieties;render();}}).catch(function(){});
+  function preload(){if(!('IntersectionObserver' in window))return;var io=new IntersectionObserver(function(es){es.forEach(function(e){if(e.isIntersecting){[].forEach.call(e.target.querySelectorAll('img'),function(im){try{im.loading='eager';}catch(_){}});io.unobserve(e.target);}});},{rootMargin:'800px 0px'});[].forEach.call(document.querySelectorAll('.vsl-slider'),function(sl){io.observe(sl);});}
+  function render(){if(rendered||!arts.length)return;rendered=true;arts.forEach(setup);preload();}
+  var _t=setTimeout(render,800);
+  fetch('content/site.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.varieties)data=d.varieties;}).catch(function(){}).then(function(){clearTimeout(_t);render();});
 
   /* count-up — About Purple stats */
   var anums=[].slice.call(document.querySelectorAll('.ab-stats .v[data-count]'));
@@ -1667,7 +1670,7 @@ html{overflow-anchor:none}
 html.perf-lite .pp-grain,html.perf-lite .pp-aura,html.perf-lite .pp-cur,html.perf-lite .pp-aurora{display:none!important}
 html.perf-lite .hx-aurora,html.perf-lite .mf-aurora{opacity:.5}
 footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
-#ethos,#about,#varieties,#gallery,#faq,#community,#join{content-visibility:auto;contain-intrinsic-size:auto 900px}
+#ethos,#about,#gallery,#faq,#community,#join{content-visibility:auto;contain-intrinsic-size:auto 900px}
 .hx-title .rl{display:inline-block;transition:transform .55s cubic-bezier(.16,1,.3,1);will-change:transform}
 .hx-title .l2 .rl{background:linear-gradient(180deg,#ff3db0,#ff8ad4 48%,#8a4cff);-webkit-background-clip:text;background-clip:text;color:transparent}
 .pp-morph{position:fixed;z-index:9999;pointer-events:none;object-fit:contain;transition:left .9s cubic-bezier(.5,0,.2,1),top .9s cubic-bezier(.5,0,.2,1),width .9s cubic-bezier(.5,0,.2,1),height .9s cubic-bezier(.5,0,.2,1),opacity .9s ease;will-change:left,top,width,height,opacity}
