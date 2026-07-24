@@ -283,9 +283,9 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
 })();
 </script>
 <script src="assets/loader.js"></script>
-<style>.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;transition:opacity .32s ease}.pp-curtain.show{opacity:1}</style>
-<div class="pp-curtain show" id="ppCurtain" aria-hidden="true"></div>
-<script>(function(){var c=document.getElementById('ppCurtain');if(!c)return;var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;function reveal(){c.classList.remove('show');}if(reduce){reveal();}else{requestAnimationFrame(function(){requestAnimationFrame(reveal);});}setTimeout(reveal,500);window.addEventListener('pageshow',function(){reveal();});window.addEventListener('load',function(){setTimeout(reveal,60);});document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();if(reduce){location.href=href;return;}c.classList.add('show');setTimeout(function(){location.href=href;},260);});})();</script>
+<style>.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;animation:ppReveal .55s ease forwards}@keyframes ppReveal{0%{opacity:1}100%{opacity:0}}.pp-curtain.cover{animation:none;opacity:1;transition:opacity .22s ease}@media(prefers-reduced-motion:reduce){.pp-curtain{animation:none;opacity:0}}</style>
+<div class="pp-curtain" id="ppCurtain" aria-hidden="true"></div>
+<script>(function(){var c=document.getElementById('ppCurtain');if(!c)return;if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();c.classList.add('cover');setTimeout(function(){location.href=href;},230);});})();</script>
 <script>
 (function(){
   var btn=document.getElementById('menuBtn'),mega=document.getElementById('mega'),x=document.getElementById('megaX');

@@ -115,7 +115,7 @@ nav .links a:hover{opacity:1}
 .hx-aurora .b1{width:52vw;height:52vw;left:14%;top:14%;background:radial-gradient(circle,rgba(255,0,157,.85),transparent 60%);animation:drift1 15s ease-in-out infinite}
 .hx-aurora .b2{width:46vw;height:46vw;right:10%;top:24%;background:radial-gradient(circle,rgba(122,43,255,.8),transparent 60%);animation:drift2 18s ease-in-out infinite}
 .hx-aurora .b3{width:40vw;height:40vw;left:38%;bottom:2%;background:radial-gradient(circle,rgba(255,77,187,.7),transparent 62%);animation:drift3 13s ease-in-out infinite}
-.mist-canvas{position:fixed;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;filter:url(#mistWarp) blur(7px);-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 10%,#000 36%,#000 100%);mask-image:linear-gradient(180deg,transparent 0,transparent 10%,#000 36%,#000 100%)}
+.mist-canvas{position:fixed;inset:0;z-index:3;pointer-events:none;mix-blend-mode:screen;filter:blur(11px);-webkit-mask-image:linear-gradient(180deg,transparent 0,transparent 10%,#000 36%,#000 100%);mask-image:linear-gradient(180deg,transparent 0,transparent 10%,#000 36%,#000 100%)}
 .perf-lite .mist-canvas{filter:blur(5px)}
 .hx-vignette{position:absolute;inset:0;z-index:1;pointer-events:none;background:
   radial-gradient(135% 100% at 50% 42%,transparent 48%,rgba(5,5,5,.78) 100%),
@@ -1677,8 +1677,8 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
 .pp-sound{position:fixed;right:22px;bottom:84px;width:52px;height:52px;z-index:120;border:0;border-radius:50%;background:rgba(10,8,13,.5);backdrop-filter:blur(8px);color:#fff;cursor:pointer;font-size:17px;line-height:1;transition:color .3s,transform .2s}
 .pp-sound:hover{transform:translateY(-2px)}
 .pp-sound.on{color:var(--magenta)}
-.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;transition:opacity .32s ease}
-.pp-curtain.show{opacity:1}
+.pp-curtain{position:fixed;inset:0;z-index:9000;pointer-events:none;background:linear-gradient(140deg,#12040e,#050505 55%,#0b0518);opacity:0;animation:ppReveal .55s ease forwards}@keyframes ppReveal{0%{opacity:1}100%{opacity:0}}
+.pp-curtain.cover{animation:none;opacity:1;transition:opacity .22s ease}@media(prefers-reduced-motion:reduce){.pp-curtain{animation:none;opacity:0}}
 @media(max-width:720px){.pp-sound{right:16px;bottom:70px;width:46px;height:46px}}
 </style>
 <button class="pp-sound" id="ppSound" aria-label="Bật/tắt âm thanh" aria-pressed="false">♪</button>
@@ -1742,7 +1742,7 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
     document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.btn,.sc-cta,.sc-follow,.nav-follow,.ig-all'))tone(740,0.13,0.045,'triangle');});
   })();
 
-  (function(){var c=document.getElementById('ppCurtain');if(!c)return;var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;function reveal(){c.classList.remove('show');}if(reduce){reveal();}else{requestAnimationFrame(function(){requestAnimationFrame(reveal);});}setTimeout(reveal,500);window.addEventListener('pageshow',function(){reveal();});window.addEventListener('load',function(){setTimeout(reveal,60);});document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();if(reduce){location.href=href;return;}c.classList.add('show');setTimeout(function(){location.href=href;},260);});})();
+  (function(){var c=document.getElementById('ppCurtain');if(!c)return;if(matchMedia('(prefers-reduced-motion:reduce)').matches)return;document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();c.classList.add('cover');setTimeout(function(){location.href=href;},230);});})();
 })();
 </script>
 <script src="assets/loader.js"></script>
