@@ -1719,6 +1719,7 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
     var words=hero.querySelectorAll('.hx-title .solid,.hx-title .grad'),letters=[];
     words.forEach(function(w){var txt=w.textContent,dot=w.querySelector('.dot');w.textContent='';
       txt.split('').forEach(function(ch){if(ch==='.')return;var sp=document.createElement('span');sp.className='rl';sp.textContent=ch;w.appendChild(sp);letters.push(sp);});
+      w.style.background='none';w.style.webkitTextFillColor='initial';
       if(dot)w.appendChild(dot);});
     if(!letters.length)return;
     var mx=0,my=0,raf=0,centers=[];
@@ -1741,7 +1742,7 @@ footer{content-visibility:auto;contain-intrinsic-size:auto 460px}
     document.addEventListener('click',function(e){if(e.target.closest&&e.target.closest('.btn,.sc-cta,.sc-follow,.nav-follow,.ig-all'))tone(740,0.13,0.045,'triangle');});
   })();
 
-  (function(){var c=document.getElementById('ppCurtain');if(!c)return;var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;if(c.classList.contains('show')&&!reduce){requestAnimationFrame(function(){requestAnimationFrame(function(){c.classList.remove('show');});});}else{c.classList.remove('show');}document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();if(reduce){location.href=href;return;}c.classList.add('show');setTimeout(function(){location.href=href;},260);});})();
+  (function(){var c=document.getElementById('ppCurtain');if(!c)return;var reduce=matchMedia('(prefers-reduced-motion:reduce)').matches;function reveal(){c.classList.remove('show');}if(reduce){reveal();}else{requestAnimationFrame(function(){requestAnimationFrame(reveal);});}setTimeout(reveal,500);window.addEventListener('pageshow',function(){reveal();});window.addEventListener('load',function(){setTimeout(reveal,60);});document.addEventListener('click',function(e){var a=e.target.closest&&e.target.closest('a[href]');if(!a||a.target==='_blank')return;var href=a.getAttribute('href');if(!href||href.charAt(0)==='#'||/^(https?:|mailto:|tel:)/i.test(href)||!/\.html($|[?#])/.test(href))return;e.preventDefault();if(reduce){location.href=href;return;}c.classList.add('show');setTimeout(function(){location.href=href;},260);});})();
 })();
 </script>
 <script src="assets/loader.js"></script>
