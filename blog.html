@@ -259,18 +259,24 @@ body.menu-open nav{padding-right:calc(clamp(20px,4vw,48px) + var(--sbw,0px))}
   function openP(p){
     rd.innerHTML='<div class="rd-cover"><img src="'+cov(p)+'" alt=""></div><div class="rd-body"><div class="d">'+((p.tag?p.tag+' \u00b7 ':'')+(p.date?fmt(p.date):'Grower\u2019s Guide'))+'</div><h1>'+p.title+'</h1><div class="rt">'+md(p.body)+'</div></div>';
     var ci=rd.querySelector('.rd-cover img');if(ci)ci.onerror=function(){fb(ci);};
-    reader.classList.add('open');document.body.style.overflow='hidden';location.hash='post='+p.slug;
+    reader.classList.add('open');reader.setAttribute('data-open',p.slug);document.body.style.overflow='hidden';location.hash='post='+p.slug;
   }
-  function closeR(){reader.classList.remove('open');document.body.style.overflow='';if(location.hash.indexOf('post=')>-1)history.replaceState(null,'','#'+active);}
+  function closeR(){reader.classList.remove('open');reader.removeAttribute('data-open');document.body.style.overflow='';if(location.hash.indexOf('post=')>-1)history.replaceState(null,'','#'+active);}
   document.getElementById('rdClose').onclick=closeR;
   addEventListener('keydown',function(e){if(e.key==='Escape')closeR();});
-  function boot(){
+  function route(){
     var h=location.hash;
     var pm=h.match(/post=([\w-]+)/);
-    if(/guide/.test(h)&&!pm)setTab('guide',true);else setTab('journal',true);
-    if(pm){var p=findBySlug(pm[1]);if(p){if(SETS.guide.indexOf(p)>-1)setTab('guide',true);openP(p);}}
+    if(pm){
+      if(reader.classList.contains('open')&&reader.getAttribute('data-open')===pm[1])return;
+      var p=findBySlug(pm[1]);
+      if(p){setTab(SETS.guide.indexOf(p)>-1?'guide':'journal',true);openP(p);return;}
+    }
+    if(reader.classList.contains('open')){reader.classList.remove('open');reader.removeAttribute('data-open');document.body.style.overflow='';}
+    setTab(/guide/.test(h)?'guide':'journal',true);
   }
-  boot();
+  route();
+  window.addEventListener('hashchange',route);
   fetch('content/posts.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.posts&&d.posts.length){SETS.journal=d.posts.slice().reverse();}}).catch(function(){}).then(function(){
     return fetch('content/guide.json',{cache:'no-store'}).then(function(r){return r.ok?r.json():null;}).then(function(d){if(d&&d.sections&&d.sections.length){SETS.guide=guidesFrom(d.sections);}}).catch(function(){});
   }).then(function(){render(SETS[active]);});
